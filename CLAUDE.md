@@ -38,7 +38,7 @@ Challenge 25. Two audiences:
 - Radius: 24–28px large containers, 16–18px cards
 
 ## Files in this folder
-- `checkpoint-licensing-training-mockup.html` — marketing/landing page.
+- `index.html` (formerly `checkpoint-licensing-training-mockup.html`) — marketing/landing page, renamed so GitHub Pages serves it at the site root.
   Course grid links to the live course; other two cards are styled as
   "Coming soon" placeholders (no href).
 - `checkpoint-course-player-full.html` — fully built, interactive
