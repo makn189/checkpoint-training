@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkpoint — Challenge 25 training for UK retail teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F1;
+    --cream-deep:#F4EDE2;
+    --cream-yellow:#F6F1D8;
+    --ink:#22243B;
+    --ink-soft:#575A78;
+    --lavender:#6E62E5;
+    --lavender-deep:#4E3FD1;
+    --lavender-pale:#E4E0FB;
+    --peach:#FFC49B;
+    --mint:#AEE3C8;
+    --coral:#FF7A59;
+    --forest:#1F3A2E;
+    --line:#E7DFD1;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --shadow:0 20px 45px -20px rgba(34,36,59,0.25);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{position:relative;}
+  .doodle{position:absolute;opacity:.75;pointer-events:none;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,247,241,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:78px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:9px;
+    font-family:'Fraunces',serif; font-weight:700; font-size:22px;
+  }
+  .logo-mark{
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(135deg,var(--lavender),var(--coral));
+    display:flex;align-items:center;justify-content:center;
+  }
+  .logo-mark svg{width:16px;height:16px;}
+  .nav-links{display:flex;gap:36px;align-items:center;}
+  .nav-links a{font-size:15px;font-weight:500;color:var(--ink-soft);transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{display:flex;align-items:center;gap:22px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 24px;border-radius:999px;
+    font-weight:600;font-size:15px;
+    border:none;cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{
+    background:var(--forest);color:#fff;
+    box-shadow:0 10px 24px -8px rgba(31,58,46,0.5);
+  }
+  .btn-primary:hover{box-shadow:0 14px 30px -8px rgba(31,58,46,0.6);}
+  .btn-ghost{
+    background:transparent;color:var(--ink-soft);font-weight:600;
+  }
+  .btn-outline{
+    background:#fff;color:var(--ink);border:1.5px solid var(--line);
+  }
+  .btn-sm{padding:10px 18px;font-size:14px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 0 60px;
+    overflow:visible;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:40px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);
+    padding:7px 14px 7px 8px;border-radius:999px;
+    font-size:13px;font-weight:600;color:var(--ink-soft);
+    margin-bottom:26px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);border:1.5px solid #4E9E76;}
+  h1.hero-title{
+    font-size:clamp(40px,5vw,62px);
+    line-height:1.04;
+    letter-spacing:-0.02em;
+  }
+  h1.hero-title .hl-italic{
+    font-style:italic;font-weight:500;color:var(--lavender-deep);
+    position:relative;
+  }
+  h1.hero-title .hl-underline{
+    font-style:normal;color:var(--ink);
+    background:linear-gradient(180deg,transparent 62%,var(--peach) 62%);
+    padding:0 2px;
+  }
+  h1.hero-title .hl-coral{
+    font-style:italic;font-weight:500;color:var(--coral);
+  }
+  .hero-sub{
+    margin-top:24px;font-size:18px;line-height:1.6;color:var(--ink-soft);
+    max-width:470px;
+  }
+  .hero-actions{display:flex;gap:14px;margin-top:34px;align-items:center;}
+  .hero-note{font-size:13px;color:var(--ink-soft);margin-top:18px;}
+
+  .hero-art{position:relative;height:460px;}
+  .blob{
+    position:absolute;border-radius:52% 48% 58% 42% / 48% 52% 48% 52%;
+  }
+  .blob-main{
+    width:390px;height:390px;top:10px;right:10px;
+    background:linear-gradient(160deg,var(--lavender) 0%,var(--lavender-deep) 100%);
+    animation:float 8s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-14px) rotate(4deg);}
+  }
+  @keyframes spin-slow{
+    from{transform:rotate(0deg);} to{transform:rotate(360deg);}
+  }
+  .card-float{
+    position:absolute;background:#fff;border-radius:18px;
+    box-shadow:var(--shadow);padding:16px 18px;
+    display:flex;align-items:center;gap:12px;
+    animation:float2 7s ease-in-out infinite;
+  }
+  @keyframes float2{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(12px);}
+  }
+  .card-1{top:18px;left:0;animation-delay:.4s;}
+  .card-2{bottom:70px;right:190px;animation-delay:1.2s;}
+  .card-3{bottom:0;left:20px;animation-delay:.8s;}
+  .card-icon{
+    width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .card-icon svg{width:20px;height:20px;}
+  .ic-mint{background:var(--mint);}
+  .ic-peach{background:var(--peach);}
+  .ic-lav{background:var(--lavender-pale);}
+  .card-float .t1{font-size:13px;font-weight:700;}
+  .card-float .t2{font-size:12px;color:var(--ink-soft);}
+  .ring-badge{
+    position:absolute;top:250px;left:250px;
+    width:96px;height:96px;background:#fff;border-radius:50%;
+    box-shadow:var(--shadow);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+  }
+  .ring-badge .pct{font-family:'Fraunces',serif;font-weight:700;font-size:20px;}
+  .ring-badge .lbl{font-size:9px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase;text-align:center;padding:0 6px;}
+
+  /* ---------- FEATURE SECTIONS ---------- */
+  .feature{
+    padding:76px 0;
+  }
+  .feature .wrap{
+    display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+  }
+  .feature.reverse .wrap{direction:rtl;}
+  .feature.reverse .wrap > *{direction:ltr;}
+  .feature-tag{
+    display:inline-block;font-size:13px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--lavender-deep);margin-bottom:14px;
+  }
+  .feature h2{font-size:clamp(26px,2.8vw,34px);line-height:1.18;margin-bottom:18px;}
+  .feature p{font-size:16.5px;line-height:1.65;color:var(--ink-soft);max-width:440px;}
+  .feature-list{margin-top:24px;display:flex;flex-direction:column;gap:14px;}
+  .feature-list li{
+    list-style:none;display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink);
+  }
+  .check{
+    width:22px;height:22px;border-radius:50%;background:var(--mint);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+  }
+  .check svg{width:12px;height:12px;}
+
+  .visual-panel{
+    position:relative;border-radius:var(--radius-lg);
+    padding:44px;min-height:340px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .panel-1{background:linear-gradient(150deg,#EFE9FB,#F7E6DC);}
+  .panel-2{background:linear-gradient(150deg,#E4F5EC,#F4EDE2);}
+  .panel-3{background:linear-gradient(150deg,#FDEBE0,#EFE9FB);}
+  .mock-window{
+    background:#fff;border-radius:16px;box-shadow:var(--shadow);
+    width:100%;max-width:400px;overflow:hidden;
+  }
+  .mock-bar{
+    height:34px;background:var(--cream-deep);display:flex;align-items:center;gap:6px;padding:0 14px;
+  }
+  .mock-bar span{width:9px;height:9px;border-radius:50%;background:#D9D2C3;}
+  .mock-body{padding:22px;}
+  .mock-line{height:10px;border-radius:5px;background:var(--cream-deep);margin-bottom:10px;}
+  .mock-line.w60{width:60%;}
+  .mock-line.w80{width:80%;}
+  .mock-line.w40{width:40%;}
+  .mock-progress{
+    height:8px;border-radius:4px;background:var(--cream-deep);margin:18px 0 8px;overflow:hidden;
+  }
+  .mock-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--lavender),var(--coral));border-radius:4px;}
+  .mock-chip-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .mock-chip{
+    padding:6px 12px;border-radius:999px;font-size:11px;font-weight:600;
+  }
+  .chip-a{background:var(--lavender-pale);color:var(--lavender-deep);}
+  .chip-b{background:var(--mint);color:#276648;}
+  .chip-c{background:var(--peach);color:#8A4B1E;}
+
+  /* mock ID-check scenario card */
+  .id-scenario{width:100%;max-width:400px;background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden;}
+  .id-scenario .scen-top{background:var(--ink);color:#fff;padding:14px 20px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;}
+  .id-scenario .scen-body{padding:22px;}
+  .id-q{font-size:15px;font-weight:600;margin-bottom:16px;line-height:1.4;}
+  .id-opt{
+    display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;
+    border:1.5px solid var(--line);font-size:14px;font-weight:500;margin-bottom:10px;
+  }
+  .id-opt.correct{border-color:#4E9E76;background:#EEF9F2;color:#276648;}
+  .id-opt .dotc{width:18px;height:18px;border-radius:50%;border:2px solid #CFC8B6;flex-shrink:0;}
+  .id-opt.correct .dotc{border-color:#4E9E76;background:#4E9E76;}
+
+  /* illustrated "signs to check" card — deliberately not a photo/replica of a real ID */
+  .signs-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:20px 22px;width:100%;max-width:400px;}
+  .signs-card .signs-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--lavender-deep);margin-bottom:12px;}
+  .signs-row{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:500;color:var(--ink);padding:9px 0;border-top:1px solid var(--line);}
+  .signs-row:first-of-type{border-top:none;padding-top:0;}
+  .signs-ic{width:24px;height:24px;border-radius:50%;background:var(--lavender-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .signs-ic svg{width:13px;height:13px;}
+  .panel-stack{display:flex;flex-direction:column;gap:16px;width:100%;max-width:400px;}
+
+  /* ---------- COURSE SPOTLIGHT (single course, no catalogue grid) ---------- */
+  .spotlight{padding:36px 0 90px;}
+  .spotlight-card{
+    position:relative;
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:56px;overflow:hidden;
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:52px;align-items:center;
+  }
+  .spotlight-card::before{
+    content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+    background:var(--mint);opacity:.35;top:-120px;right:-90px;filter:blur(2px);
+  }
+  .spot-head{max-width:600px;margin:0 auto 40px;text-align:center;}
+  .spot-head h2{font-size:clamp(26px,2.8vw,34px);}
+  .spot-head p{color:var(--ink-soft);margin-top:12px;font-size:16px;}
+  .spot-content{position:relative;z-index:1;}
+  .course-badge{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    padding:6px 12px;border-radius:999px;margin-bottom:18px;
+  }
+  .badge-core{background:var(--lavender-pale);color:var(--lavender-deep);}
+  .spot-content h3{font-size:clamp(22px,2.4vw,28px);line-height:1.28;margin-bottom:14px;}
+  .spot-content p.spot-desc{font-size:15.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:22px;max-width:440px;}
+  .spot-meta{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:28px;}
+  .spot-meta-item{display:flex;flex-direction:column;gap:2px;}
+  .spot-meta-item .num{font-family:'Fraunces',serif;font-weight:700;font-size:20px;}
+  .spot-meta-item .lbl{font-size:12px;color:var(--ink-soft);}
+  .spot-lessons{
+    position:relative;z-index:1;
+    background:var(--cream-deep);border-radius:20px;padding:22px;
+  }
+  .spot-lesson-row{
+    display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;
+    background:#fff;margin-bottom:8px;font-size:13.5px;font-weight:600;
+  }
+  .spot-lesson-row:last-child{margin-bottom:0;}
+  .spot-lesson-row .ln{
+    width:24px;height:24px;border-radius:50%;background:var(--lavender-pale);color:var(--lavender-deep);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;
+  }
+  .spot-lesson-row.done .ln{background:var(--mint);color:#276648;}
+  .spot-lesson-row .lt{flex:1;color:var(--ink);}
+  .spot-lesson-row .ltime{font-size:11.5px;color:var(--ink-soft);font-weight:500;}
+  .roadmap-note{
+    margin:44px auto 0;max-width:640px;text-align:center;
+    font-size:14px;color:var(--ink-soft);
+  }
+  .roadmap-note strong{color:var(--ink);font-weight:600;}
+
+  /* ---------- FAQ ---------- */
+  .faq{padding:20px 0 100px;}
+  .faq-head{max-width:560px;margin:0 auto 40px;text-align:center;}
+  .faq-head h2{font-size:clamp(26px,2.8vw,34px);}
+  .faq-head p{color:var(--ink-soft);margin-top:12px;font-size:16px;}
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+  .faq-item{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:6px 26px;
+  }
+  .faq-item summary{
+    padding:18px 0;font-weight:600;font-size:15.5px;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    list-style:none;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .plus{
+    width:26px;height:26px;border-radius:50%;background:var(--cream-deep);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .faq-item summary .plus::before,.faq-item summary .plus::after{
+    content:"";position:absolute;background:var(--ink-soft);border-radius:2px;
+  }
+  .faq-item summary .plus::before{width:11px;height:2px;}
+  .faq-item summary .plus::after{width:2px;height:11px;transition:transform .2s ease;}
+  .faq-item[open] summary .plus::after{transform:rotate(90deg);opacity:0;}
+  .faq-item p{margin:0 0 20px;font-size:14.5px;line-height:1.65;color:var(--ink-soft);}
+
+  /* ---------- CTA BANNER ---------- */
+  .cta-banner{
+    margin:0 32px 90px;
+    border-radius:var(--radius-lg);
+    background:linear-gradient(135deg,var(--lavender) 0%, var(--lavender-deep) 55%, #3A2FA8 100%);
+    padding:70px 60px;
+    position:relative;overflow:hidden;
+    text-align:center;
+  }
+  .cta-banner::before{
+    content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+    background:rgba(255,255,255,0.08);top:-160px;left:-100px;
+  }
+  .cta-banner::after{
+    content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+    background:rgba(255,255,255,0.07);bottom:-140px;right:-60px;
+  }
+  .cta-banner h2{color:#fff;font-size:clamp(26px,3.2vw,38px);max-width:580px;margin:0 auto 16px;position:relative;}
+  .cta-banner p{color:#D8D4F5;font-size:16px;margin:0 auto 30px;max-width:460px;position:relative;}
+  .cta-banner .hero-actions{justify-content:center;position:relative;}
+  .btn-white{background:#fff;color:var(--lavender-deep);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 50px;background:var(--cream-yellow);border-radius:var(--radius-lg);margin:0 32px 32px;}
+  .footer-top{
+    display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;
+    padding:0 32px 44px;border-bottom:1px solid #E6E0BD;
+  }
+  .footer-brand p{color:var(--ink-soft);font-size:14px;margin-top:14px;max-width:260px;line-height:1.6;}
+  .footer-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:16px;}
+  .footer-col a{display:block;font-size:14.5px;color:var(--ink);margin-bottom:11px;font-weight:500;}
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;padding:22px 32px 0;
+    font-size:13px;color:var(--ink-soft);
+  }
+
+  @media(max-width:920px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-art{height:340px;margin-top:20px;}
+    .feature .wrap{grid-template-columns:1fr;}
+    .feature.reverse .wrap{direction:ltr;}
+    .nav-links{display:none;}
+    .footer-top{grid-template-columns:1fr 1fr;}
+    .cta-banner{padding:50px 28px;margin:0 16px 60px;}
+    .spotlight-card{grid-template-columns:1fr;padding:36px 28px;}
+    footer{margin:0 16px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Checkpoint
+    </div>
+    <div class="nav-links">
+      <a href="#course">The course</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="checkpoint-course-player-full.html" class="btn btn-primary btn-sm">Start the course</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Covers the Licensing Act 2003 &amp; Challenge 25</div>
+      <h1 class="hero-title">Licensing training your till staff <span class="hl-italic">actually</span> <span class="hl-underline">remember.</span></h1>
+      <p class="hero-sub">One focused course — Challenge 25 &amp; Acceptable ID — built as short, scenario-based lessons that get your team confident on age verification and refusals.</p>
+      <div class="hero-actions">
+        <a href="checkpoint-course-player-full.html" class="btn btn-primary">Start the course</a>
+        <a href="checkpoint-course-player-full.html" class="btn btn-outline">See a sample lesson →</a>
+      </div>
+      <p class="hero-note">Built for UK retailers · Free to try · No account required</p>
+    </div>
+    <div class="hero-art">
+      <div class="blob blob-main"></div>
+      <div class="card-float card-1">
+        <div class="card-icon ic-mint">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div><div class="t1">Challenge 25 module</div><div class="t2">8 lessons</div></div>
+      </div>
+      <div class="card-float card-2">
+        <div class="card-icon ic-peach">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L14.5 9.5L21 10L16 14.5L17.5 21L12 17.5L6.5 21L8 14.5L3 10L9.5 9.5L12 3Z" fill="#8A4B1E"/></svg>
+        </div>
+        <div><div class="t1">Practice questions</div><div class="t2">After every lesson</div></div>
+      </div>
+      <div class="card-float card-3">
+        <div class="card-icon ic-lav">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H14M4 18H17" stroke="#4E3FD1" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </div>
+        <div><div class="t1">Proxy sales &amp; refusals</div><div class="t2">Real till scenarios</div></div>
+      </div>
+      <div class="ring-badge">
+        <div class="pct">25<span style="font-size:12px;">m</span></div>
+        <div class="lbl">Start to finish</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature">
+  <div class="wrap">
+    <div>
+      <span class="feature-tag">Learn</span>
+      <h2>Written around real licensing rules, not generic compliance filler.</h2>
+      <p>The course maps to specific duties under the Licensing Act 2003 — sale to a minor, proxy purchasing, acceptable forms of ID — explained in plain English with examples from real shop floors, not legal jargon.</p>
+      <ul class="feature-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Challenge 25 &amp; acceptable ID, front to back</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>8 short lessons with practice questions built in</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Plain-language first, legal term second</li>
+      </ul>
+    </div>
+    <div class="visual-panel panel-1">
+      <div class="mock-window">
+        <div class="mock-bar"><span></span><span></span><span></span></div>
+        <div class="mock-body">
+          <div class="mock-line w60" style="height:16px;background:#EDE9F9;"></div>
+          <div style="height:14px;"></div>
+          <div class="mock-line w80"></div>
+          <div class="mock-line w60"></div>
+          <div class="mock-chip-row">
+            <span class="mock-chip chip-a">Licensing Act 2003</span>
+            <span class="mock-chip chip-b">Challenge 25</span>
+            <span class="mock-chip chip-c">Proxy sales</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature reverse" id="how-it-works">
+  <div class="wrap">
+    <div>
+      <span class="feature-tag">Practice</span>
+      <h2>Till-side scenarios, not multiple-choice trivia.</h2>
+      <p>Staff practise the actual moment that matters: a customer at the counter, a borderline ID, a refusal that needs to be handled well. Mistakes in the scenario get explained on the spot, so the lesson sticks.</p>
+      <ul class="feature-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Realistic ID-check &amp; refusal scenarios</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>5–10 minute lessons that fit between customers</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Works on the shop's own phone or tablet</li>
+      </ul>
+    </div>
+    <div class="visual-panel panel-2">
+      <div class="panel-stack">
+        <div class="id-scenario">
+          <div class="scen-top"><span>Scenario 3 of 6</span><span>⏱ 1:40</span></div>
+          <div class="scen-body">
+            <div class="id-q">A customer looks under 25 and hands you a photo of their ID on their phone. What do you do?</div>
+            <div class="id-opt"><span class="dotc"></span> Accept it — the photo is clear enough</div>
+            <div class="id-opt correct"><span class="dotc"></span> Decline the sale — a photo isn't acceptable ID</div>
+            <div class="id-opt"><span class="dotc"></span> Ask a colleague to decide instead</div>
+          </div>
+        </div>
+        <div class="signs-card">
+          <div class="signs-title">On genuine ID, staff learn to check</div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z" stroke="#4E3FD1" stroke-width="1.6" stroke-linejoin="round"/></svg></span>Hologram catches the light &amp; moves</div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 8V13M12 16H12.01" stroke="#4E3FD1" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#4E3FD1" stroke-width="1.6"/></svg></span>Date of birth actually adds up</div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3" stroke="#4E3FD1" stroke-width="1.6"/><path d="M5 20C5 16.7 8.1 15 12 15C15.9 15 19 16.7 19 20" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round"/></svg></span>Photo genuinely matches the person</div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="#4E3FD1" stroke-width="1.6"/></svg></span>Edges &amp; lamination look factory-made</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature">
+  <div class="wrap">
+    <div>
+      <span class="feature-tag">Finish</span>
+      <h2>A clear finish line, with a record you can point to.</h2>
+      <p>Work through all 8 lessons and wrap up with a completion screen — a simple, honest record that someone has been through the material, not a substitute for formal accreditation.</p>
+      <ul class="feature-list">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Progress saved as you move through lessons</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Completion screen at the end of the course</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Not accredited — a warm-up, not a replacement for APLH</li>
+      </ul>
+    </div>
+    <div class="visual-panel panel-3">
+      <div class="mock-window">
+        <div class="mock-bar"><span></span><span></span><span></span></div>
+        <div class="mock-body">
+          <div class="mock-line w40" style="height:16px;background:#FBE4D6;"></div>
+          <div style="height:14px;"></div>
+          <div class="mock-line w80"></div>
+          <div class="mock-line w40"></div>
+          <div class="mock-chip-row">
+            <span class="mock-chip chip-b">8 of 8 lessons done</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spotlight" id="course">
+  <div class="wrap">
+    <div class="spot-head">
+      <h2>The course.</h2>
+      <p>One focused module, built for anyone who works the till — no catalogue to browse, just the training that matters most.</p>
+    </div>
+    <div class="spotlight-card">
+      <div class="spot-content">
+        <span class="course-badge badge-core">All staff · Live now</span>
+        <h3>Challenge 25 &amp; Acceptable ID</h3>
+        <p class="spot-desc">The essentials every till operator needs: who to challenge, what ID to accept, and how to refuse a sale confidently — in 8 short lessons with practice questions along the way.</p>
+        <div class="spot-meta">
+          <div class="spot-meta-item"><span class="num">25 min</span><span class="lbl">Total time</span></div>
+          <div class="spot-meta-item"><span class="num">8</span><span class="lbl">Lessons</span></div>
+          <div class="spot-meta-item"><span class="num">✓</span><span class="lbl">Practice questions</span></div>
+        </div>
+        <a href="checkpoint-course-player-full.html" class="btn btn-primary">Start the course →</a>
+      </div>
+      <div class="spot-lessons">
+        <div class="spot-lesson-row done"><span class="ln">✓</span><span class="lt">What is Challenge 25?</span><span class="ltime">3 min</span></div>
+        <div class="spot-lesson-row done"><span class="ln">✓</span><span class="lt">Acceptable forms of ID</span><span class="ltime">4 min</span></div>
+        <div class="spot-lesson-row"><span class="ln">3</span><span class="lt">Spotting fake or borrowed ID</span><span class="ltime">3 min</span></div>
+        <div class="spot-lesson-row"><span class="ln">4</span><span class="lt">Proxy sales &amp; who's really buying</span><span class="ltime">3 min</span></div>
+        <div class="spot-lesson-row"><span class="ln">5</span><span class="lt">Refusing a sale, calmly</span><span class="ltime">3 min</span></div>
+      </div>
+    </div>
+    <p class="roadmap-note"><strong>Two more modules are in development:</strong> a Licensing Annual Refresher and a Personal Licence Warm-Up (a non-accredited primer — not a substitute for the real APLH qualification). Neither is available yet.</p>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <h2>Frequently asked <span style="color:var(--coral);font-style:italic;">questions</span></h2>
+      <p>The honest answers, before you start.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>Is this an accredited qualification?<span class="plus"></span></summary>
+        <p>No. The Challenge 25 module is a plain-language training resource for all staff — it isn't accredited and doesn't hold personal licence status. It's not a substitute for the official Level 2 Award for Personal Licence Holders (APLH), which is a separate, accredited qualification.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How long does it take?<span class="plus"></span></summary>
+        <p>About 25 minutes for all 8 lessons, including the practice questions. Each lesson runs 3–5 minutes, so it's easy to fit between customers on a shift.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do I get a certificate?<span class="plus"></span></summary>
+        <p>You'll see a completion screen once you finish all 8 lessons — a simple record that the training was completed. It isn't a formal certificate or legal accreditation.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Has the content been legally reviewed?<span class="plus"></span></summary>
+        <p>The course is grounded in the real Challenge 25 scheme and the Licensing Act 2003, but this build is mockup content and hasn't yet been checked by a licensing specialist. It should be reviewed before real staff rely on it for compliance purposes.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is there more than one course?<span class="plus"></span></summary>
+        <p>Right now, just this one — Challenge 25 &amp; Acceptable ID. A Licensing Annual Refresher and a Personal Licence Warm-Up are planned but not yet available.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <h2>Get your team Challenge 25 confident before your next licensing review.</h2>
+  <p>Free to try, right now — see how quickly your team gets through the course.</p>
+  <div class="hero-actions">
+    <a href="checkpoint-course-player-full.html" class="btn btn-white">Start the course</a>
+    <a href="#" class="btn btn-ghost" style="color:#fff;">Talk to us →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Checkpoint
+        </div>
+        <p>E-learning for UK retail teams on licensing rules, Challenge 25, and acceptable ID — plain-language first, legal term second.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Course</h4>
+        <a href="checkpoint-course-player-full.html">Challenge 25 &amp; ID</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Guidance</h4>
+        <a href="#">Licensing Act 2003 basics</a>
+        <a href="#">Help centre</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Checkpoint Learning</span>
+      <span>Design mockup — for reference only</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

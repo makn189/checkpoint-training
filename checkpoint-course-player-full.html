@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge 25 &amp; Acceptable ID — Checkpoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F1; --cream-deep:#F4EDE2;
+    --ink:#22243B; --ink-soft:#575A78;
+    --lavender:#6E62E5; --lavender-deep:#4E3FD1;
+    --peach:#FFC49B; --mint:#AEE3C8; --coral:#FF7A59;
+    --line:#E7DFD1;
+    --radius-lg:24px; --radius-md:16px;
+    --shadow:0 20px 45px -20px rgba(34,36,59,0.25);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;margin:0;}
+  a{color:inherit;text-decoration:none;}
+
+  .topbar{
+    height:68px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 28px;background:#fff;position:sticky;top:0;z-index:10;
+  }
+  .tb-left{display:flex;align-items:center;gap:18px;}
+  .exit{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
+  .exit svg{width:16px;height:16px;}
+  .divider{width:1px;height:22px;background:var(--line);}
+  .course-name{font-size:14.5px;font-weight:700;}
+  .tb-progress{display:flex;align-items:center;gap:12px;}
+  .bar-track{width:160px;height:8px;border-radius:4px;background:var(--cream-deep);overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--lavender),var(--coral));border-radius:4px;transition:width .3s ease;}
+  .bar-label{font-size:13px;font-weight:600;color:var(--ink-soft);white-space:nowrap;}
+  .streak-badge{
+    display:flex;align-items:center;gap:5px;
+    background:#FFF1E8;border-radius:999px;padding:6px 12px;
+    font-size:13.5px;font-weight:700;color:#B8531F;
+    transition:transform .2s ease;
+  }
+  .streak-badge.zero{background:var(--cream-deep);color:var(--ink-soft);}
+  .streak-badge .streak-flame{font-size:14px;line-height:1;filter:grayscale(0);}
+  .streak-badge.zero .streak-flame{filter:grayscale(1);opacity:.5;}
+  .streak-badge.pop{animation:streakPop .4s ease;}
+  @keyframes streakPop{
+    0%{transform:scale(1);}
+    45%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+  }
+
+  .layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 68px);}
+
+  .sidebar{border-right:1px solid var(--line);background:#fff;padding:26px 20px;overflow-y:auto;}
+  .sidebar-head{margin-bottom:18px;}
+  .sidebar-head .tag{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    background:#E4E0FB;color:var(--lavender-deep);padding:5px 10px;border-radius:999px;margin-bottom:10px;
+  }
+  .sidebar-head h2{font-size:19px;line-height:1.3;}
+  .lesson-item{
+    display:flex;align-items:flex-start;gap:12px;padding:13px 10px;border-radius:12px;
+    cursor:pointer;margin-bottom:2px;
+  }
+  .lesson-item.active{background:var(--cream-deep);}
+  .lesson-item:hover:not(.active){background:#FAF8F3;}
+  .l-marker{
+    width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+    border:2px solid var(--line);color:var(--ink-soft);
+  }
+  .l-marker.done{background:var(--mint);border-color:var(--mint);color:#276648;}
+  .l-marker.current{border-color:var(--lavender);color:var(--lavender-deep);background:#EFEBFC;}
+  .l-title{font-size:14px;font-weight:600;line-height:1.4;}
+  .l-meta{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+  .content{padding:52px 64px;max-width:760px;}
+  .lesson-tag{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--lavender-deep);margin-bottom:14px;display:block;}
+  .content h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin-bottom:26px;}
+  .content p{font-size:16.5px;line-height:1.7;color:var(--ink);margin-bottom:20px;max-width:620px;}
+  .content p.lead{font-size:18px;}
+  .callout{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:22px 24px;margin:30px 0;display:flex;gap:14px;align-items:flex-start;max-width:620px;
+  }
+  .callout-icon{width:34px;height:34px;border-radius:10px;background:var(--peach);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .callout-icon svg{width:18px;height:18px;}
+  .callout p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-soft);}
+  .callout p strong{color:var(--ink);}
+
+  .practice{
+    margin-top:44px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);overflow:hidden;max-width:620px;
+  }
+  .practice-top{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;}
+  .practice-body{padding:26px 24px 24px;}
+  .practice-q{font-size:16px;font-weight:600;line-height:1.45;margin-bottom:20px;}
+  .opt{
+    display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;
+    border:1.5px solid var(--line);font-size:14.5px;font-weight:500;margin-bottom:10px;
+    cursor:pointer;transition:border-color .15s, background .15s;
+  }
+  .opt:hover{border-color:#CFC7F5;}
+  .opt .dotc{width:19px;height:19px;border-radius:50%;border:2px solid #CFC8B6;flex-shrink:0;}
+  .opt.selected-correct{border-color:#4E9E76;background:#EEF9F2;color:#276648;}
+  .opt.selected-correct .dotc{border-color:#4E9E76;background:#4E9E76;}
+  .opt.selected-wrong{border-color:#E88B72;background:#FDF1EC;color:#B5502F;}
+  .opt.selected-wrong .dotc{border-color:#E88B72;background:#E88B72;}
+  .feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;font-size:14px;line-height:1.55;}
+  .feedback.show{display:block;}
+  .feedback.correct{background:#EEF9F2;color:#1E5C3B;}
+  .feedback.incorrect{background:#FDF1EC;color:#8A3A1F;}
+
+  .content-nav{display:flex;justify-content:space-between;align-items:center;margin-top:48px;max-width:620px;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:14.5px;border:none;cursor:pointer;}
+  .btn-primary{background:var(--ink);color:var(--cream);}
+  .btn-primary:disabled{opacity:.4;cursor:not-allowed;}
+  .btn-outline{background:#fff;color:var(--ink);border:1.5px solid var(--line);}
+  .btn-outline:disabled{opacity:.4;cursor:not-allowed;}
+
+  .complete-screen{max-width:620px;text-align:center;padding:60px 0;}
+  .complete-badge{
+    width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,var(--mint),#7FD1A8);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 24px;
+  }
+  .complete-badge svg{width:38px;height:38px;}
+  .complete-screen h1{margin-bottom:14px;}
+  .complete-screen p{color:var(--ink-soft);font-size:16px;max-width:440px;margin:0 auto 22px;}
+  .streak-summary{
+    display:inline-flex;align-items:center;gap:10px;
+    background:#FFF1E8;border-radius:999px;padding:12px 24px;
+    font-weight:700;color:#B8531F;font-size:15.5px;margin:0 auto 26px;
+  }
+  .streak-summary .flame{font-size:20px;line-height:1;}
+
+  .cert-box{
+    background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:28px 30px;margin:0 auto 26px;max-width:440px;text-align:left;
+  }
+  .cert-box-title{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin-bottom:8px;}
+  .cert-box-sub{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:18px;}
+  .cert-form{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+  .cert-form input{
+    padding:11px 14px;border-radius:10px;border:1.5px solid var(--line);
+    font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);background:var(--cream);
+    width:100%;box-sizing:border-box;
+  }
+  .cert-form input:focus{outline:none;border-color:var(--lavender);}
+  .cert-error{color:#B5502F;font-size:12.5px;margin-top:10px;min-height:1em;}
+  .cert-locked{background:var(--cream-deep);}
+  .cert-locked .cert-box-sub{margin-bottom:0;}
+
+  @media(max-width:880px){
+    .layout{grid-template-columns:1fr;}
+    .sidebar{display:none;}
+    .content{padding:36px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-left">
+    <span class="exit" onclick="alert('This would exit to the course dashboard.')">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Exit
+    </span>
+    <div class="divider"></div>
+    <span class="course-name">Challenge 25 &amp; Acceptable ID</span>
+  </div>
+  <div class="tb-progress">
+    <div class="streak-badge zero" id="streak-badge" title="Lessons answered correctly on the first try, in a row">
+      <span class="streak-flame">🔥</span><span id="streak-count">0</span>
+    </div>
+    <span class="bar-label" id="progress-label">1 of 8</span>
+    <div class="bar-track"><div class="bar-fill" id="progress-fill" style="width:12.5%"></div></div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <span class="tag">All staff · 25 mins</span>
+      <h2>Challenge 25 &amp; Acceptable ID</h2>
+    </div>
+    <div id="sidebar-list"></div>
+  </aside>
+
+  <main class="content" id="content"></main>
+</div>
+
+<script>
+const lessons = [
+  {
+    title: "Why Challenge 25 exists",
+    meta: "3 min",
+    lead: "It's against the law to sell alcohol to anyone under 18 — anywhere in the UK, no exceptions. If a member of staff knowingly makes that sale, they can be personally fined, and the store's licence can be at risk too.",
+    body: [
+      "The problem is that guessing someone's age just by looking at them is hard. Most people are worse at it than they think — which is exactly the situation Challenge 25 is designed for.",
+      "Instead of trying to spot exactly who's under 18, staff ask for ID from anyone who looks under 25. Get that guess wrong at 25, and you're still nowhere near selling to someone underage. Get it wrong at 18, and you might have just broken the law."
+    ],
+    callout: "<strong>The key idea:</strong> Challenge 25 isn't a stricter rule than the law requires. It's a margin for error that protects the customer's right to buy, the staff member doing the checking, and the store's licence — all at once.",
+    question: "Why does Challenge 25 ask for ID from people who look under 25, rather than just people who look under 18?",
+    options: [
+      { text: "Because the legal drinking age is actually 25 in some situations", correct: false },
+      { text: "Because it gives staff a safety margin, since guessing age accurately is difficult", correct: true },
+      { text: "Because head office requires an extra ID check for insurance reasons", correct: false }
+    ],
+    fbCorrect: "Right. The 25 threshold exists purely as a buffer against misjudging age — it isn't a separate legal drinking age or a store policy for its own sake.",
+    fbIncorrect: "Not quite. The legal age to buy alcohol is still 18 everywhere in the UK. The \"25\" is a safety margin, there to catch cases where staff misjudge someone's age."
+  },
+  {
+    title: "Who to challenge, and why it's applied consistently",
+    meta: "3 min",
+    lead: "Challenge 25 only works if it's applied the same way to everyone who looks under 25 — including regulars, people in work uniforms, and people who insist they're older.",
+    body: [
+      "The moment the rule becomes negotiable, it stops being a legal safeguard and starts being a matter of opinion — which is exactly what gets tested if a sale is ever challenged by a licensing officer.",
+      "If a colleague declines a sale, backing that decision in the moment (rather than overturning it in front of the customer) matters just as much as the original check. Reversing a refusal live tells staff their judgement isn't trusted, and undermines the whole scheme."
+    ],
+    callout: "<strong>Rule of thumb:</strong> if you'd ask a stranger for ID, ask a regular too. Consistency is what makes the policy defensible.",
+    question: "A regular customer you're fairly confident is old enough doesn't have ID on them today, and looks under 25. What should you do?",
+    options: [
+      { text: "Serve them anyway, since they're a regular and you're confident", correct: false },
+      { text: "Apply the same Challenge 25 standard you'd apply to anyone else who looks under 25", correct: true },
+      { text: "Serve them but make a mental note to ask next time", correct: false }
+    ],
+    fbCorrect: "Right. Familiarity with a customer doesn't change the standard — consistency is what protects both the store and the staff member.",
+    fbIncorrect: "Not quite. Being a regular doesn't change the policy — if they look under 25 and have no ID, the same standard applies as it would for anyone else."
+  },
+  {
+    title: "Acceptable forms of ID",
+    meta: "4 min",
+    lead: "Challenge 25 recognises three standard forms of ID: a valid passport, a UK photocard driving licence, and a PASS-accredited proof-of-age card.",
+    body: [
+      "A PASS-accredited card carries the PASS hologram — that's the detail to look for, since plenty of unofficial \"proof of age\" cards exist without it.",
+      "What doesn't count: student cards, workplace ID badges, bank cards, or a photo of someone's ID on their phone. None of these carry the security features needed to confirm both identity and age."
+    ],
+    callout: "<strong>Quick check:</strong> passport, UK photocard driving licence, or PASS hologram card. If it's none of those three, it isn't acceptable ID under Challenge 25.",
+    question: "A customer offers a photo of their driving licence on their phone. Is this acceptable ID?",
+    options: [
+      { text: "Yes, as long as the photo is clear", correct: false },
+      { text: "No — only the physical document counts", correct: true },
+      { text: "Yes, but only if it was taken that day", correct: false }
+    ],
+    fbCorrect: "Right. A photo of an ID can be edited or belong to someone else — only the physical document, checked in hand, counts.",
+    fbIncorrect: "Not quite. A photo of an ID — however clear or recent — doesn't carry the physical security features needed to confirm it's genuine."
+  },
+  {
+    title: "How to properly check an ID",
+    meta: "3 min",
+    lead: "Checking an ID properly means looking at three things together, not just one: the photo, the date of birth, and the security features.",
+    body: [
+      "Does the photo genuinely match the person in front of you? Does the date of birth actually make them old enough? Is the document still in date, and does it have the right security markers — a hologram on a PASS card, the security thread and watermark on a passport?",
+      "If something feels off — a photo that doesn't quite match, edges that look tampered with, a date that doesn't add up — that's reason enough to decline the sale and explain why, rather than talk yourself into accepting it."
+    ],
+    callout: "<strong>Trust the check, not the confidence.</strong> A customer being calm and assured says nothing about whether their ID is genuine.",
+    question: "What should you actually be checking on an ID?",
+    options: [
+      { text: "Just the date of birth", correct: false },
+      { text: "The photo, the date of birth, and the security features, together", correct: true },
+      { text: "Whether the card looks new or worn", correct: false }
+    ],
+    fbCorrect: "Right. Any one check on its own can be misleading — it's the combination that tells you whether an ID is genuine and belongs to the person holding it.",
+    fbIncorrect: "Not quite. A single detail isn't enough on its own — check the photo match, the date of birth, and the security features together."
+  },
+  {
+    title: "Refusing a sale with confidence",
+    meta: "4 min",
+    lead: "A refusal goes smoothly when it's framed as policy, not personal judgement: \"I'm sorry, I can't sell this without valid ID\" — said calmly, the same way every time.",
+    body: [
+      "Most customers accept this without issue. If someone pushes back, stay calm and repeat the policy rather than getting drawn into a debate about how old they look. You're not required to justify your judgement in the moment — the policy applies regardless.",
+      "If a customer becomes aggressive or refuses to leave the till area, that's the point to involve a colleague or manager rather than continue the conversation alone."
+    ],
+    callout: "<strong>Keep it about the policy, not the person.</strong> \"I can't sell this without ID\" lands very differently to \"I don't believe you're old enough.\"",
+    question: "A customer gets annoyed when asked for ID and says \"I get served everywhere else.\" What's the best response?",
+    options: [
+      { text: "Serve them anyway to avoid a scene", correct: false },
+      { text: "Calmly repeat that it's store policy for anyone who looks under 25, no exceptions", correct: true },
+      { text: "Tell them they clearly look underage", correct: false }
+    ],
+    fbCorrect: "Right. Staying calm and repeating the policy — without debating their appearance — is what keeps the interaction professional and consistent.",
+    fbIncorrect: "Not quite. Serving them to avoid conflict undermines the whole policy, and debating how old they look only escalates things. Repeat the policy calmly instead."
+  },
+  {
+    title: "Proxy sales — buying alcohol for someone else",
+    meta: "3 min",
+    lead: "A proxy sale is when an adult buys alcohol on behalf of someone under 18 — and it's just as illegal as selling to them directly.",
+    body: [
+      "It's not always obvious, but a few situations are worth being alert to: an adult buying while a group of teenagers wait outside or nearby, someone buying a single item that doesn't match their usual pattern, or a purchase that seems clearly intended for someone else entirely.",
+      "You can't refuse a sale to an adult purely on suspicion without good reason — but if the signs are there, it's worth trusting that instinct and using judgement, the same way you would with a direct underage sale."
+    ],
+    callout: "<strong>Worth remembering:</strong> the law treats knowingly facilitating a proxy sale the same as selling to a minor directly.",
+    question: "An adult is buying a bottle of vodka while a group of teenagers wait just outside the shop. What should cross your mind?",
+    options: [
+      { text: "Nothing — only the person actually buying matters legally", correct: false },
+      { text: "This could be a proxy sale, and it's worth using judgement about whether to raise it", correct: true },
+      { text: "It's fine as long as the adult pays with their own card", correct: false }
+    ],
+    fbCorrect: "Right. It doesn't automatically mean it's a proxy sale, but the situation is exactly the kind worth paying attention to and using judgement on.",
+    fbIncorrect: "Not quite. Who's physically making the purchase doesn't settle it — a proxy sale is about who the alcohol is really for."
+  },
+  {
+    title: "Other age-restricted products",
+    meta: "3 min",
+    lead: "Many stores apply the same Challenge 25 standard beyond alcohol — to tobacco, vapes and e-cigarettes, fireworks, knives, and lottery products.",
+    body: [
+      "In England and Wales this is generally a voluntary extension of store policy for products other than alcohol. In Scotland, age verification for alcohol, tobacco, and vapes is a legal requirement, not just good practice — so the standard there carries more weight than a store policy choice.",
+      "Whichever products your store applies it to, the same core habit applies: check ID the same way, every time, for anyone who looks under 25."
+    ],
+    callout: "<strong>Know your store's list.</strong> Check with your manager exactly which products at your store carry a Challenge 25 requirement.",
+    question: "In Scotland, is age verification for tobacco and vapes voluntary or a legal requirement?",
+    options: [
+      { text: "Voluntary, the same as in England and Wales", correct: false },
+      { text: "A legal requirement", correct: true },
+      { text: "Only required for alcohol, not tobacco or vapes", correct: false }
+    ],
+    fbCorrect: "Right. Scotland treats age verification for alcohol, tobacco, and vapes as a legal requirement, not a voluntary retailer policy.",
+    fbIncorrect: "Not quite. In Scotland this isn't just store policy — it's a legal requirement covering alcohol, tobacco, and vapes."
+  },
+  {
+    title: "Recording refusals",
+    meta: "2 min",
+    lead: "Every refused sale is worth logging: the date, time, product, reason for refusal, and the staff member's name.",
+    body: [
+      "It might feel unnecessary when nothing was actually sold, but this record is exactly what a store can show a licensing officer or Trading Standards as evidence that Challenge 25 is genuinely enforced — not just a poster on the wall.",
+      "A consistent refusal log, over time, is one of the strongest things a store can point to if its licence is ever reviewed."
+    ],
+    callout: "<strong>If it isn't logged, it's hard to prove it happened.</strong> A good refusal record protects the store as much as the ID check itself.",
+    question: "Why does it matter to log a refused sale, even though nothing was actually sold?",
+    options: [
+      { text: "It's optional, but nice to have for records", correct: false },
+      { text: "It's evidence the store's Challenge 25 policy is genuinely enforced, which matters if the licence is ever reviewed", correct: true },
+      { text: "It's only needed if the customer makes a complaint", correct: false }
+    ],
+    fbCorrect: "Right. A consistent log of refusals is one of the clearest ways a store can demonstrate real enforcement, not just a policy on paper.",
+    fbIncorrect: "Not quite. It's not just for complaints or nice-to-have record keeping — it's the evidence a store relies on if its licence is ever reviewed."
+  }
+];
+
+let current = 0;
+const completed = new Set();
+const attempted = new Set();
+let streak = 0;
+let bestStreak = 0;
+let firstTryCorrect = 0;
+const CERT_PASS_RATE = 80;
+
+function renderSidebar(){
+  const list = document.getElementById('sidebar-list');
+  list.innerHTML = lessons.map((l, i) => {
+    let markerClass = '';
+    let markerContent = i + 1;
+    if (i === current){ markerClass = 'current'; }
+    else if (completed.has(i)){ markerClass = 'done'; markerContent = '✓'; }
+    return `
+      <div class="lesson-item ${i===current?'active':''}" onclick="goTo(${i})">
+        <div class="l-marker ${markerClass}">${markerContent}</div>
+        <div>
+          <div class="l-title">${l.title}</div>
+          <div class="l-meta">${l.meta}${completed.has(i) ? ' · Complete' : (i===current ? ' · In progress' : '')}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderProgress(){
+  const pct = ((current+1)/lessons.length)*100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = `${current+1} of ${lessons.length}`;
+}
+
+function renderContent(){
+  if (current >= lessons.length){
+    const perfect = bestStreak === lessons.length;
+    const streakLine = perfect
+      ? `<div class="streak-summary"><span class="flame">🔥</span> Perfect run — all ${lessons.length} first try</div>`
+      : `<div class="streak-summary"><span class="flame">🔥</span> Best streak this run: ${bestStreak} in a row, first try</div>`;
+    const subLine = perfect
+      ? `Every practice question, right the first time. That's the whole module, no second guesses.`
+      : `You got through all ${lessons.length} lessons in Challenge 25 &amp; Acceptable ID — this run's longest first-try streak is above.`;
+
+    const passRate = Math.round((firstTryCorrect/lessons.length)*100);
+    const passed = passRate >= CERT_PASS_RATE;
+    const certBlock = passed ? `
+      <div class="cert-box">
+        <div class="cert-box-title">Your certificate is ready</div>
+        <p class="cert-box-sub">First-try accuracy: ${passRate}% (needs ${CERT_PASS_RATE}%+). Enter your details to download it.</p>
+        <div class="cert-form">
+          <input type="text" id="cert-name" placeholder="Your name">
+          <input type="text" id="cert-shop" placeholder="Shop / store name">
+        </div>
+        <a href="#" class="btn btn-primary" onclick="downloadCertificate(${passRate});return false;">Download certificate ↓</a>
+        <div class="cert-error" id="cert-error"></div>
+      </div>` : `
+      <div class="cert-box cert-locked">
+        <div class="cert-box-title">Certificate locked</div>
+        <p class="cert-box-sub">Certificates need ${CERT_PASS_RATE}%+ first-try accuracy. You're at ${passRate}% (${firstTryCorrect} of ${lessons.length} correct on the first try). Go back through the lessons you missed on the sidebar and answer again to raise it.</p>
+      </div>`;
+
+    document.getElementById('content').innerHTML = `
+      <div class="complete-screen">
+        <div class="complete-badge">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#1E5C3B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h1>Module complete</h1>
+        ${streakLine}
+        <p>${subLine}</p>
+        ${certBlock}
+        <div class="content-nav" style="justify-content:center;">
+          <a href="#" class="btn btn-primary">Back to my courses</a>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const l = lessons[current];
+  document.getElementById('content').innerHTML = `
+    <span class="lesson-tag">Lesson ${current+1} of ${lessons.length}</span>
+    <h1>${l.title}</h1>
+    <p class="lead">${l.lead}</p>
+    ${l.body.map(p => `<p>${p}</p>`).join('')}
+    <div class="callout">
+      <div class="callout-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#8A4B1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <p>${l.callout}</p>
+    </div>
+    <div class="practice">
+      <div class="practice-top"><span>Practice question</span><span>Counts toward your certificate</span></div>
+      <div class="practice-body">
+        <div class="practice-q">${l.question}</div>
+        ${l.options.map((o,i) => `
+          <div class="opt" data-correct="${o.correct}" onclick="answer(this)">
+            <span class="dotc"></span> ${o.text}
+          </div>`).join('')}
+        <div class="feedback correct" id="fb-correct">${l.fbCorrect}</div>
+        <div class="feedback incorrect" id="fb-incorrect">${l.fbIncorrect}</div>
+      </div>
+    </div>
+    <div class="content-nav">
+      <a href="#" class="btn btn-outline" onclick="prevLesson();return false;" ${current===0?'style="visibility:hidden;"':''}>Back</a>
+      <a href="#" class="btn btn-primary" id="continue-btn" onclick="nextLesson();return false;">
+        ${current === lessons.length-1 ? 'Finish module →' : 'Continue to Lesson ' + (current+2) + ' →'}
+      </a>
+    </div>
+  `;
+}
+
+function downloadCertificate(passRate){
+  const nameEl = document.getElementById('cert-name');
+  const shopEl = document.getElementById('cert-shop');
+  const errEl = document.getElementById('cert-error');
+  const name = nameEl.value.trim();
+  const shop = shopEl.value.trim();
+  if (!name || !shop){
+    errEl.textContent = 'Enter your name and shop name to generate the certificate.';
+    return;
+  }
+  errEl.textContent = '';
+
+  const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const date = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+
+  const html = `<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="UTF-8"><title>Certificate — ${esc(name)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#FBF7F1;font-family:'Inter',sans-serif;color:#22243B;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:40px;box-sizing:border-box;}
+  .cert{width:100%;max-width:760px;background:#fff;border:1px solid #E7DFD1;border-radius:28px;padding:64px;text-align:center;box-shadow:0 20px 45px -20px rgba(34,36,59,0.25);}
+  .mark{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#6E62E5,#FF7A59);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;}
+  .mark svg{width:26px;height:26px;}
+  .brand{font-family:'Fraunces',serif;font-weight:700;font-size:20px;margin-bottom:36px;}
+  .kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#575A78;margin-bottom:10px;}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:30px;margin:0 0 30px;}
+  .name{font-family:'Fraunces',serif;font-weight:700;font-size:34px;margin:6px 0;}
+  .shop{font-size:16px;color:#575A78;margin-bottom:28px;}
+  .meta{font-size:14px;color:#575A78;margin-bottom:36px;}
+  .meta strong{color:#22243B;}
+  .disclaimer{font-size:12px;color:#8A8D9E;max-width:520px;margin:0 auto;line-height:1.6;border-top:1px solid #E7DFD1;padding-top:24px;}
+  @media print{ body{padding:0;} .cert{box-shadow:none;border:none;} }
+</style></head>
+<body>
+  <div class="cert">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="brand">Checkpoint</div>
+    <div class="kicker">Certificate of completion</div>
+    <h1>Challenge 25 &amp; Acceptable ID</h1>
+    <div class="name">${esc(name)}</div>
+    <div class="shop">${esc(shop)}</div>
+    <div class="meta">Completed <strong>${date}</strong> &middot; First-try accuracy <strong>${passRate}%</strong></div>
+    <div class="disclaimer">This certificate confirms completion of Checkpoint's Challenge 25 &amp; Acceptable ID training. It is a non-accredited training resource, not a legal qualification, and is not a substitute for the official Level 2 Award for Personal Licence Holders (APLH).</div>
+  </div>
+</body></html>`;
+
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Checkpoint-Certificate-${name.replace(/\s+/g,'-')}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function answer(el){
+  document.querySelectorAll('.opt').forEach(o=>{
+    o.classList.remove('selected-correct','selected-wrong');
+    o.style.pointerEvents='none';
+  });
+  document.getElementById('fb-correct').classList.remove('show');
+  document.getElementById('fb-incorrect').classList.remove('show');
+
+  const isCorrect = el.dataset.correct === 'true';
+  if (isCorrect){
+    el.classList.add('selected-correct');
+    document.getElementById('fb-correct').classList.add('show');
+  } else {
+    el.classList.add('selected-wrong');
+    document.getElementById('fb-incorrect').classList.add('show');
+    document.querySelectorAll('.opt').forEach(o=>{
+      if (o.dataset.correct === 'true') o.classList.add('selected-correct');
+    });
+  }
+  if (!attempted.has(current)){
+    attempted.add(current);
+    if (isCorrect){
+      streak++;
+      if (streak > bestStreak) bestStreak = streak;
+      firstTryCorrect++;
+    } else {
+      streak = 0;
+    }
+    renderStreak();
+  }
+  completed.add(current);
+  renderSidebar();
+}
+
+function renderStreak(){
+  const badge = document.getElementById('streak-badge');
+  document.getElementById('streak-count').textContent = streak;
+  badge.classList.toggle('zero', streak === 0);
+  badge.classList.remove('pop');
+  void badge.offsetWidth;
+  badge.classList.add('pop');
+}
+
+function goTo(i){
+  current = i;
+  renderAll();
+}
+function nextLesson(){
+  completed.add(current);
+  current++;
+  renderAll();
+}
+function prevLesson(){
+  if (current > 0){ current--; renderAll(); }
+}
+function renderAll(){
+  renderSidebar();
+  renderProgress();
+  renderContent();
+  window.scrollTo(0,0);
+}
+
+renderAll();
+</script>
+
+</body>
+</html>
