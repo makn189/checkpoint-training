@@ -82,6 +82,8 @@
   .content{padding:52px 64px;max-width:760px;}
   .lesson-tag{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--lavender-deep);margin-bottom:14px;display:block;}
   .content h1{font-size:clamp(26px,3vw,34px);line-height:1.2;margin-bottom:26px;}
+  .lesson-image{width:100%;max-width:620px;border-radius:var(--radius-md);overflow:hidden;margin-bottom:28px;box-shadow:var(--shadow);}
+  .lesson-image img{width:100%;height:260px;object-fit:cover;display:block;}
   .content p{font-size:16.5px;line-height:1.7;color:var(--ink);margin-bottom:20px;max-width:620px;}
   .content p.lead{font-size:18px;}
   .callout{
@@ -93,28 +95,36 @@
   .callout p{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-soft);}
   .callout p strong{color:var(--ink);}
 
-  .practice{
+  /* ---------- MODULE TEST (10 questions, 80% to pass) ---------- */
+  .quiz-box{
     margin-top:44px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
     box-shadow:var(--shadow);overflow:hidden;max-width:620px;
   }
-  .practice-top{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;}
-  .practice-body{padding:26px 24px 24px;}
-  .practice-q{font-size:16px;font-weight:600;line-height:1.45;margin-bottom:20px;}
-  .opt{
-    display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;
-    border:1.5px solid var(--line);font-size:14.5px;font-weight:500;margin-bottom:10px;
-    cursor:pointer;transition:border-color .15s, background .15s;
+  .quiz-top{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;}
+  .quiz-body{padding:26px 24px 28px;}
+  .quiz-q{margin-bottom:26px;}
+  .quiz-q:last-of-type{margin-bottom:20px;}
+  .quiz-q-text{font-size:15px;font-weight:600;margin-bottom:12px;line-height:1.4;}
+  .quiz-opts{display:flex;flex-direction:column;gap:8px;}
+  .qopt{
+    display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;
+    border:1.5px solid var(--line);font-size:14px;font-weight:500;cursor:pointer;
+    transition:border-color .15s, background .15s;
   }
-  .opt:hover{border-color:#CFC7F5;}
-  .opt .dotc{width:19px;height:19px;border-radius:50%;border:2px solid #CFC8B6;flex-shrink:0;}
-  .opt.selected-correct{border-color:#4E9E76;background:#EEF9F2;color:#276648;}
-  .opt.selected-correct .dotc{border-color:#4E9E76;background:#4E9E76;}
-  .opt.selected-wrong{border-color:#E88B72;background:#FDF1EC;color:#B5502F;}
-  .opt.selected-wrong .dotc{border-color:#E88B72;background:#E88B72;}
-  .feedback{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;font-size:14px;line-height:1.55;}
-  .feedback.show{display:block;}
-  .feedback.correct{background:#EEF9F2;color:#1E5C3B;}
-  .feedback.incorrect{background:#FDF1EC;color:#8A3A1F;}
+  .qopt:hover{border-color:#CFC7F5;}
+  .qopt .qdot{width:16px;height:16px;border-radius:50%;border:2px solid #CFC8B6;flex-shrink:0;}
+  .qopt.qopt-selected{border-color:var(--lavender);background:#F5F3FE;}
+  .qopt.qopt-selected .qdot{border-color:var(--lavender);background:var(--lavender);}
+  .qopt.qopt-correct{border-color:#4E9E76;background:#EEF9F2;color:#276648;}
+  .qopt.qopt-correct .qdot{border-color:#4E9E76;background:#4E9E76;}
+  .qopt.qopt-wrong{border-color:#E88B72;background:#FDF1EC;color:#B5502F;}
+  .qopt.qopt-wrong .qdot{border-color:#E88B72;background:#E88B72;}
+  .quiz-explain{display:none;margin-top:10px;padding:12px 14px;border-radius:10px;background:var(--cream-deep);font-size:13px;line-height:1.55;color:var(--ink-soft);}
+  .quiz-explain.show{display:block;}
+  .quiz-warn{color:#B5502F;font-size:13.5px;margin-bottom:14px;}
+  .quiz-pass{color:#1E5C3B;background:#EEF9F2;padding:14px 16px;border-radius:12px;font-weight:700;font-size:14.5px;margin-bottom:16px;}
+  .quiz-fail{color:#8A3A1F;background:#FDF1EC;padding:14px 16px;border-radius:12px;font-weight:600;font-size:14.5px;margin-bottom:16px;}
+  .quiz-fail a{text-decoration:underline;color:#8A3A1F;font-weight:700;cursor:pointer;}
 
   .content-nav{display:flex;justify-content:space-between;align-items:center;margin-top:48px;max-width:620px;}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:14.5px;border:none;cursor:pointer;}
@@ -122,6 +132,8 @@
   .btn-primary:disabled{opacity:.4;cursor:not-allowed;}
   .btn-outline{background:#fff;color:var(--ink);border:1.5px solid var(--line);}
   .btn-outline:disabled{opacity:.4;cursor:not-allowed;}
+  .btn-locked{opacity:.4;pointer-events:none;cursor:not-allowed;}
+  .continue-note{font-size:12.5px;color:var(--ink-soft);margin-top:10px;}
 
   .complete-screen{max-width:620px;text-align:center;padding:60px 0;}
   .complete-badge{
@@ -152,13 +164,12 @@
   }
   .cert-form input:focus{outline:none;border-color:var(--lavender);}
   .cert-error{color:#B5502F;font-size:12.5px;margin-top:10px;min-height:1em;}
-  .cert-locked{background:var(--cream-deep);}
-  .cert-locked .cert-box-sub{margin-bottom:0;}
 
   @media(max-width:880px){
     .layout{grid-template-columns:1fr;}
     .sidebar{display:none;}
     .content{padding:36px 22px;}
+    .lesson-image img{height:200px;}
   }
 </style>
 </head>
@@ -174,7 +185,7 @@
     <span class="course-name">Challenge 25 &amp; Acceptable ID</span>
   </div>
   <div class="tb-progress">
-    <div class="streak-badge zero" id="streak-badge" title="Lessons answered correctly on the first try, in a row">
+    <div class="streak-badge zero" id="streak-badge" title="Module tests passed at 80%+ on the first attempt, in a row">
       <span class="streak-flame">🔥</span><span id="streak-count">0</span>
     </div>
     <span class="bar-label" id="progress-label">1 of 8</span>
@@ -185,7 +196,7 @@
 <div class="layout">
   <aside class="sidebar">
     <div class="sidebar-head">
-      <span class="tag">All staff · 25 mins</span>
+      <span class="tag">All staff · ~60 mins</span>
       <h2>Challenge 25 &amp; Acceptable ID</h2>
     </div>
     <div id="sidebar-list"></div>
@@ -198,157 +209,214 @@
 const lessons = [
   {
     title: "Why Challenge 25 exists",
-    meta: "3 min",
+    meta: "8 min",
+    image: "images/lesson-1.jpg",
+    imageAlt: "A UK corner shop counter selling food, news, and everyday goods",
     lead: "It's against the law to sell alcohol to anyone under 18 — anywhere in the UK, no exceptions. Get it wrong and the penalties are real: an unlimited fine for the store, a fine or even a short prison sentence for the individual seller, and a personal licence that can be reviewed or revoked.",
     body: [
       "The problem is that guessing someone's age just by looking at them is hard. Most people are worse at it than they think — which is exactly the situation Challenge 25 is designed for.",
-      "Instead of trying to spot exactly who's under 18, staff ask for ID from anyone who looks under 25. Get that guess wrong at 25, and you're still nowhere near selling to someone underage. Get it wrong at 18, and you might have just broken the law."
+      "Instead of trying to spot exactly who's under 18, staff ask for ID from anyone who looks under 25. Get that guess wrong at 25, and you're still nowhere near selling to someone underage. Get it wrong at 18, and you might have just broken the law.",
+      "Underage sales don't only get caught in the moment — a lot get picked up afterwards, through CCTV review, a parent's complaint, or a Trading Standards test purchase where someone genuinely under 18 is sent in to try buying. None of those checks care how busy the shop was or how confident the customer seemed."
     ],
     callout: "<strong>The key idea:</strong> Challenge 25 isn't a stricter rule than the law requires. It's part of building the store's <em>due diligence</em> — proof that all reasonable precautions were taken to prevent underage sales, which is exactly what the law looks for as a defence.",
-    question: "Why does Challenge 25 ask for ID from people who look under 25, rather than just people who look under 18?",
-    options: [
-      { text: "Because the legal drinking age is actually 25 in some situations", correct: false },
-      { text: "Because it gives staff a safety margin, since guessing age accurately is difficult", correct: true },
-      { text: "Because head office requires an extra ID check for insurance reasons", correct: false }
-    ],
-    fbCorrect: "Right. The 25 threshold exists purely as a buffer against misjudging age — it isn't a separate legal drinking age or a store policy for its own sake.",
-    fbIncorrect: "Not quite. The legal age to buy alcohol is still 18 everywhere in the UK. The \"25\" is a safety margin, there to catch cases where staff misjudge someone's age."
+    quiz: [
+      { q: "What is the legal minimum age to buy alcohol in the UK?", opts: ["16","18","21","25"], correct: 1, explain: "18 is the legal age everywhere in the UK — Challenge 25 doesn't change this, it just builds in a margin for error." },
+      { q: "What does the \"25\" in Challenge 25 actually represent?", opts: ["A separate legal drinking age","A safety margin for judging age accurately","A minimum staff age to sell alcohol","A loyalty scheme threshold"], correct: 1, explain: "The 25 threshold exists purely as a buffer against misjudging age — it isn't a separate legal drinking age." },
+      { q: "Who can be personally liable if alcohol is knowingly sold to someone underage?", opts: ["Only the store, never the individual","The individual member of staff who made the sale","Only the store manager","No one — it's a civil matter only"], correct: 1, explain: "Individual staff can be personally fined (or in serious cases prosecuted) for a knowing sale — it isn't only the store's problem." },
+      { q: "Which of these can happen to a store's licence after a proven underage sale?", opts: ["Nothing, licences can't be affected by staff mistakes","It can be reviewed or revoked by the licensing authority","It's automatically suspended for one day","It's transferred to a different manager"], correct: 1, explain: "A proven underage sale can trigger a licence review, and in serious or repeated cases, revocation." },
+      { q: "How are most underage sales actually detected?", opts: ["Only if the customer later admits it","Test purchase operations, CCTV review, or complaints","Random till audits of cash only","They're never detected"], correct: 1, explain: "Trading Standards test purchases, CCTV, and complaints are the main ways underage sales come to light — often well after the sale happened." },
+      { q: "True or false: Challenge 25 is a stricter legal requirement than the Licensing Act itself.", opts: ["True — it raises the legal age to 25","False — it's a practical margin for error, the legal age stays 18","True, but only in Scotland","False — it replaces the Licensing Act"], correct: 1, explain: "Challenge 25 is a due diligence practice sitting on top of the law, not a separate or stricter law." },
+      { q: "Why might a customer who looks confident and calm still be underage?", opts: ["Confidence has no bearing on someone's actual age","Confident customers are always over 18","Store policy assumes confident customers are safe to serve","It's illegal to consider confidence at all"], correct: 0, explain: "How someone carries themselves says nothing about their date of birth — that's exactly why Challenge 25 relies on ID, not impressions." },
+      { q: "What is \"due diligence\" in the context of underage sales law?", opts: ["A discount scheme for loyal customers","Proof that all reasonable precautions were taken to prevent an illegal sale","A type of till receipt","A synonym for Challenge 25 signage"], correct: 1, explain: "Due diligence is the legal defence built from things like Challenge 25, proper ID checks, and refusal logs, together." },
+      { q: "If a till operator sells alcohol to someone under 18 without checking ID, who bears responsibility?", opts: ["Nobody, if it was a genuine mistake","Potentially both the staff member and the store","Only the customer, for lying about their age","Only store insurance covers it"], correct: 1, explain: "Both the individual seller and the store can carry responsibility for an unlawful sale." },
+      { q: "What's the main purpose of asking for ID from anyone who looks under 25?", opts: ["To slow down busy tills on purpose","To create a buffer so genuine underage sales are far less likely","To meet a head-office sales target","To collect customer data for marketing"], correct: 1, explain: "The 25 threshold exists to make genuinely underage sales far less likely, even when staff misjudge someone's age." }
+    ]
   },
   {
     title: "Who to challenge, and why it's applied consistently",
-    meta: "3 min",
+    meta: "7 min",
+    image: "images/lesson-2.jpg",
+    imageAlt: "A card payment terminal and blank card, representing a consistent till check",
     lead: "Challenge 25 only works if it's applied the same way to everyone who looks under 25 — including regulars, people in work uniforms, and people who insist they're older.",
     body: [
       "The moment the rule becomes negotiable, it stops being a legal safeguard and starts being a matter of opinion — which is exactly what gets tested if a sale is ever challenged by a licensing officer.",
-      "If a colleague declines a sale, backing that decision in the moment (rather than overturning it in front of the customer) matters just as much as the original check. Reversing a refusal live tells staff their judgement isn't trusted, and undermines the whole scheme."
+      "If a colleague declines a sale, backing that decision in the moment (rather than overturning it in front of the customer) matters just as much as the original check. Reversing a refusal live tells staff their judgement isn't trusted, and undermines the whole scheme.",
+      "It works the other way too — a staff member who is themselves under 18 can still refuse a sale, and that refusal carries exactly the same weight. Consistency isn't about how experienced or senior the person checking ID is; it's about applying the same standard, every time, to everyone who looks under 25."
     ],
     callout: "<strong>Rule of thumb:</strong> if you'd ask a stranger for ID, ask a regular too. Consistency is what makes the policy defensible.",
-    question: "A regular customer you're fairly confident is old enough doesn't have ID on them today, and looks under 25. What should you do?",
-    options: [
-      { text: "Serve them anyway, since they're a regular and you're confident", correct: false },
-      { text: "Apply the same Challenge 25 standard you'd apply to anyone else who looks under 25", correct: true },
-      { text: "Serve them but make a mental note to ask next time", correct: false }
-    ],
-    fbCorrect: "Right. Familiarity with a customer doesn't change the standard — consistency is what protects both the store and the staff member.",
-    fbIncorrect: "Not quite. Being a regular doesn't change the policy — if they look under 25 and have no ID, the same standard applies as it would for anyone else."
+    quiz: [
+      { q: "Why does consistency matter most for Challenge 25?", opts: ["It looks tidier on paper","Inconsistent enforcement makes the policy easy to challenge and defend against in a licensing review","It's required for staff bonuses","It only matters for CCTV footage"], correct: 1, explain: "A policy applied only sometimes stops looking like genuine enforcement and becomes hard to defend." },
+      { q: "A colleague declines a sale. What should you do if the same customer approaches you next?", opts: ["Serve them since a fresh check is fine","Support the original decision and apply the same standard","Apologise to the customer for your colleague's mistake","Ask a manager to override it immediately"], correct: 1, explain: "Backing a colleague's refusal keeps the policy consistent and shows staff judgement is trusted." },
+      { q: "Does being a regular customer change the ID requirement?", opts: ["Yes, regulars are exempt after their first check","No — the same standard applies regardless of familiarity","Only if they've been coming in for over a year","Only on weekdays"], correct: 1, explain: "Familiarity doesn't change the standard — the same check applies to everyone who looks under 25." },
+      { q: "Can a staff member who is themselves under 18 refuse an alcohol sale?", opts: ["No, only adult staff can refuse sales","Yes — their refusal carries the same weight as anyone else's","Only if a manager is present","Only for tobacco, not alcohol"], correct: 1, explain: "Any staff member's refusal carries the same weight, regardless of their own age." },
+      { q: "What happens to Challenge 25 as a defence if it's applied selectively?", opts: ["Nothing changes, it's still a valid defence","It becomes much weaker, since it stops looking like a genuine policy","It becomes stronger, showing staff use judgement","It only affects online sales"], correct: 1, explain: "Selective enforcement weakens the due diligence defence — it needs to look like a real, consistent policy." },
+      { q: "A customer in a work uniform (e.g. a delivery driver) looks under 25. What applies?", opts: ["Uniforms are treated as proof of age","The same Challenge 25 standard as anyone else","Uniformed customers are automatically refused","Only ID from a manager is accepted"], correct: 1, explain: "A uniform isn't ID — the same standard applies regardless of what someone is wearing." },
+      { q: "Why might overturning a colleague's refusal in front of the customer be harmful?", opts: ["It's fine as long as the second staff member is more senior","It signals that refusals are negotiable, undermining trust in the policy","It has no real effect on anything","It's only a problem if the customer complains"], correct: 1, explain: "Reversing a refusal live tells staff their judgement isn't trusted and weakens the whole scheme." },
+      { q: "What's the \"rule of thumb\" for deciding who to ask for ID?", opts: ["Ask everyone under 30 to be extra safe","If you'd ask a stranger, ask a regular too","Only ask if a manager is watching","Ask only when the till system prompts you"], correct: 1, explain: "If you'd check a stranger's ID, the same standard should apply to a regular who looks under 25." },
+      { q: "What is being tested if a sale is ever formally challenged by a licensing officer?", opts: ["How fast the till served the customer","Whether the policy was applied consistently, not just when convenient","The store's opening hours","The customer's receipt history"], correct: 1, explain: "A licensing review looks at whether the policy was genuinely and consistently enforced." },
+      { q: "Which of these is the best description of a defensible Challenge 25 policy?", opts: ["One applied occasionally, when staff remember","One applied the same way to every customer who looks under 25, without exceptions","One applied only during weekend evenings","One left entirely to staff discretion"], correct: 1, explain: "A defensible policy is one applied the same way, every time, to everyone who looks under 25." }
+    ]
   },
   {
     title: "Acceptable forms of ID",
-    meta: "4 min",
+    meta: "8 min",
+    image: "images/lesson-3.jpg",
+    imageAlt: "A wallet with cards, representing the documents someone might offer as ID",
     lead: "Challenge 25 recognises three standard forms of ID: a valid passport, a UK photocard driving licence, and a PASS-accredited proof-of-age card.",
     body: [
       "A PASS-accredited card carries the PASS hologram — that's the detail to look for, since plenty of unofficial \"proof of age\" cards exist without it.",
-      "What doesn't count: student cards, workplace ID badges, bank cards, or a photo of someone's ID on their phone. None of these carry the security features needed to confirm both identity and age."
+      "What doesn't count: student cards, workplace ID badges, bank cards, or a photo of someone's ID on their phone. None of these carry the security features needed to confirm both identity and age.",
+      "For alcohol specifically, only those three physical documents count — a digital ID app or verification service isn't currently accepted, even if the store also sells other age-restricted products where digital ID schemes are sometimes allowed under separate rules. If in doubt about a digital option, treat an alcohol sale as requiring one of the three physical forms."
     ],
     callout: "<strong>Quick check:</strong> passport, UK photocard driving licence, or PASS hologram card. If it's none of those three, it isn't acceptable ID under Challenge 25.",
-    question: "A customer offers a photo of their driving licence on their phone. Is this acceptable ID?",
-    options: [
-      { text: "Yes, as long as the photo is clear", correct: false },
-      { text: "No — only the physical document counts", correct: true },
-      { text: "Yes, but only if it was taken that day", correct: false }
-    ],
-    fbCorrect: "Right. A photo of an ID can be edited or belong to someone else — only the physical document, checked in hand, counts.",
-    fbIncorrect: "Not quite. A photo of an ID — however clear or recent — doesn't carry the physical security features needed to confirm it's genuine."
+    quiz: [
+      { q: "Which three forms of ID does Challenge 25 recognise?", opts: ["Passport, student card, birth certificate","Passport, UK photocard driving licence, PASS-accredited card","Passport, bank card, workplace badge","Passport, provisional licence paper counterpart, library card"], correct: 1, explain: "The three accepted forms are a valid passport, a UK photocard driving licence, and a PASS-accredited card." },
+      { q: "Does a student ID card count as acceptable ID?", opts: ["Yes, if it has a photo","No — it doesn't carry the required security features","Yes, but only for tobacco","Only if laminated"], correct: 1, explain: "A student card isn't one of the three accepted forms, regardless of whether it has a photo." },
+      { q: "What must a proof-of-age card carry to be considered acceptable?", opts: ["A loyalty scheme logo","The PASS hologram","A barcode","A QR code linking to a website"], correct: 1, explain: "A PASS-accredited card carries the PASS hologram — that's the detail that makes it acceptable." },
+      { q: "Is a photo of a driving licence on someone's phone acceptable ID?", opts: ["Yes, if the photo is recent","No — only the physical document counts","Yes, if the customer also shows a bank card","Only for over-21s"], correct: 1, explain: "A photo can be edited or belong to someone else — only the physical document, checked in hand, counts." },
+      { q: "Does a workplace ID badge count as acceptable ID under Challenge 25?", opts: ["Yes, if it has a photo and date of birth","No — it isn't one of the three accepted forms","Yes, for regular customers only","Only if issued by a large employer"], correct: 1, explain: "A workplace badge isn't one of the three recognised forms of ID, whatever it shows." },
+      { q: "For an alcohol sale specifically, is a digital ID verification app currently accepted?", opts: ["Yes, always","No — alcohol sales require one of the three physical forms","Only for customers over 21","Only with manager approval"], correct: 1, explain: "Digital ID isn't currently accepted for alcohol, even where it's allowed for some other age-restricted products." },
+      { q: "Which of these is NOT one of the three accepted forms of ID?", opts: ["UK photocard driving licence","Valid passport","Bank card","PASS-accredited proof-of-age card"], correct: 2, explain: "A bank card is never an accepted form of ID under Challenge 25." },
+      { q: "Why doesn't a bank card count as acceptable ID?", opts: ["It doesn't confirm date of birth or carry age-verification security features","Banks don't allow it to be used for ID","It's against store policy only, not the law","It's too easy to lose"], correct: 0, explain: "A bank card doesn't show a date of birth or carry the security features needed to confirm age." },
+      { q: "A customer's passport photo doesn't quite look like them, but the document seems otherwise genuine. What should you do?", opts: ["Accept it since the document itself looks real","Decline the sale — the photo not matching is reason enough","Ask a colleague to make the final call instead of you","Accept it if they know their own date of birth"], correct: 1, explain: "A photo that doesn't match is reason enough to decline, regardless of how genuine the rest looks." },
+      { q: "What's the safest response if you're not sure whether a document is one of the three accepted forms?", opts: ["Accept it and move on quickly","Treat it as not acceptable and explain the three forms that are","Ask the customer to describe the document instead","Accept it if the queue is long"], correct: 1, explain: "If in doubt, treat it as not acceptable and explain the three forms Challenge 25 recognises." }
+    ]
   },
   {
     title: "How to properly check an ID",
-    meta: "3 min",
+    meta: "8 min",
+    image: "images/lesson-4.jpg",
+    imageAlt: "A close-up of a card being handed over at a counter",
     lead: "Checking an ID properly means looking at three things together, not just one: the photo, the date of birth, and the security features.",
     body: [
       "Does the photo genuinely match the person in front of you? Does the date of birth actually make them old enough? Is the document still in date, and does it have the right security markers — the security thread and watermark on a passport, or the hologram on a PASS card? Tilt a PASS card under the light: a genuine hologram catches the light and appears to move, and a printed fake won't.",
-      "If something feels off — a photo that doesn't quite match, edges that look tampered with, a date that doesn't add up — that's reason enough to decline the sale and explain why, rather than talk yourself into accepting it."
+      "If something feels off — a photo that doesn't quite match, edges that look tampered with, a date that doesn't add up — that's reason enough to decline the sale and explain why, rather than talk yourself into accepting it.",
+      "It's easy to feel rushed by a queue, but a proper check takes seconds, not minutes — photo, date of birth, security feature. Slowing down for those few seconds is far cheaper than the alternative."
     ],
     callout: "<strong>Trust the check, not the confidence.</strong> A customer being calm and assured says nothing about whether their ID is genuine.",
-    question: "What should you actually be checking on an ID?",
-    options: [
-      { text: "Just the date of birth", correct: false },
-      { text: "The photo, the date of birth, and the security features, together", correct: true },
-      { text: "Whether the card looks new or worn", correct: false }
-    ],
-    fbCorrect: "Right. Any one check on its own can be misleading — it's the combination that tells you whether an ID is genuine and belongs to the person holding it.",
-    fbIncorrect: "Not quite. A single detail isn't enough on its own — check the photo match, the date of birth, and the security features together."
+    quiz: [
+      { q: "What three things should be checked together on an ID?", opts: ["Photo match, date of birth, security features","Just the date of birth","Just the photo","Card colour and weight only"], correct: 0, explain: "Any one check alone can be misleading — it's the combination that confirms an ID is genuine." },
+      { q: "How can you check if a PASS card's hologram is genuine?", opts: ["Tilt it under light and see if it catches the light and appears to move","Scratch it gently with a fingernail","Check if it's a certain colour","Hold it up to a window only"], correct: 0, explain: "A genuine hologram catches the light and appears to move when tilted; a printed fake won't." },
+      { q: "What security features appear on a genuine passport?", opts: ["Just a photo","A security thread and watermark","A hologram sticker on the back cover only","A barcode printed on the front"], correct: 1, explain: "A genuine passport carries a security thread and watermark, among other features." },
+      { q: "If a photo on an ID doesn't quite match the person in front of you, what should you do?", opts: ["Accept it if the rest of the document looks fine","Decline the sale and explain why","Ask them to smile to compare better","Accept it if they're not alone"], correct: 1, explain: "A photo mismatch is reason enough to decline the sale, regardless of anything else." },
+      { q: "Why is it a mistake to rely on a customer's confidence when checking ID?", opts: ["Confidence has no relationship to whether a document is genuine or belongs to them","Confident customers are statistically always of age","It isn't a mistake, confidence is a useful signal","Store policy requires trusting confident customers"], correct: 0, explain: "How calm or assured someone seems says nothing about whether their ID is genuine." },
+      { q: "What should you do if an ID's edges look tampered with?", opts: ["Ignore it if the photo matches","That's reason enough to decline the sale","Accept it but make a mental note","Ask for a second form of ID instead"], correct: 1, explain: "Tampered edges are a clear reason to decline the sale on their own." },
+      { q: "Roughly how long should a proper ID check take?", opts: ["Several minutes, going through a full checklist aloud","Just a few seconds — enough to check photo, date of birth, and security features","However long the queue allows, even if that's zero seconds","It doesn't matter as long as ID was requested"], correct: 1, explain: "A proper check takes just seconds — there's no good excuse to skip it under queue pressure." },
+      { q: "What does it mean if an ID's date of birth \"doesn't add up\"?", opts: ["The document uses an unfamiliar date format","The stated age doesn't match how old the document implies the person to be","The card has an expired loyalty stamp","Nothing — dates of birth can't be checked at the till"], correct: 1, explain: "A date of birth that doesn't add up is a clear signal something may be wrong with the ID." },
+      { q: "Which is the best practice when something about an ID feels off, even if you can't say exactly why?", opts: ["Accept it to avoid seeming rude","Decline the sale and explain that something doesn't check out","Ask the customer to convince you it's real","Sell half the order only"], correct: 1, explain: "Trust the check — if something feels wrong, decline and explain rather than talking yourself into it." },
+      { q: "What is the risk of checking only one thing (like just the date of birth) on an ID?", opts: ["There's no risk, one check is enough","A single detail can be misleading on its own, missing signs of a fake or mismatched ID","It takes too long to check more than one thing","It's not allowed under Challenge 25"], correct: 1, explain: "A single check can miss a fake or mismatched ID — the combination of checks is what matters." }
+    ]
   },
   {
     title: "Refusing a sale with confidence",
-    meta: "4 min",
+    meta: "8 min",
+    image: "images/lesson-5.jpg",
+    imageAlt: "A customer paying a till operator at a shop counter",
     lead: "A refusal goes smoothly when it's framed as policy, not personal judgement: \"I'm sorry, I can't sell this without valid ID\" — said calmly, the same way every time.",
     body: [
       "Most customers accept this without issue. If someone pushes back, stay calm and repeat the policy rather than getting drawn into a debate about how old they look. You're not required to justify your judgement in the moment — the policy applies regardless.",
-      "If a customer becomes aggressive, threatening, or refuses to leave the till area, that's the point to step back and involve a colleague or manager rather than continue the conversation alone. If you ever feel unsafe, it's always right to call the police — no sale is worth putting yourself at risk over."
+      "If a customer becomes aggressive, threatening, or refuses to leave the till area, that's the point to step back and involve a colleague or manager rather than continue the conversation alone. If you ever feel unsafe, it's always right to call the police — no sale is worth putting yourself at risk over.",
+      "However the refusal goes, make a mental note (or better, write it down straight after) of what was asked for, roughly when, and why it was declined. That record matters more than it might feel like in the moment."
     ],
     callout: "<strong>Keep it about the policy, not the person.</strong> \"I can't sell this without ID\" lands very differently to \"I don't believe you're old enough.\"",
-    question: "A customer gets annoyed when asked for ID and says \"I get served everywhere else.\" What's the best response?",
-    options: [
-      { text: "Serve them anyway to avoid a scene", correct: false },
-      { text: "Calmly repeat that it's store policy for anyone who looks under 25, no exceptions", correct: true },
-      { text: "Tell them they clearly look underage", correct: false }
-    ],
-    fbCorrect: "Right. Staying calm and repeating the policy — without debating their appearance — is what keeps the interaction professional and consistent.",
-    fbIncorrect: "Not quite. Serving them to avoid conflict undermines the whole policy, and debating how old they look only escalates things. Repeat the policy calmly instead."
+    quiz: [
+      { q: "What's the recommended way to phrase a refusal?", opts: ["\"I don't think you're old enough\"","\"I'm sorry, I can't sell this without valid ID\"","\"Ask someone else to buy it for you\"","\"Store policy is silly but I have to ask\""], correct: 1, explain: "Framing it as policy, said calmly, keeps the interaction professional and consistent." },
+      { q: "Why is framing a refusal around policy (not personal judgement) better?", opts: ["It sounds more official on camera","It avoids a debate about the customer's appearance and keeps things consistent","It's required by insurance wording","It makes the refusal reversible later"], correct: 1, explain: "Keeping it about policy avoids debating appearance and keeps enforcement consistent." },
+      { q: "A customer says \"I get served everywhere else\" after being asked for ID. Best response?", opts: ["Serve them to avoid an awkward scene","Calmly repeat that it's store policy for anyone who looks under 25","Tell them they clearly look underage","Ask a manager to serve them instead"], correct: 1, explain: "Calmly repeating the policy — without debating their appearance — is the professional response." },
+      { q: "If a customer becomes aggressive during a refusal, what should you do?", opts: ["Keep arguing until they back down","Step back and involve a colleague or manager","Serve them quickly just to end the interaction","Follow them to their car to keep discussing it"], correct: 1, explain: "Step back and get support rather than continuing the conversation alone." },
+      { q: "When is it appropriate to call the police during a refusal?", opts: ["Never, it's an overreaction for a shop refusal","If you ever feel unsafe or threatened","Only if the customer physically enters the till area","Only with head office's prior approval"], correct: 1, explain: "It's always right to call the police if you feel unsafe — no sale is worth the risk." },
+      { q: "What should you avoid saying during a refusal?", opts: ["\"It's store policy\"","\"I can't sell this without ID\"","\"I don't believe you're old enough\"","\"I'm sorry about that\""], correct: 2, explain: "Debating someone's appearance escalates things — keep it about policy, not personal judgement." },
+      { q: "Why shouldn't you debate how old a customer looks?", opts: ["It's rude to discuss appearance in public","Debating appearance escalates the situation and isn't the actual standard being applied — ID is","Store policy forbids discussing age entirely","It wastes till time only"], correct: 1, explain: "The standard is the ID check, not an opinion about appearance — debating it only escalates things." },
+      { q: "What's worth doing immediately after any refusal?", opts: ["Nothing further is needed","Noting down what happened, for the refusals register","Apologising again to the customer","Reporting it to Trading Standards directly"], correct: 1, explain: "A quick note straight after a refusal feeds directly into the store's refusals register." },
+      { q: "Is a staff member required to justify their judgement to the customer in the moment?", opts: ["Yes, always explain your full reasoning","No — the policy applies regardless of a justification being given","Only if the customer asks nicely","Only if a manager is present"], correct: 1, explain: "The policy applies regardless — staff aren't required to justify their judgement in the moment." },
+      { q: "What's the best overall approach to keep a refusal professional?", opts: ["Stay calm, keep it about policy, get support if it escalates","Get defensive to show you're serious","Serve a smaller portion instead of refusing entirely","Let the customer decide if the policy applies to them"], correct: 0, explain: "Calm, policy-focused, and ready to get support if needed — that's what keeps a refusal professional." }
+    ]
   },
   {
     title: "Proxy sales — buying alcohol for someone else",
-    meta: "3 min",
+    meta: "7 min",
+    image: "images/lesson-6.jpg",
+    imageAlt: "A shopping bag being carried on a street, representing a purchase handed on to someone else",
     lead: "A proxy sale is when an adult buys alcohol on behalf of someone under 18 — and it's just as illegal as selling to them directly.",
     body: [
       "It's not always obvious, but a few situations are worth being alert to: an adult buying while a group of teenagers wait outside or nearby, someone buying a single item that doesn't match their usual pattern, or a purchase that seems clearly intended for someone else entirely.",
-      "You can't refuse a sale to an adult purely on suspicion without good reason — but if the signs are there, it's worth trusting that instinct and using judgement, the same way you would with a direct underage sale."
+      "You can't refuse a sale to an adult purely on suspicion without good reason — but if the signs are there, it's worth trusting that instinct and using judgement, the same way you would with a direct underage sale.",
+      "The same instinct applies whenever the details don't add up — not just alcohol. If something about a purchase makes a proxy sale feel likely, it's worth pausing rather than serving on autopilot."
     ],
     callout: "<strong>Worth remembering:</strong> the law treats knowingly facilitating a proxy sale the same as selling to a minor directly.",
-    question: "An adult is buying a bottle of vodka while a group of teenagers wait just outside the shop. What should cross your mind?",
-    options: [
-      { text: "Nothing — only the person actually buying matters legally", correct: false },
-      { text: "This could be a proxy sale, and it's worth using judgement about whether to raise it", correct: true },
-      { text: "It's fine as long as the adult pays with their own card", correct: false }
-    ],
-    fbCorrect: "Right. It doesn't automatically mean it's a proxy sale, but the situation is exactly the kind worth paying attention to and using judgement on.",
-    fbIncorrect: "Not quite. Who's physically making the purchase doesn't settle it — a proxy sale is about who the alcohol is really for."
+    quiz: [
+      { q: "What is a \"proxy sale\"?", opts: ["A sale made using a proxy card reader","An adult buying alcohol on behalf of someone under 18","A sale processed by head office remotely","A discounted bulk sale"], correct: 1, explain: "A proxy sale is an adult buying alcohol on behalf of someone underage." },
+      { q: "Is facilitating a proxy sale treated the same as selling directly to a minor?", opts: ["No, it's a lesser offence","Yes — the law treats knowingly facilitating it the same way","Only if the adult admits it","Only if it's alcohol, not other products"], correct: 1, explain: "Knowingly facilitating a proxy sale carries the same legal weight as a direct underage sale." },
+      { q: "An adult buys a bottle of vodka while teenagers wait just outside. What should cross your mind?", opts: ["Nothing — only the buyer's age matters legally","This could be a proxy sale, worth using judgement about","It's fine as long as they pay by card","Refuse automatically without a word"], correct: 1, explain: "It doesn't automatically mean it's a proxy sale, but it's exactly the kind of situation worth noticing." },
+      { q: "Can you refuse a sale to an adult purely on suspicion, without any supporting reason?", opts: ["Yes, refuse any adult you're unsure about","Not purely on suspicion — but signs worth noticing should still prompt judgement","No, adults can never be refused","Only if a manager pre-approves it"], correct: 1, explain: "Suspicion alone isn't enough to refuse, but real signs are worth using judgement on." },
+      { q: "Which of these is a sign worth being alert to?", opts: ["An adult buying their usual weekly shop","A purchase that clearly doesn't match the buyer's usual pattern, alongside other signs","Any adult buying alcohol at all","A customer using contactless payment"], correct: 1, explain: "An unusual purchase pattern, alongside other signs, is worth paying attention to." },
+      { q: "Does it matter who is physically handing over the payment in a proxy sale?", opts: ["Yes, that's all that matters legally","Not entirely — a proxy sale is about who the alcohol is really for","Yes, only the card holder's age matters","No, payment method decides it"], correct: 1, explain: "A proxy sale is about who the alcohol is really intended for, not just who's paying." },
+      { q: "What's the best response if you suspect a proxy sale but aren't certain?", opts: ["Ignore it, since you can't be sure","Use judgement — you're not required to serve if something feels wrong","Always refuse immediately without conversation","Ask the teenagers outside directly"], correct: 1, explain: "You're not required to serve if something feels wrong — use judgement rather than ignoring it." },
+      { q: "Does the \"proxy sale\" concept apply only to alcohol?", opts: ["Yes, only alcohol","No — the same idea applies to other age-restricted products too","Only to tobacco","Only to fireworks"], correct: 1, explain: "The same idea — someone buying on behalf of someone underage — applies to other age-restricted products too." },
+      { q: "Why can't a store simply ignore proxy sales as \"not their problem\"?", opts: ["It can — only the adult buyer is ever responsible","Knowingly facilitating one carries the same legal risk as a direct underage sale","It's only a reputational issue, not a legal one","It only matters if it's caught on camera"], correct: 1, explain: "Knowingly facilitating a proxy sale carries real legal risk for the store, not just reputational risk." },
+      { q: "What's a reasonable first step if you're suspicious about a purchase?", opts: ["Accuse the customer of buying for someone underage","Pause, use judgement, and decide whether to raise it or decline","Call the police immediately in every case","Serve quickly to avoid confrontation"], correct: 1, explain: "Pausing to use judgement is the reasonable first step, rather than accusing or serving on autopilot." }
+    ]
   },
   {
     title: "Other age-restricted products",
-    meta: "3 min",
+    meta: "7 min",
+    image: "images/lesson-7.jpg",
+    imageAlt: "A UK corner shop sign advertising kitchenware, tobacco, phones and vapes",
     lead: "Many stores apply the same Challenge 25 standard beyond alcohol — to tobacco, vapes and e-cigarettes, fireworks, knives, and lottery products.",
     body: [
       "In England and Wales this is generally a voluntary extension of store policy for products other than alcohol. In Scotland, age verification for alcohol, tobacco, and vapes is a legal requirement, not just good practice — so the standard there carries more weight than a store policy choice.",
-      "Whichever products your store applies it to, the same core habit applies: check ID the same way, every time, for anyone who looks under 25."
+      "Whichever products your store applies it to, the same core habit applies: check ID the same way, every time, for anyone who looks under 25.",
+      "Fireworks and knives carry their own age restrictions (18) with serious penalties for retailers who get it wrong, and it's also illegal to sell National Lottery products, including scratchcards, to anyone under 18. None of these follow the exact same rules as alcohol, so it's worth knowing your own store's specific list rather than assuming."
     ],
     callout: "<strong>Know your store's list.</strong> Check with your manager exactly which products at your store carry a Challenge 25 requirement.",
-    question: "In Scotland, is age verification for tobacco and vapes voluntary or a legal requirement?",
-    options: [
-      { text: "Voluntary, the same as in England and Wales", correct: false },
-      { text: "A legal requirement", correct: true },
-      { text: "Only required for alcohol, not tobacco or vapes", correct: false }
-    ],
-    fbCorrect: "Right. Scotland treats age verification for alcohol, tobacco, and vapes as a legal requirement, not a voluntary retailer policy.",
-    fbIncorrect: "Not quite. In Scotland this isn't just store policy — it's a legal requirement covering alcohol, tobacco, and vapes."
+    quiz: [
+      { q: "Beyond alcohol, which other products commonly carry a Challenge 25 style check?", opts: ["Only fresh food","Tobacco, vapes, fireworks, knives, and lottery products","Only newspapers","Only own-brand products"], correct: 1, explain: "Tobacco, vapes, fireworks, knives, and lottery products commonly carry the same age-check standard." },
+      { q: "In Scotland, is age verification for tobacco and vapes voluntary or a legal requirement?", opts: ["Voluntary, same as England and Wales","A legal requirement","Only required for alcohol, not tobacco or vapes","Not regulated at all"], correct: 1, explain: "Scotland treats age verification for alcohol, tobacco, and vapes as a legal requirement, not voluntary policy." },
+      { q: "In England and Wales, applying Challenge 25 to non-alcohol products is generally what?", opts: ["A legal requirement identical to alcohol","A voluntary extension of store policy","Illegal to do","Required only on weekends"], correct: 1, explain: "In England and Wales it's generally a voluntary retailer policy choice for non-alcohol products." },
+      { q: "What is the minimum age to buy National Lottery products, including scratchcards?", opts: ["16","18","21","There is no minimum age"], correct: 1, explain: "It's illegal to sell National Lottery products, including scratchcards, to anyone under 18." },
+      { q: "What kind of products are bladed articles, for age-restriction purposes?", opts: ["Only kitchen knives sold in sets","Any knife, blade, or sharp article made or adapted to cause injury, including many everyday tools","Only hunting knives","Only knives sold online"], correct: 1, explain: "A bladed article covers a wide range of everyday tools, not just obvious weapons." },
+      { q: "What's the consequence for a retailer who sells fireworks or bladed articles to someone underage?", opts: ["No real consequence, these are minor rules","Serious penalties, similar in spirit to underage alcohol sales","A warning letter only, always","Loss of lottery terminal only"], correct: 1, explain: "Selling fireworks or bladed articles to someone underage carries serious penalties." },
+      { q: "If you're not sure whether a product at your store carries an age-restriction, what should you do?", opts: ["Assume it doesn't and sell it","Check with your manager exactly which products carry the requirement","Apply Challenge 25 to everything without checking","Only check for alcohol and ignore the rest"], correct: 1, explain: "Check your store's specific list with your manager rather than assuming either way." },
+      { q: "Does the same core habit (checking ID the same way, every time) apply across all age-restricted products?", opts: ["No, each product needs a completely different approach","Yes — the core habit stays the same even if the legal basis differs","Only for alcohol","Only for tobacco"], correct: 1, explain: "The core habit of consistent ID checking applies across all age-restricted products, whatever the legal basis." },
+      { q: "What happens to a store's National Lottery terminal if underage sales of lottery products occur?", opts: ["Nothing, it's unrelated to the terminal","It can lead to termination of the retailer agreement and removal of the terminal","It gets a temporary discount","It automatically upgrades"], correct: 1, explain: "Underage lottery sales can lead to the retailer agreement being terminated and the terminal removed." },
+      { q: "Why might a store choose to apply Challenge 25 to products beyond what the law strictly requires?", opts: ["It's meaningless, so there's no real reason","It builds a consistent staff habit and reduces risk across everything sold","It's required to keep a lottery terminal","It has no effect on due diligence"], correct: 1, explain: "Applying the same standard everywhere builds a consistent habit and reduces risk across the board." }
+    ]
   },
   {
     title: "Recording refusals",
-    meta: "2 min",
+    meta: "6 min",
+    image: "images/lesson-8.jpg",
+    imageAlt: "A hand writing in a notebook, representing a refusals register entry",
     lead: "Every refused sale is worth logging in a refusals register: the date, time, product, reason for refusal, and the staff member's name.",
     body: [
       "It might feel unnecessary when nothing was actually sold, but this record is exactly what a store can show a licensing officer or Trading Standards as evidence that Challenge 25 is genuinely enforced — not just a poster on the wall.",
-      "A consistent refusals register, over time, is one of the strongest things a store can point to if its licence is ever reviewed."
+      "A consistent refusals register, over time, is one of the strongest things a store can point to if its licence is ever reviewed.",
+      "A good entry doesn't need to be long — date, time, product, why it was declined, and who declined it is enough. What matters is that it happens every time, not just when something feels particularly risky. Store managers and area teams often review these logs periodically, which is exactly the point: it should show a genuine pattern of enforcement, not just an entry from the one time a licensing officer visited."
     ],
     callout: "<strong>If it isn't logged, it's hard to prove it happened.</strong> Together with Challenge 25 and proper ID checks, a consistent refusals register is what makes up the store's due diligence — the difference between a fine of up to £20,000 and a defence that holds up.",
-    question: "Why does it matter to log a refused sale, even though nothing was actually sold?",
-    options: [
-      { text: "It's optional, but nice to have for records", correct: false },
-      { text: "It's evidence the store's Challenge 25 policy is genuinely enforced, which matters if the licence is ever reviewed", correct: true },
-      { text: "It's only needed if the customer makes a complaint", correct: false }
-    ],
-    fbCorrect: "Right. A consistent log of refusals is one of the clearest ways a store can demonstrate real enforcement, not just a policy on paper.",
-    fbIncorrect: "Not quite. It's not just for complaints or nice-to-have record keeping — it's the evidence a store relies on if its licence is ever reviewed."
+    quiz: [
+      { q: "What five details should a refusals register capture?", opts: ["Just the date and product","Date, time, product, reason for refusal, and staff member's name","Only the customer's description","Just a tally count of refusals"], correct: 1, explain: "A good entry captures date, time, product, reason for refusal, and the staff member's name." },
+      { q: "Why log a refusal even though nothing was sold?", opts: ["It's optional but a nice record to have","It's evidence the store's Challenge 25 policy is genuinely enforced","Only needed if the customer complains","Required only for tobacco refusals"], correct: 1, explain: "The log is evidence of genuine enforcement — exactly what a licensing review looks for." },
+      { q: "What term describes the combination of Challenge 25, ID checks, and refusal logging together?", opts: ["Store overhead","Due diligence","Loss prevention only","Customer service policy"], correct: 1, explain: "Together, these form the store's due diligence — proof of reasonable precautions taken." },
+      { q: "Who might review a store's refusals register?", opts: ["Nobody ever reviews it","A licensing officer or Trading Standards, and store management","Only head office marketing","Only the till manufacturer"], correct: 1, explain: "Licensing officers, Trading Standards, and store management may all review the register." },
+      { q: "What's the risk of a store having Challenge 25 signage but no consistent refusals log?", opts: ["No risk, signage is enough on its own","It looks like a poster policy rather than something genuinely enforced","It automatically voids the store's licence","It only affects tobacco sales"], correct: 1, explain: "Without a log, the policy risks looking like a poster on the wall rather than genuine enforcement." },
+      { q: "How detailed does a good refusal log entry need to be?", opts: ["A full written statement each time","Short but consistent — date, time, product, reason, staff name","Only needed once a month as a summary","A photo of the customer"], correct: 1, explain: "Short, consistent entries every time matter more than long, occasional ones." },
+      { q: "What's the real value of a consistent refusals register over time?", opts: ["It has no real value beyond record-keeping","It's one of the strongest things a store can point to if its licence is reviewed","It only matters for insurance claims","It replaces the need for ID checks"], correct: 1, explain: "Over time, a consistent register becomes one of the store's strongest pieces of evidence." },
+      { q: "True or false: a refusals register only matters if a sale was actually attempted and stopped mid-transaction.", opts: ["True","False — it should log every refusal, however it was declined","True, only for alcohol","False, only completed sales need logging"], correct: 1, explain: "Every refusal is worth logging, not just ones that got partway through a transaction." },
+      { q: "What does a consistent refusals register help prove, together with proper ID checks?", opts: ["That the store gets a lot of underage customers","That all reasonable precautions were genuinely taken — the store's due diligence","That staff are unfriendly","That the store should raise its prices"], correct: 1, explain: "Together, they help prove the store's due diligence — genuine, reasonable precautions taken." },
+      { q: "Roughly how often should refusals be logged?", opts: ["Every time a sale is refused","Only during licensing officer visits","Once a week as a summary","Never — verbal reporting to a manager is enough"], correct: 0, explain: "Every refusal should be logged, every time — consistency is what makes the register meaningful." }
+    ]
   }
 ];
 
+const CERT_PASS_RATE = 80;
 let current = 0;
-const completed = new Set();
-const attempted = new Set();
+const passedModules = new Set();
+const firstAttemptResult = {};
 let streak = 0;
 let bestStreak = 0;
-let firstTryCorrect = 0;
-const CERT_PASS_RATE = 80;
+let quizAnswers = [];
+let quizSubmitted = false;
 
 function renderSidebar(){
   const list = document.getElementById('sidebar-list');
@@ -356,13 +424,13 @@ function renderSidebar(){
     let markerClass = '';
     let markerContent = i + 1;
     if (i === current){ markerClass = 'current'; }
-    else if (completed.has(i)){ markerClass = 'done'; markerContent = '✓'; }
+    else if (passedModules.has(i)){ markerClass = 'done'; markerContent = '✓'; }
     return `
       <div class="lesson-item ${i===current?'active':''}" onclick="goTo(${i})">
         <div class="l-marker ${markerClass}">${markerContent}</div>
         <div>
           <div class="l-title">${l.title}</div>
-          <div class="l-meta">${l.meta}${completed.has(i) ? ' · Complete' : (i===current ? ' · In progress' : '')}</div>
+          <div class="l-meta">${l.meta}${passedModules.has(i) ? ' · Passed' : (i===current ? ' · In progress' : '')}</div>
         </div>
       </div>`;
   }).join('');
@@ -374,32 +442,37 @@ function renderProgress(){
   document.getElementById('progress-label').textContent = `${current+1} of ${lessons.length}`;
 }
 
+function renderStreak(){
+  const badge = document.getElementById('streak-badge');
+  document.getElementById('streak-count').textContent = streak;
+  badge.classList.toggle('zero', streak === 0);
+  badge.classList.remove('pop');
+  void badge.offsetWidth;
+  badge.classList.add('pop');
+}
+
 function renderContent(){
   if (current >= lessons.length){
-    const perfect = bestStreak === lessons.length;
+    const passedFirstTry = lessons.filter((_,i) => firstAttemptResult[i] && firstAttemptResult[i].passed).length;
+    const perfect = passedFirstTry === lessons.length;
+    const avgScore = Math.round(lessons.reduce((sum,_,i) => sum + (firstAttemptResult[i] ? firstAttemptResult[i].score : 0), 0) / lessons.length);
     const streakLine = perfect
-      ? `<div class="streak-summary"><span class="flame">🔥</span> Perfect run — all ${lessons.length} first try</div>`
-      : `<div class="streak-summary"><span class="flame">🔥</span> Best streak this run: ${bestStreak} in a row, first try</div>`;
+      ? `<div class="streak-summary"><span class="flame">🔥</span> Perfect run — passed all ${lessons.length} module tests first try</div>`
+      : `<div class="streak-summary"><span class="flame">🔥</span> Passed ${passedFirstTry} of ${lessons.length} module tests on the first try</div>`;
     const subLine = perfect
-      ? `Every practice question, right the first time. That's the whole module, no second guesses.`
-      : `You got through all ${lessons.length} lessons in Challenge 25 &amp; Acceptable ID — this run's longest first-try streak is above.`;
+      ? `Every module test cleared on the first attempt, at 80% or higher. That's the whole course.`
+      : `You've passed all ${lessons.length} module tests overall (some after a retry) — average first-attempt score: ${avgScore}%.`;
 
-    const passRate = Math.round((firstTryCorrect/lessons.length)*100);
-    const passed = passRate >= CERT_PASS_RATE;
-    const certBlock = passed ? `
+    const certBlock = `
       <div class="cert-box">
         <div class="cert-box-title">Your certificate is ready</div>
-        <p class="cert-box-sub">First-try accuracy: ${passRate}% (needs ${CERT_PASS_RATE}%+). Enter your details to download it.</p>
+        <p class="cert-box-sub">Overall first-attempt score: ${avgScore}%. Enter your details to download it.</p>
         <div class="cert-form">
           <input type="text" id="cert-name" placeholder="Your name">
           <input type="text" id="cert-shop" placeholder="Shop / store name">
         </div>
-        <a href="#" class="btn btn-primary" onclick="downloadCertificate(${passRate});return false;">Download certificate ↓</a>
+        <a href="#" class="btn btn-primary" onclick="downloadCertificate(${avgScore});return false;">Download certificate ↓</a>
         <div class="cert-error" id="cert-error"></div>
-      </div>` : `
-      <div class="cert-box cert-locked">
-        <div class="cert-box-title">Certificate locked</div>
-        <p class="cert-box-sub">Certificates need ${CERT_PASS_RATE}%+ first-try accuracy. You're at ${passRate}% (${firstTryCorrect} of ${lessons.length} correct on the first try). Go back through the lessons you missed on the sidebar and answer again to raise it.</p>
       </div>`;
 
     document.getElementById('content').innerHTML = `
@@ -419,9 +492,14 @@ function renderContent(){
   }
 
   const l = lessons[current];
+  quizAnswers = new Array(l.quiz.length).fill(null);
+  quizSubmitted = false;
+  const alreadyPassed = passedModules.has(current);
+
   document.getElementById('content').innerHTML = `
     <span class="lesson-tag">Lesson ${current+1} of ${lessons.length}</span>
     <h1>${l.title}</h1>
+    <div class="lesson-image"><img src="${l.image}" alt="${l.imageAlt}"></div>
     <p class="lead">${l.lead}</p>
     ${l.body.map(p => `<p>${p}</p>`).join('')}
     <div class="callout">
@@ -430,28 +508,103 @@ function renderContent(){
       </div>
       <p>${l.callout}</p>
     </div>
-    <div class="practice">
-      <div class="practice-top"><span>Practice question</span><span>Counts toward your certificate</span></div>
-      <div class="practice-body">
-        <div class="practice-q">${l.question}</div>
-        ${l.options.map((o,i) => `
-          <div class="opt" data-correct="${o.correct}" onclick="answer(this)">
-            <span class="dotc"></span> ${o.text}
+    <div class="quiz-box">
+      <div class="quiz-top"><span>Module test</span><span>${l.quiz.length} questions · ${CERT_PASS_RATE}% to pass</span></div>
+      <div class="quiz-body">
+        ${l.quiz.map((q,qi) => `
+          <div class="quiz-q" data-qi="${qi}">
+            <div class="quiz-q-text">${qi+1}. ${q.q}</div>
+            <div class="quiz-opts">
+              ${q.opts.map((o,oi) => `
+                <div class="qopt" data-oi="${oi}" onclick="selectAnswer(${qi},${oi})">
+                  <span class="qdot"></span>${o}
+                </div>`).join('')}
+            </div>
+            <div class="quiz-explain" id="explain-${qi}"></div>
           </div>`).join('')}
-        <div class="feedback correct" id="fb-correct">${l.fbCorrect}</div>
-        <div class="feedback incorrect" id="fb-incorrect">${l.fbIncorrect}</div>
+        <div id="quiz-result"></div>
+        <a href="#" class="btn btn-primary" id="quiz-submit-btn" onclick="submitQuiz();return false;">Submit test</a>
       </div>
     </div>
     <div class="content-nav">
       <a href="#" class="btn btn-outline" onclick="prevLesson();return false;" ${current===0?'style="visibility:hidden;"':''}>Back</a>
-      <a href="#" class="btn btn-primary" id="continue-btn" onclick="nextLesson();return false;">
-        ${current === lessons.length-1 ? 'Finish module →' : 'Continue to Lesson ' + (current+2) + ' →'}
-      </a>
+      <div>
+        <a href="#" class="btn btn-primary ${alreadyPassed ? '' : 'btn-locked'}" id="continue-btn" onclick="nextLesson();return false;">
+          ${current === lessons.length-1 ? 'Finish course →' : 'Continue to Lesson ' + (current+2) + ' →'}
+        </a>
+        ${alreadyPassed ? '' : '<div class="continue-note">Score ' + CERT_PASS_RATE + '%+ on the test to continue</div>'}
+      </div>
     </div>
   `;
 }
 
-function downloadCertificate(passRate){
+function selectAnswer(qi, oi){
+  if (quizSubmitted) return;
+  quizAnswers[qi] = oi;
+  document.querySelectorAll(`.quiz-q[data-qi="${qi}"] .qopt`).forEach(el => {
+    el.classList.toggle('qopt-selected', parseInt(el.dataset.oi) === oi);
+  });
+}
+
+function submitQuiz(){
+  const l = lessons[current];
+  if (quizAnswers.includes(null)){
+    document.getElementById('quiz-result').innerHTML = `<div class="quiz-warn">Answer all ${l.quiz.length} questions before submitting.</div>`;
+    return;
+  }
+  quizSubmitted = true;
+  let correctCount = 0;
+  l.quiz.forEach((q, qi) => {
+    const isRight = quizAnswers[qi] === q.correct;
+    if (isRight) correctCount++;
+    document.querySelectorAll(`.quiz-q[data-qi="${qi}"] .qopt`).forEach(optEl => {
+      optEl.style.pointerEvents = 'none';
+      const oi = parseInt(optEl.dataset.oi);
+      if (oi === q.correct) optEl.classList.add('qopt-correct');
+      else if (oi === quizAnswers[qi]) optEl.classList.add('qopt-wrong');
+    });
+    const explainEl = document.getElementById('explain-'+qi);
+    explainEl.textContent = q.explain;
+    explainEl.classList.add('show');
+  });
+
+  const score = Math.round((correctCount / l.quiz.length) * 100);
+  const passed = score >= CERT_PASS_RATE;
+  if (passed) passedModules.add(current);
+
+  if (!firstAttemptResult[current]){
+    firstAttemptResult[current] = { passed, score };
+    if (passed){
+      streak++;
+      if (streak > bestStreak) bestStreak = streak;
+    } else {
+      streak = 0;
+    }
+    renderStreak();
+  }
+
+  document.getElementById('quiz-result').innerHTML = passed
+    ? `<div class="quiz-pass">✓ ${correctCount}/${l.quiz.length} — ${score}% — Passed</div>`
+    : `<div class="quiz-fail">${correctCount}/${l.quiz.length} — ${score}% — below the ${CERT_PASS_RATE}% pass mark. <a onclick="retryQuiz();return false;">Retry the test</a></div>`;
+  document.getElementById('quiz-submit-btn').style.display = 'none';
+
+  if (passed){
+    const contBtn = document.getElementById('continue-btn');
+    contBtn.classList.remove('btn-locked');
+    const note = document.querySelector('.continue-note');
+    if (note) note.remove();
+  }
+
+  renderSidebar();
+}
+
+function retryQuiz(){
+  renderContent();
+  const box = document.querySelector('.quiz-box');
+  if (box) box.scrollIntoView({ block: 'start' });
+}
+
+function downloadCertificate(score){
   const nameEl = document.getElementById('cert-name');
   const shopEl = document.getElementById('cert-shop');
   const errEl = document.getElementById('cert-error');
@@ -493,7 +646,7 @@ function downloadCertificate(passRate){
     <h1>Challenge 25 &amp; Acceptable ID</h1>
     <div class="name">${esc(name)}</div>
     <div class="shop">${esc(shop)}</div>
-    <div class="meta">Completed <strong>${date}</strong> &middot; First-try accuracy <strong>${passRate}%</strong></div>
+    <div class="meta">Completed <strong>${date}</strong> &middot; Passed all 8 module tests at 80%+ &middot; Overall first-attempt score <strong>${score}%</strong></div>
     <div class="disclaimer">This certificate confirms completion of Checkpoint's Challenge 25 &amp; Acceptable ID training. It is a non-accredited training resource, not a legal qualification, and is not a substitute for the official Level 2 Award for Personal Licence Holders (APLH).</div>
   </div>
 </body></html>`;
@@ -509,55 +662,12 @@ function downloadCertificate(passRate){
   URL.revokeObjectURL(url);
 }
 
-function answer(el){
-  document.querySelectorAll('.opt').forEach(o=>{
-    o.classList.remove('selected-correct','selected-wrong');
-    o.style.pointerEvents='none';
-  });
-  document.getElementById('fb-correct').classList.remove('show');
-  document.getElementById('fb-incorrect').classList.remove('show');
-
-  const isCorrect = el.dataset.correct === 'true';
-  if (isCorrect){
-    el.classList.add('selected-correct');
-    document.getElementById('fb-correct').classList.add('show');
-  } else {
-    el.classList.add('selected-wrong');
-    document.getElementById('fb-incorrect').classList.add('show');
-    document.querySelectorAll('.opt').forEach(o=>{
-      if (o.dataset.correct === 'true') o.classList.add('selected-correct');
-    });
-  }
-  if (!attempted.has(current)){
-    attempted.add(current);
-    if (isCorrect){
-      streak++;
-      if (streak > bestStreak) bestStreak = streak;
-      firstTryCorrect++;
-    } else {
-      streak = 0;
-    }
-    renderStreak();
-  }
-  completed.add(current);
-  renderSidebar();
-}
-
-function renderStreak(){
-  const badge = document.getElementById('streak-badge');
-  document.getElementById('streak-count').textContent = streak;
-  badge.classList.toggle('zero', streak === 0);
-  badge.classList.remove('pop');
-  void badge.offsetWidth;
-  badge.classList.add('pop');
-}
-
 function goTo(i){
   current = i;
   renderAll();
 }
 function nextLesson(){
-  completed.add(current);
+  if (!passedModules.has(current)) return;
   current++;
   renderAll();
 }
