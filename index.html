@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkpoint — Challenge 25 training for UK retail teams</title>
+<title id="page-title">Checkpoint — Challenge 25 training for UK retail teams</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -75,7 +75,7 @@
   .nav-links{display:flex;gap:36px;align-items:center;}
   .nav-links a{font-size:15px;font-weight:500;color:var(--ink-soft);transition:color .15s;}
   .nav-links a:hover{color:var(--ink);}
-  .nav-cta{display:flex;align-items:center;gap:22px;}
+  .nav-cta{display:flex;align-items:center;gap:16px;}
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:13px 24px;border-radius:999px;
@@ -96,6 +96,20 @@
     background:#fff;color:var(--ink);border:1.5px solid var(--line);
   }
   .btn-sm{padding:10px 18px;font-size:14px;}
+
+  /* ---------- LANGUAGE TOGGLE ---------- */
+  .lang-toggle{
+    display:flex;background:var(--cream-deep);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;
+  }
+  .lang-btn{
+    border:none;background:transparent;padding:7px 13px;border-radius:999px;
+    font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;letter-spacing:.02em;
+  }
+  .lang-btn.active{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(34,36,59,.15);}
+  #lang-caveat{
+    display:none;text-align:center;font-size:12px;color:var(--ink-soft);
+    background:var(--cream-deep);padding:8px 16px;
+  }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -396,6 +410,8 @@
 </head>
 <body>
 
+<div id="lang-caveat">Cyfieithiad Cymraeg wedi'i gynhyrchu gan AI ac heb ei adolygu gan siaradwr Cymraeg proffesiynol.</div>
+
 <header>
   <nav class="wrap">
     <div class="logo">
@@ -405,12 +421,16 @@
       Checkpoint
     </div>
     <div class="nav-links">
-      <a href="#course">The course</a>
-      <a href="#how-it-works">How it works</a>
-      <a href="#faq">FAQ</a>
+      <a href="#course" data-cy="Y cwrs">The course</a>
+      <a href="#how-it-works" data-cy="Sut mae'n gweithio">How it works</a>
+      <a href="#faq" data-cy="Cwestiynau Cyffredin">FAQ</a>
     </div>
     <div class="nav-cta">
-      <a href="checkpoint-course-player-full.html" class="btn btn-primary btn-sm">Start the course</a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button type="button" class="lang-btn" data-lang="cy" onclick="setLang('cy')">CY</button>
+      </div>
+      <a href="checkpoint-course-player-full.html" class="btn btn-primary btn-sm" data-cy="Dechrau'r cwrs">Start the course</a>
     </div>
   </nav>
 </header>
@@ -418,14 +438,14 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <div class="eyebrow"><span class="dot"></span> Covers the Licensing Act 2003 &amp; Challenge 25</div>
-      <h1 class="hero-title">Licensing training your staff <span class="hl-italic">actually</span> <span class="hl-underline">remember.</span></h1>
-      <p class="hero-sub">One focused course — Challenge 25 &amp; Acceptable ID — built as short, scenario-based lessons that get your team confident on age verification and refusals.</p>
+      <div class="eyebrow"><span class="dot"></span> <span data-cy="Yn cwmpasu Deddf Trwyddedu 2003 a Challenge 25">Covers the Licensing Act 2003 &amp; Challenge 25</span></div>
+      <h1 class="hero-title" data-cy="Hyfforddiant trwyddedu y bydd eich staff <span class='hl-italic'>wir</span> yn ei <span class='hl-underline'>gofio</span>.">Licensing training your staff <span class="hl-italic">actually</span> <span class="hl-underline">remember.</span></h1>
+      <p class="hero-sub" data-cy="Un cwrs canolbwyntiedig — Challenge 25 ac ID Derbyniol — wedi'i adeiladu fel gwersi byr, seiliedig ar senarios sy'n rhoi hyder i'ch tîm ynghylch gwirio oedran a gwrthod gwerthiant.">One focused course — Challenge 25 &amp; Acceptable ID — built as short, scenario-based lessons that get your team confident on age verification and refusals.</p>
       <div class="hero-actions">
-        <a href="checkpoint-course-player-full.html" class="btn btn-primary">Start the course</a>
-        <a href="checkpoint-course-player-full.html" class="btn btn-outline">See a sample lesson →</a>
+        <a href="checkpoint-course-player-full.html" class="btn btn-primary" data-cy="Dechrau'r cwrs">Start the course</a>
+        <a href="checkpoint-course-player-full.html" class="btn btn-outline" data-cy="Gweld gwers enghreifftiol →">See a sample lesson →</a>
       </div>
-      <p class="hero-note">Built for UK retailers · Free to try · No account required</p>
+      <p class="hero-note" data-cy="Wedi'i adeiladu ar gyfer manwerthwyr y DU · Am ddim i'w drio · Dim angen cyfrif">Built for UK retailers · Free to try · No account required</p>
     </div>
     <div class="hero-art">
       <div class="blob blob-main"></div>
@@ -433,23 +453,23 @@
         <div class="card-icon ic-mint">
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <div><div class="t1">Challenge 25 module</div><div class="t2">8 lessons</div></div>
+        <div><div class="t1" data-cy="Modiwl Challenge 25">Challenge 25 module</div><div class="t2" data-cy="8 gwers">8 lessons</div></div>
       </div>
       <div class="card-float card-2">
         <div class="card-icon ic-peach">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L14.5 9.5L21 10L16 14.5L17.5 21L12 17.5L6.5 21L8 14.5L3 10L9.5 9.5L12 3Z" fill="#8A4B1E"/></svg>
         </div>
-        <div><div class="t1">Practice questions</div><div class="t2">After every lesson</div></div>
+        <div><div class="t1" data-cy="Cwestiynau ymarfer">Practice questions</div><div class="t2" data-cy="Ar ôl pob gwers">After every lesson</div></div>
       </div>
       <div class="card-float card-3">
         <div class="card-icon ic-lav">
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H14M4 18H17" stroke="#4E3FD1" stroke-width="2.4" stroke-linecap="round"/></svg>
         </div>
-        <div><div class="t1">Proxy sales &amp; refusals</div><div class="t2">Real till scenarios</div></div>
+        <div><div class="t1" data-cy="Gwerthiannau dirprwyol a gwrthodiadau">Proxy sales &amp; refusals</div><div class="t2" data-cy="Senarios til go iawn">Real till scenarios</div></div>
       </div>
       <div class="ring-badge">
         <div class="pct">25<span style="font-size:12px;">m</span></div>
-        <div class="lbl">Start to finish</div>
+        <div class="lbl" data-cy="O'r dechrau i'r diwedd">Start to finish</div>
       </div>
     </div>
   </div>
@@ -458,13 +478,13 @@
 <section class="feature">
   <div class="wrap">
     <div>
-      <span class="feature-tag">Learn</span>
-      <h2>Written around real licensing rules, not generic compliance filler.</h2>
-      <p>The course maps to specific duties under the Licensing Act 2003 — sale to a minor, proxy purchasing, acceptable forms of ID — explained in plain English with examples from real shop floors, not legal jargon.</p>
+      <span class="feature-tag" data-cy="Dysgu">Learn</span>
+      <h2 data-cy="Wedi'i ysgrifennu o amgylch rheolau trwyddedu go iawn, nid llenwad cydymffurfio cyffredinol.">Written around real licensing rules, not generic compliance filler.</h2>
+      <p data-cy="Mae'r cwrs yn cyd-fynd â dyletswyddau penodol o dan Ddeddf Trwyddedu 2003 — gwerthu i berson dan oed, prynu dirprwyol, mathau derbyniol o ID — wedi'u hesbonio mewn iaith blaen, gydag enghreifftiau o loriau siopau go iawn, nid jargon cyfreithiol.">The course maps to specific duties under the Licensing Act 2003 — sale to a minor, proxy purchasing, acceptable forms of ID — explained in plain English with examples from real shop floors, not legal jargon.</p>
       <ul class="feature-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Challenge 25 &amp; acceptable ID, front to back</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>8 short lessons with practice questions built in</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Plain-language first, legal term second</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Challenge 25 ac ID derbyniol, o'r dechrau i'r diwedd">Challenge 25 &amp; acceptable ID, front to back</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="8 gwers fer gyda chwestiynau ymarfer wedi'u cynnwys">8 short lessons with practice questions built in</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Iaith blaen yn gyntaf, term cyfreithiol yn ail">Plain-language first, legal term second</span></li>
       </ul>
     </div>
     <div class="visual-panel panel-1">
@@ -476,9 +496,9 @@
           <div class="mock-line w80"></div>
           <div class="mock-line w60"></div>
           <div class="mock-chip-row">
-            <span class="mock-chip chip-a">Licensing Act 2003</span>
+            <span class="mock-chip chip-a" data-cy="Deddf Trwyddedu 2003">Licensing Act 2003</span>
             <span class="mock-chip chip-b">Challenge 25</span>
-            <span class="mock-chip chip-c">Proxy sales</span>
+            <span class="mock-chip chip-c" data-cy="Gwerthiannau dirprwyol">Proxy sales</span>
           </div>
         </div>
       </div>
@@ -489,32 +509,32 @@
 <section class="feature reverse" id="how-it-works">
   <div class="wrap">
     <div>
-      <span class="feature-tag">Practice</span>
-      <h2>Till-side scenarios, not multiple-choice trivia.</h2>
-      <p>Staff practise the actual moment that matters: a customer at the counter, a borderline ID, a refusal that needs to be handled well. Mistakes in the scenario get explained on the spot, so the lesson sticks.</p>
+      <span class="feature-tag" data-cy="Ymarfer">Practice</span>
+      <h2 data-cy="Senarios wrth y til, nid cwestiynau amlddewis ysgafn.">Till-side scenarios, not multiple-choice trivia.</h2>
+      <p data-cy="Mae staff yn ymarfer yr union foment sy'n cyfrif: cwsmer wrth y cownter, ID amwys, gwrthodiad sydd angen ei drin yn dda. Eglurir camgymeriadau yn y senario yn y fan a'r lle, fel bod y wers yn aros.">Staff practise the actual moment that matters: a customer at the counter, a borderline ID, a refusal that needs to be handled well. Mistakes in the scenario get explained on the spot, so the lesson sticks.</p>
       <ul class="feature-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Realistic ID-check &amp; refusal scenarios</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>5–10 minute lessons that fit between customers</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Works on the shop's own phone or tablet</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Senarios gwirio ID a gwrthod gwerthiant realistig">Realistic ID-check &amp; refusal scenarios</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Gwersi 5–10 munud sy'n ffitio rhwng cwsmeriaid">5–10 minute lessons that fit between customers</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Yn gweithio ar ffôn neu dabled y siop ei hun">Works on the shop's own phone or tablet</span></li>
       </ul>
     </div>
     <div class="visual-panel panel-2">
       <div class="panel-stack">
         <div class="id-scenario">
-          <div class="scen-top"><span>Scenario 3 of 6</span><span>⏱ 1:40</span></div>
+          <div class="scen-top"><span data-cy="Senario 3 o 6">Scenario 3 of 6</span><span>⏱ 1:40</span></div>
           <div class="scen-body">
-            <div class="id-q">A customer looks under 25 and hands you a photo of their ID on their phone. What do you do?</div>
-            <div class="id-opt"><span class="dotc"></span> Accept it — the photo is clear enough</div>
-            <div class="id-opt correct"><span class="dotc"></span> Decline the sale — a photo isn't acceptable ID</div>
-            <div class="id-opt"><span class="dotc"></span> Ask a colleague to decide instead</div>
+            <div class="id-q" data-cy="Mae cwsmer yn edrych dan 25 ac yn rhoi llun o'u ID ar eu ffôn i chi. Beth ydych chi'n ei wneud?">A customer looks under 25 and hands you a photo of their ID on their phone. What do you do?</div>
+            <div class="id-opt"><span class="dotc"></span> <span data-cy="Ei dderbyn — mae'r llun yn ddigon clir">Accept it — the photo is clear enough</span></div>
+            <div class="id-opt correct"><span class="dotc"></span> <span data-cy="Gwrthod y gwerthiant — dyw llun ddim yn ID derbyniol">Decline the sale — a photo isn't acceptable ID</span></div>
+            <div class="id-opt"><span class="dotc"></span> <span data-cy="Gofyn i gydweithiwr benderfynu yn lle">Ask a colleague to decide instead</span></div>
           </div>
         </div>
         <div class="signs-card">
-          <div class="signs-title">On genuine ID, staff learn to check</div>
-          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z" stroke="#4E3FD1" stroke-width="1.6" stroke-linejoin="round"/></svg></span>Hologram catches the light &amp; moves</div>
-          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 8V13M12 16H12.01" stroke="#4E3FD1" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#4E3FD1" stroke-width="1.6"/></svg></span>Date of birth actually adds up</div>
-          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3" stroke="#4E3FD1" stroke-width="1.6"/><path d="M5 20C5 16.7 8.1 15 12 15C15.9 15 19 16.7 19 20" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round"/></svg></span>Photo genuinely matches the person</div>
-          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="#4E3FD1" stroke-width="1.6"/></svg></span>Edges &amp; lamination look factory-made</div>
+          <div class="signs-title" data-cy="Ar ID go iawn, mae staff yn dysgu gwirio">On genuine ID, staff learn to check</div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9L16 13.5L17.5 20L12 16.5L6.5 20L8 13.5L3 9L9.5 8.5L12 2Z" stroke="#4E3FD1" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span data-cy="Mae'r hologram yn dal y golau ac yn symud">Hologram catches the light &amp; moves</span></div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 8V13M12 16H12.01" stroke="#4E3FD1" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#4E3FD1" stroke-width="1.6"/></svg></span><span data-cy="Mae'r dyddiad geni yn gwneud synnwyr">Date of birth actually adds up</span></div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3" stroke="#4E3FD1" stroke-width="1.6"/><path d="M5 20C5 16.7 8.1 15 12 15C15.9 15 19 16.7 19 20" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round"/></svg></span><span data-cy="Mae'r llun yn wirioneddol yn cyfateb i'r person">Photo genuinely matches the person</span></div>
+          <div class="signs-row"><span class="signs-ic"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="#4E3FD1" stroke-width="1.6"/></svg></span><span data-cy="Mae'r ymylon a'r lamineiddio yn edrych fel gwaith ffatri">Edges &amp; lamination look factory-made</span></div>
         </div>
       </div>
     </div>
@@ -524,13 +544,13 @@
 <section class="feature">
   <div class="wrap">
     <div>
-      <span class="feature-tag">Finish</span>
-      <h2>A clear finish line, with a record you can point to.</h2>
-      <p>Work through all 8 lessons and wrap up with a completion screen — a simple, honest record that someone has been through the material, not a substitute for formal accreditation.</p>
+      <span class="feature-tag" data-cy="Gorffen">Finish</span>
+      <h2 data-cy="Llinell derfyn glir, gyda chofnod y gallwch gyfeirio ato.">A clear finish line, with a record you can point to.</h2>
+      <p data-cy="Ewch trwy'r 8 gwers i gyd a gorffen gyda sgrin gwblhau — cofnod syml, gonest bod rhywun wedi mynd trwy'r deunydd, nid yn lle achrediad ffurfiol.">Work through all 8 lessons and wrap up with a completion screen — a simple, honest record that someone has been through the material, not a substitute for formal accreditation.</p>
       <ul class="feature-list">
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Progress saved as you move through lessons</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Completion screen at the end of the course</li>
-        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Not accredited — a warm-up, not a replacement for APLH</li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Cynnydd yn cael ei gadw wrth i chi symud trwy'r gwersi">Progress saved as you move through lessons</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Sgrin gwblhau ar ddiwedd y cwrs">Completion screen at the end of the course</span></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-cy="Heb ei achredu — ymarfer cynhesu, nid yn lle APLH">Not accredited — a warm-up, not a replacement for APLH</span></li>
       </ul>
     </div>
     <div class="visual-panel panel-3">
@@ -542,7 +562,7 @@
           <div class="mock-line w80"></div>
           <div class="mock-line w40"></div>
           <div class="mock-chip-row">
-            <span class="mock-chip chip-b">8 of 8 lessons done</span>
+            <span class="mock-chip chip-b" data-cy="8 o 8 gwers wedi'u cwblhau">8 of 8 lessons done</span>
           </div>
         </div>
       </div>
@@ -553,70 +573,70 @@
 <section class="spotlight" id="course">
   <div class="wrap">
     <div class="spot-head">
-      <h2>The course.</h2>
-      <p>One focused module, built for anyone who works the till — no catalogue to browse, just the training that matters most.</p>
+      <h2 data-cy="Y cwrs.">The course.</h2>
+      <p data-cy="Un modiwl canolbwyntiedig, wedi'i adeiladu ar gyfer unrhyw un sy'n gweithio wrth y til — dim catalog i bori drwyddo, dim ond yr hyfforddiant sy'n bwysicaf.">One focused module, built for anyone who works the till — no catalogue to browse, just the training that matters most.</p>
     </div>
     <div class="spotlight-card">
       <div class="spot-content">
-        <span class="course-badge badge-core">All staff · Live now</span>
-        <h3>Challenge 25 &amp; Acceptable ID</h3>
-        <p class="spot-desc">The essentials every till operator needs: who to challenge, what ID to accept, and how to refuse a sale confidently — in 8 short lessons with practice questions along the way.</p>
+        <span class="course-badge badge-core" data-cy="Pob aelod o staff · Ar gael nawr">All staff · Live now</span>
+        <h3 data-cy="Challenge 25 ac ID Derbyniol">Challenge 25 &amp; Acceptable ID</h3>
+        <p class="spot-desc" data-cy="Yr hanfodion sydd eu hangen ar bob gweithredwr til: pwy i'w herio, pa ID i'w dderbyn, a sut i wrthod gwerthiant yn hyderus — mewn 8 gwers fer gyda chwestiynau ymarfer ar hyd y ffordd.">The essentials every till operator needs: who to challenge, what ID to accept, and how to refuse a sale confidently — in 8 short lessons with practice questions along the way.</p>
         <div class="spot-meta">
-          <div class="spot-meta-item"><span class="num">25 min</span><span class="lbl">Total time</span></div>
-          <div class="spot-meta-item"><span class="num">8</span><span class="lbl">Lessons</span></div>
-          <div class="spot-meta-item"><span class="num">✓</span><span class="lbl">Practice questions</span></div>
+          <div class="spot-meta-item"><span class="num">25 min</span><span class="lbl" data-cy="Cyfanswm amser">Total time</span></div>
+          <div class="spot-meta-item"><span class="num">8</span><span class="lbl" data-cy="Gwersi">Lessons</span></div>
+          <div class="spot-meta-item"><span class="num">✓</span><span class="lbl" data-cy="Cwestiynau ymarfer">Practice questions</span></div>
         </div>
-        <a href="checkpoint-course-player-full.html" class="btn btn-primary">Start the course →</a>
+        <a href="checkpoint-course-player-full.html" class="btn btn-primary" data-cy="Dechrau'r cwrs →">Start the course →</a>
       </div>
       <div class="spot-lessons">
-        <div class="spot-lesson-row done"><span class="ln">✓</span><span class="lt">What is Challenge 25?</span><span class="ltime">3 min</span></div>
-        <div class="spot-lesson-row done"><span class="ln">✓</span><span class="lt">Acceptable forms of ID</span><span class="ltime">4 min</span></div>
-        <div class="spot-lesson-row"><span class="ln">3</span><span class="lt">Spotting fake or borrowed ID</span><span class="ltime">3 min</span></div>
-        <div class="spot-lesson-row"><span class="ln">4</span><span class="lt">Proxy sales &amp; who's really buying</span><span class="ltime">3 min</span></div>
-        <div class="spot-lesson-row"><span class="ln">5</span><span class="lt">Refusing a sale, calmly</span><span class="ltime">3 min</span></div>
+        <div class="spot-lesson-row done"><span class="ln">✓</span><span class="lt" data-cy="Beth yw Challenge 25?">What is Challenge 25?</span><span class="ltime" data-cy="3 munud">3 min</span></div>
+        <div class="spot-lesson-row done"><span class="ln">✓</span><span class="lt" data-cy="Mathau derbyniol o ID">Acceptable forms of ID</span><span class="ltime" data-cy="4 munud">4 min</span></div>
+        <div class="spot-lesson-row"><span class="ln">3</span><span class="lt" data-cy="Adnabod ID ffug neu fenthyg">Spotting fake or borrowed ID</span><span class="ltime" data-cy="3 munud">3 min</span></div>
+        <div class="spot-lesson-row"><span class="ln">4</span><span class="lt" data-cy="Gwerthiannau dirprwyol a phwy sy'n prynu go iawn">Proxy sales &amp; who's really buying</span><span class="ltime" data-cy="3 munud">3 min</span></div>
+        <div class="spot-lesson-row"><span class="ln">5</span><span class="lt" data-cy="Gwrthod gwerthiant, yn dawel">Refusing a sale, calmly</span><span class="ltime" data-cy="3 munud">3 min</span></div>
       </div>
     </div>
-    <p class="roadmap-note"><strong>Two more modules are in development:</strong> a Licensing Annual Refresher and a Personal Licence Warm-Up (a non-accredited primer — not a substitute for the real APLH qualification). Neither is available yet.</p>
+    <p class="roadmap-note" data-cy="<strong>Mae dau fodiwl arall yn cael eu datblygu:</strong> Adnewyddiad Blynyddol Trwyddedu a Chynhesiad Trwydded Bersonol (cyflwyniad heb ei achredu — nid yn lle'r cymhwyster APLH go iawn). Nid yw'r un o'r ddau ar gael eto."><strong>Two more modules are in development:</strong> a Licensing Annual Refresher and a Personal Licence Warm-Up (a non-accredited primer — not a substitute for the real APLH qualification). Neither is available yet.</p>
   </div>
 </section>
 
 <section class="faq" id="faq">
   <div class="wrap">
     <div class="faq-head">
-      <h2>Frequently asked <span style="color:var(--coral);font-style:italic;">questions</span></h2>
-      <p>The honest answers, before you start.</p>
+      <h2 data-cy="Cwestiynau <span style='color:var(--coral);font-style:italic;'>cyffredin</span>">Frequently asked <span style="color:var(--coral);font-style:italic;">questions</span></h2>
+      <p data-cy="Yr atebion gonest, cyn i chi ddechrau.">The honest answers, before you start.</p>
     </div>
     <div class="faq-list">
       <details class="faq-item" open>
-        <summary>Is this an accredited qualification?<span class="plus"></span></summary>
-        <p>No. The Challenge 25 module is a plain-language training resource for all staff — it isn't accredited and doesn't hold personal licence status. It's not a substitute for the official Level 2 Award for Personal Licence Holders (APLH), which is a separate, accredited qualification.</p>
+        <summary><span data-cy="Ai cymhwyster achrededig yw hwn?">Is this an accredited qualification?</span><span class="plus"></span></summary>
+        <p data-cy="Nac ydy. Mae modiwl Challenge 25 yn adnodd hyfforddi iaith blaen ar gyfer pob aelod o staff — dyw e ddim wedi'i achredu ac nid yw'n rhoi statws trwydded bersonol. Nid yw'n lle Gwobr Lefel 2 swyddogol Deiliaid Trwydded Bersonol (APLH), sy'n gymhwyster ar wahân, achrededig.">No. The Challenge 25 module is a plain-language training resource for all staff — it isn't accredited and doesn't hold personal licence status. It's not a substitute for the official Level 2 Award for Personal Licence Holders (APLH), which is a separate, accredited qualification.</p>
       </details>
       <details class="faq-item">
-        <summary>How long does it take?<span class="plus"></span></summary>
-        <p>About 25 minutes for all 8 lessons, including the practice questions. Each lesson runs 3–5 minutes, so it's easy to fit between customers on a shift.</p>
+        <summary><span data-cy="Faint o amser mae'n ei gymryd?">How long does it take?</span><span class="plus"></span></summary>
+        <p data-cy="Tua 25 munud ar gyfer yr 8 gwers i gyd, gan gynnwys y cwestiynau ymarfer. Mae pob gwers yn cymryd 3–5 munud, felly mae'n hawdd ei ffitio rhwng cwsmeriaid ar shifft.">About 25 minutes for all 8 lessons, including the practice questions. Each lesson runs 3–5 minutes, so it's easy to fit between customers on a shift.</p>
       </details>
       <details class="faq-item">
-        <summary>Do I get a certificate?<span class="plus"></span></summary>
-        <p>You'll see a completion screen once you finish all 8 lessons — a simple record that the training was completed. It isn't a formal certificate or legal accreditation.</p>
+        <summary><span data-cy="Ydw i'n cael tystysgrif?">Do I get a certificate?</span><span class="plus"></span></summary>
+        <p data-cy="Os byddwch yn ateb yn gywir ar y cynnig cyntaf ar 80% neu fwy o'r cwestiynau ymarfer, gallwch lawrlwytho tystysgrif gyda'ch enw a'ch siop arni ar y sgrin gwblhau. Nid yw'n dystysgrif ffurfiol nac yn achrediad cyfreithiol.">If you answer 80% or more of the practice questions correctly on the first try, you can download a certificate with your name and shop on it from the completion screen. It isn't a formal certificate or legal accreditation.</p>
       </details>
       <details class="faq-item">
-        <summary>Has the content been legally reviewed?<span class="plus"></span></summary>
-        <p>The course is grounded in the real Challenge 25 scheme and the Licensing Act 2003, but this build is mockup content and hasn't yet been checked by a licensing specialist. It should be reviewed before real staff rely on it for compliance purposes.</p>
+        <summary><span data-cy="Ydy'r cynnwys wedi'i adolygu'n gyfreithiol?">Has the content been legally reviewed?</span><span class="plus"></span></summary>
+        <p data-cy="Mae'r cwrs wedi'i seilio ar gynllun Challenge 25 go iawn a Deddf Trwyddedu 2003, ond mae'r fersiwn hon yn gynnwys enghreifftiol ac nid yw wedi'i wirio eto gan arbenigwr trwyddedu. Dylid ei adolygu cyn i staff go iawn ddibynnu arno at ddibenion cydymffurfio. Yn yr un modd, mae'r cyfieithiad Cymraeg wedi'i gynhyrchu gan AI ac heb ei wirio gan siaradwr Cymraeg proffesiynol.">The course is grounded in the real Challenge 25 scheme and the Licensing Act 2003, but this build is mockup content and hasn't yet been checked by a licensing specialist. It should be reviewed before real staff rely on it for compliance purposes.</p>
       </details>
       <details class="faq-item">
-        <summary>Is there more than one course?<span class="plus"></span></summary>
-        <p>Right now, just this one — Challenge 25 &amp; Acceptable ID. A Licensing Annual Refresher and a Personal Licence Warm-Up are planned but not yet available.</p>
+        <summary><span data-cy="Oes mwy nag un cwrs?">Is there more than one course?</span><span class="plus"></span></summary>
+        <p data-cy="Ar hyn o bryd, dim ond hwn — Challenge 25 ac ID Derbyniol. Mae Adnewyddiad Blynyddol Trwyddedu a Chynhesiad Trwydded Bersonol wedi'u cynllunio ond ddim ar gael eto.">Right now, just this one — Challenge 25 &amp; Acceptable ID. A Licensing Annual Refresher and a Personal Licence Warm-Up are planned but not yet available.</p>
       </details>
     </div>
   </div>
 </section>
 
 <section class="cta-banner">
-  <h2>Get your team Challenge 25 confident before your next licensing review.</h2>
-  <p>Free to try, right now — see how quickly your team gets through the course.</p>
+  <h2 data-cy="Gwnewch yn siŵr fod eich tîm yn hyderus gyda Challenge 25 cyn eich adolygiad trwyddedu nesaf.">Get your team Challenge 25 confident before your next licensing review.</h2>
+  <p data-cy="Am ddim i'w drio, nawr — gwelwch pa mor gyflym mae eich tîm yn mynd trwy'r cwrs.">Free to try, right now — see how quickly your team gets through the course.</p>
   <div class="hero-actions">
-    <a href="checkpoint-course-player-full.html" class="btn btn-white">Start the course</a>
-    <a href="#" class="btn btn-ghost" style="color:#fff;">Talk to us →</a>
+    <a href="checkpoint-course-player-full.html" class="btn btn-white" data-cy="Dechrau'r cwrs">Start the course</a>
+    <a href="#" class="btn btn-ghost" style="color:#fff;" data-cy="Siaradwch â ni →">Talk to us →</a>
   </div>
 </section>
 
@@ -630,30 +650,53 @@
           </span>
           Checkpoint
         </div>
-        <p>E-learning for UK retail teams on licensing rules, Challenge 25, and acceptable ID — plain-language first, legal term second.</p>
+        <p data-cy="E-ddysgu ar gyfer timau manwerthu'r DU ar reolau trwyddedu, Challenge 25, ac ID derbyniol — iaith blaen yn gyntaf, term cyfreithiol yn ail.">E-learning for UK retail teams on licensing rules, Challenge 25, and acceptable ID — plain-language first, legal term second.</p>
       </div>
       <div class="footer-col">
-        <h4>Course</h4>
-        <a href="checkpoint-course-player-full.html">Challenge 25 &amp; ID</a>
-        <a href="#faq">FAQ</a>
+        <h4 data-cy="Cwrs">Course</h4>
+        <a href="checkpoint-course-player-full.html" data-cy="Challenge 25 ac ID">Challenge 25 &amp; ID</a>
+        <a href="#faq" data-cy="Cwestiynau Cyffredin">FAQ</a>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <h4 data-cy="Cwmni">Company</h4>
+        <a href="#" data-cy="Amdanom ni">About</a>
+        <a href="#" data-cy="Cysylltu">Contact</a>
       </div>
       <div class="footer-col">
-        <h4>Guidance</h4>
-        <a href="#">Licensing Act 2003 basics</a>
-        <a href="#">Help centre</a>
+        <h4 data-cy="Canllawiau">Guidance</h4>
+        <a href="#" data-cy="Sylfaeni Deddf Trwyddedu 2003">Licensing Act 2003 basics</a>
+        <a href="#" data-cy="Canolfan gymorth">Help centre</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 Checkpoint Learning</span>
-      <span>Design mockup — for reference only</span>
+      <span data-cy="Cynllun enghreifftiol — at ddibenion cyfeirio yn unig">Design mockup — for reference only</span>
     </div>
   </div>
 </footer>
+
+<script>
+  const EN_TITLE = document.title;
+  const CY_TITLE = "Checkpoint — Hyfforddiant Challenge 25 ar gyfer timau manwerthu'r DU";
+
+  function setLang(lang){
+    document.documentElement.lang = lang === 'cy' ? 'cy' : 'en-GB';
+    document.querySelectorAll('[data-cy]').forEach(el => {
+      if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
+      el.innerHTML = lang === 'cy' ? el.dataset.cy : el.dataset.en;
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    document.getElementById('lang-caveat').style.display = lang === 'cy' ? 'block' : 'none';
+    document.title = lang === 'cy' ? CY_TITLE : EN_TITLE;
+    try { localStorage.setItem('checkpoint-lang', lang); } catch(e){}
+  }
+
+  (function(){
+    let saved = 'en';
+    try { saved = localStorage.getItem('checkpoint-lang') || 'en'; } catch(e){}
+    setLang(saved);
+  })();
+</script>
 
 </body>
 </html>
