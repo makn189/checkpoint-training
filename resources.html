@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free resources — Checkpoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F1;
+    --cream-deep:#F4EDE2;
+    --cream-yellow:#F6F1D8;
+    --ink:#22243B;
+    --ink-soft:#575A78;
+    --lavender:#6E62E5;
+    --lavender-deep:#4E3FD1;
+    --lavender-pale:#E4E0FB;
+    --peach:#FFC49B;
+    --mint:#AEE3C8;
+    --coral:#FF7A59;
+    --forest:#1F3A2E;
+    --line:#E7DFD1;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --shadow:0 20px 45px -20px rgba(34,36,59,0.25);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  section{position:relative;}
+
+  header{
+    position:sticky;top:0;z-index:50;background:rgba(251,247,241,0.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:78px;}
+  .logo{display:flex;align-items:center;gap:9px;font-family:'Fraunces',serif;font-weight:700;font-size:22px;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(135deg,var(--lavender),var(--coral));
+    display:flex;align-items:center;justify-content:center;
+  }
+  .logo-mark svg{width:16px;height:16px;}
+  .nav-links{display:flex;gap:36px;align-items:center;}
+  .nav-links a{font-size:15px;font-weight:500;color:var(--ink-soft);transition:color .15s;}
+  .nav-links a:hover, .nav-links a.current{color:var(--ink);}
+  .nav-cta{display:flex;align-items:center;gap:16px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 24px;border-radius:999px;font-weight:600;font-size:15px;
+    border:none;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--forest);color:#fff;box-shadow:0 10px 24px -8px rgba(31,58,46,0.5);}
+  .btn-primary:hover{box-shadow:0 14px 30px -8px rgba(31,58,46,0.6);}
+  .btn-outline{background:#fff;color:var(--ink);border:1.5px solid var(--line);}
+  .btn-sm{padding:10px 18px;font-size:14px;}
+
+  .page-head{padding:72px 0 20px;text-align:center;}
+  .page-head .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);
+    padding:7px 14px 7px 8px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink-soft);
+    margin-bottom:22px;
+  }
+  .page-head .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);border:1.5px solid #4E9E76;}
+  .page-head h1{font-size:clamp(34px,4.4vw,48px);line-height:1.08;letter-spacing:-0.02em;max-width:680px;margin:0 auto;}
+  .page-head p{margin:20px auto 0;font-size:17px;line-height:1.6;color:var(--ink-soft);max-width:560px;}
+
+  .resource-list{padding:44px 0 100px;}
+  .resource-grid{display:grid;grid-template-columns:1fr;gap:22px;max-width:760px;margin:0 auto;}
+  .resource-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:36px;display:flex;gap:24px;align-items:flex-start;
+  }
+  .res-icon{
+    width:56px;height:56px;border-radius:16px;background:var(--lavender-pale);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .res-icon svg{width:26px;height:26px;}
+  .res-body{flex:1;}
+  .res-badge{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    padding:5px 10px;border-radius:999px;background:var(--mint);color:#276648;margin-bottom:12px;
+  }
+  .res-body h3{font-size:20px;line-height:1.3;margin-bottom:10px;}
+  .res-body p{font-size:15px;line-height:1.65;color:var(--ink-soft);margin:0 0 20px;max-width:480px;}
+  .res-meta{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+  .res-meta .filetype{font-size:12.5px;color:var(--ink-soft);font-weight:600;}
+  .coming-soon-card{
+    background:var(--cream-deep);border:1px dashed #D9CFC0;border-radius:var(--radius-lg);
+    padding:36px;text-align:center;color:var(--ink-soft);font-size:14.5px;
+  }
+  .coming-soon-card strong{color:var(--ink);}
+
+  .page-note{
+    max-width:640px;margin:36px auto 0;text-align:center;font-size:13.5px;color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  footer{padding:56px 0 50px;background:var(--cream-yellow);border-radius:var(--radius-lg);margin:0 32px 32px;}
+  .footer-top{
+    display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;
+    padding:0 32px 44px;border-bottom:1px solid #E6E0BD;
+  }
+  .footer-brand p{color:var(--ink-soft);font-size:14px;margin-top:14px;max-width:260px;line-height:1.6;}
+  .footer-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:16px;}
+  .footer-col a{display:block;font-size:14.5px;color:var(--ink);margin-bottom:11px;font-weight:500;}
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;padding:22px 32px 0;
+    font-size:13px;color:var(--ink-soft);
+  }
+
+  @media(max-width:920px){
+    .nav-links{display:none;}
+    .resource-card{flex-direction:column;}
+    footer{margin:0 16px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Checkpoint
+    </a>
+    <div class="nav-links">
+      <a href="index.html#course">The course</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="resources.html" class="current">Resources</a>
+    </div>
+    <div class="nav-cta">
+      <a href="checkpoint-course-player-full.html" class="btn btn-primary btn-sm">Start the course</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> Free to download, no account needed</div>
+    <h1>A few things worth keeping behind the till.</h1>
+    <p>Practical paperwork to go with the course — the kind of thing a licensing officer or Trading Standards visit will actually ask to see.</p>
+  </div>
+</section>
+
+<section class="resource-list">
+  <div class="wrap">
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="res-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#4E3FD1" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="res-body">
+          <span class="res-badge">Template</span>
+          <h3>Refusal of Sales Log Sheet</h3>
+          <p>A printable table for logging refused sales — date, time, description of the person refused, product, whether it was captured on CCTV, ID produced, who logged it, and the action taken. Covers alcohol, tobacco, solvents, fireworks, knives and other age-restricted products, not just alcohol.</p>
+          <div class="res-meta">
+            <a href="resources/checkpoint-refusal-log-sheet.docx" class="btn btn-outline btn-sm" download>Download .docx ↓</a>
+            <span class="filetype">Word document · 1 page · editable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="coming-soon-card">
+        <strong>More templates are on the way</strong> — a due diligence checklist and an ID-acceptance quick-reference card are next.
+      </div>
+    </div>
+
+    <p class="page-note">These are generic templates for reference, provided free — not legal advice. Check they fit your own store's licensing conditions and record-keeping requirements before relying on them, the same way the course content itself hasn't yet been checked by a licensing specialist.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-mark">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Checkpoint
+        </div>
+        <p>E-learning for UK retail teams on licensing rules, Challenge 25, and acceptable ID — plain-language first, legal term second.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Course</h4>
+        <a href="checkpoint-course-player-full.html">Challenge 25 &amp; ID</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Guidance</h4>
+        <a href="resources.html">Free resources</a>
+        <a href="#">Help centre</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Checkpoint Learning</span>
+      <span>Design mockup — for reference only</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

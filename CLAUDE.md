@@ -42,9 +42,14 @@ Challenge 25. Two audiences:
   Course grid links to the live course; other two cards are styled as
   "Coming soon" placeholders (no href).
 - `checkpoint-course-player-full.html` — fully built, interactive
-  8-lesson Challenge 25 & Acceptable ID course, with practice questions,
-  sidebar navigation, and a completion screen. Content and lesson list
-  are hardcoded in a JS array inside the file (`lessons = [...]`).
+  8-module Challenge 25 & Acceptable ID course. Each module ends in a
+  10-question test (80% to pass, gates progress to the next module),
+  with sidebar navigation, a streak stat, and a downloadable certificate
+  on completion. Content and lesson list are hardcoded in a JS array
+  inside the file (`lessons = [...]`).
+- `resources.html` — free downloadable templates page (currently one:
+  a Refusal of Sales Log Sheet .docx, in `resources/`). Linked from the
+  main nav and footer.
 
 ## Content status — IMPORTANT
 - Challenge 25 module: 8 lessons, fully written, but this is **mockup
