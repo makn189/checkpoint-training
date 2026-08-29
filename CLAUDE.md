@@ -47,10 +47,10 @@ Challenge 25. Two audiences:
   with sidebar navigation, a streak stat, and a downloadable certificate
   on completion. Content and lesson list are hardcoded in a JS array
   inside the file (`lessons = [...]`).
-- `resources.html` — free downloadable templates page (currently two:
-  a Refusal of Sales Log Sheet .docx and an Age By Year of Birth
-  Calculator PDF, both in `resources/`). Linked from the main nav and
-  footer.
+- `resources.html` — free downloadable templates page (currently three:
+  a Refusal of Sales Log Sheet .docx, an Age By Year of Birth
+  Calculator PDF, and a Due Diligence Checklist .docx, all in
+  `resources/`). Linked from the main nav and footer.
 
 ## Content status — IMPORTANT
 - Challenge 25 module: 8 lessons, fully written, but this is **mockup
