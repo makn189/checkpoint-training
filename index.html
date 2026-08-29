@@ -268,10 +268,24 @@
   .id-opt{
     display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;
     border:1.5px solid var(--line);font-size:14px;font-weight:500;margin-bottom:10px;
+    cursor:pointer;transition:border-color .15s ease, background .15s ease, transform .15s ease;
   }
+  #hero-demo .id-opt:hover{border-color:#CFC7F5;transform:translateY(-1px);}
   .id-opt.correct{border-color:#4E9E76;background:#EEF9F2;color:#276648;}
+  .id-opt.wrong{border-color:#E88B72;background:#FDF1EC;color:#B5502F;}
   .id-opt .dotc{width:18px;height:18px;border-radius:50%;border:2px solid #CFC8B6;flex-shrink:0;}
   .id-opt.correct .dotc{border-color:#4E9E76;background:#4E9E76;}
+  .id-opt.wrong .dotc{border-color:#E88B72;background:#E88B72;}
+
+  .demo-feedback{display:none;margin-top:6px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.55;}
+  .demo-feedback.show{display:block;}
+  .demo-feedback-correct{background:#EEF9F2;color:#1E5C3B;}
+  .demo-feedback-incorrect{background:#FDF1EC;color:#8A3A1F;}
+  .demo-reset{
+    display:none;margin-top:14px;background:none;border:none;padding:0;
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--lavender-deep);cursor:pointer;
+  }
+  .demo-reset.show{display:inline-block;}
 
   /* illustrated "signs to check" card — deliberately not a photo/replica of a real ID */
   .signs-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:20px 22px;width:100%;max-width:400px;}
@@ -521,13 +535,16 @@
     </div>
     <div class="visual-panel panel-2">
       <div class="panel-stack">
-        <div class="id-scenario">
-          <div class="scen-top"><span data-cy="Senario 3 o 6">Scenario 3 of 6</span><span>⏱ 1:40</span></div>
+        <div class="id-scenario" id="hero-demo">
+          <div class="scen-top"><span data-cy="Rhowch gynnig arni">Try it yourself</span><span data-cy="Un cwestiwn go iawn">One real question</span></div>
           <div class="scen-body">
             <div class="id-q" data-cy="Mae cwsmer yn edrych dan 25 ac yn rhoi llun o'u ID ar eu ffôn i chi. Beth ydych chi'n ei wneud?">A customer looks under 25 and hands you a photo of their ID on their phone. What do you do?</div>
-            <div class="id-opt"><span class="dotc"></span> <span data-cy="Ei dderbyn — mae'r llun yn ddigon clir">Accept it — the photo is clear enough</span></div>
-            <div class="id-opt correct"><span class="dotc"></span> <span data-cy="Gwrthod y gwerthiant — dyw llun ddim yn ID derbyniol">Decline the sale — a photo isn't acceptable ID</span></div>
-            <div class="id-opt"><span class="dotc"></span> <span data-cy="Gofyn i gydweithiwr benderfynu yn lle">Ask a colleague to decide instead</span></div>
+            <div class="id-opt" data-correct="false" onclick="tryDemo(this)"><span class="dotc"></span> <span data-cy="Ei dderbyn — mae'r llun yn ddigon clir">Accept it — the photo is clear enough</span></div>
+            <div class="id-opt" data-correct="true" onclick="tryDemo(this)"><span class="dotc"></span> <span data-cy="Gwrthod y gwerthiant — dyw llun ddim yn ID derbyniol">Decline the sale — a photo isn't acceptable ID</span></div>
+            <div class="id-opt" data-correct="false" onclick="tryDemo(this)"><span class="dotc"></span> <span data-cy="Gofyn i gydweithiwr benderfynu yn lle">Ask a colleague to decide instead</span></div>
+            <div class="demo-feedback demo-feedback-correct" id="demo-fb-correct" data-cy="Yn iawn — dyw llun ddim yn ID derbyniol, dim ond y ddogfen ffisegol sy'n cyfrif. Dyna lefel y manylder mae pob gwers yn ei gynnwys.">Right — a photo isn't acceptable ID, only the physical document counts. That's the level of detail every lesson covers.</div>
+            <div class="demo-feedback demo-feedback-incorrect" id="demo-fb-incorrect" data-cy="Ddim yn hollol — dyw llun ddim yn ID derbyniol, dim ond y ddogfen ffisegol sy'n cyfrif. Mae'r ateb cywir wedi'i amlygu uchod.">Not quite — a photo isn't acceptable ID, only the physical document counts. The right answer is highlighted above.</div>
+            <button type="button" class="demo-reset" id="demo-reset" onclick="resetDemo()" data-cy="↺ Rhowch gynnig eto">↺ Try again</button>
           </div>
         </div>
         <div class="signs-card">
@@ -698,6 +715,37 @@
     try { saved = localStorage.getItem('checkpoint-lang') || 'en'; } catch(e){}
     setLang(saved);
   })();
+
+  function tryDemo(el){
+    const demo = document.getElementById('hero-demo');
+    const isCorrect = el.dataset.correct === 'true';
+    demo.querySelectorAll('.id-opt').forEach(o => {
+      o.style.pointerEvents = 'none';
+      o.classList.remove('correct', 'wrong');
+    });
+    document.getElementById('demo-fb-correct').classList.remove('show');
+    document.getElementById('demo-fb-incorrect').classList.remove('show');
+    if (isCorrect){
+      el.classList.add('correct');
+      document.getElementById('demo-fb-correct').classList.add('show');
+    } else {
+      el.classList.add('wrong');
+      demo.querySelectorAll('.id-opt[data-correct="true"]').forEach(o => o.classList.add('correct'));
+      document.getElementById('demo-fb-incorrect').classList.add('show');
+    }
+    document.getElementById('demo-reset').classList.add('show');
+  }
+
+  function resetDemo(){
+    const demo = document.getElementById('hero-demo');
+    demo.querySelectorAll('.id-opt').forEach(o => {
+      o.style.pointerEvents = '';
+      o.classList.remove('correct', 'wrong');
+    });
+    document.getElementById('demo-fb-correct').classList.remove('show');
+    document.getElementById('demo-fb-incorrect').classList.remove('show');
+    document.getElementById('demo-reset').classList.remove('show');
+  }
 </script>
 
 </body>
