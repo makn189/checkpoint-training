@@ -690,6 +690,10 @@ function downloadCertificate(score){
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+
+  if (window.goatcounter && window.goatcounter.count){
+    window.goatcounter.count({ path: 'certificate-download', title: 'Certificate downloaded', event: true });
+  }
 }
 
 function goTo(i){
@@ -713,6 +717,9 @@ function renderAll(){
 
 renderAll();
 </script>
+
+<script data-goatcounter="https://smartchoice.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
