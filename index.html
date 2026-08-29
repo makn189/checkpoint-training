@@ -97,6 +97,23 @@
   }
   .btn-sm{padding:10px 18px;font-size:14px;}
 
+  .menu-toggle{
+    display:none;background:none;border:none;padding:6px;margin:-6px 0;cursor:pointer;color:var(--ink);flex-shrink:0;
+  }
+  .menu-toggle svg{width:24px;height:24px;}
+  .mobile-menu{
+    display:none;flex-direction:column;
+    padding:8px 32px 18px;border-top:1px solid var(--line);background:var(--cream);
+  }
+  .mobile-menu a{
+    padding:14px 0;font-size:15.5px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line);
+  }
+  .mobile-menu a:last-child{border-bottom:none;}
+  .mobile-menu-cta{
+    display:block;text-align:center;border-bottom:none !important;margin-top:14px;
+    color:#fff !important;padding:13px 0 !important;
+  }
+
   /* ---------- LANGUAGE TOGGLE ---------- */
   .lang-toggle{
     display:flex;background:var(--cream-deep);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;
@@ -415,6 +432,9 @@
     .feature .wrap{grid-template-columns:1fr;}
     .feature.reverse .wrap{direction:ltr;}
     .nav-links{display:none;}
+    .nav-cta-btn{display:none;}
+    .menu-toggle{display:flex;align-items:center;justify-content:center;}
+    .mobile-menu.open{display:flex;}
     .footer-top{grid-template-columns:1fr 1fr;}
     .cta-banner{padding:50px 28px;margin:0 16px 60px;}
     .spotlight-card{grid-template-columns:1fr;padding:36px 28px;}
@@ -445,9 +465,19 @@
         <button type="button" class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
         <button type="button" class="lang-btn" data-lang="cy" onclick="setLang('cy')">CY</button>
       </div>
-      <a href="checkpoint-course-player-full.html" class="btn btn-primary btn-sm" data-cy="Dechrau'r cwrs">Start the course</a>
+      <a href="checkpoint-course-player-full.html" class="btn btn-primary btn-sm nav-cta-btn" data-cy="Dechrau'r cwrs">Start the course</a>
+      <button type="button" class="menu-toggle" id="menu-toggle" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#course" data-cy="Y cwrs" onclick="closeMenu()">The course</a>
+    <a href="#how-it-works" data-cy="Sut mae'n gweithio" onclick="closeMenu()">How it works</a>
+    <a href="#faq" data-cy="Cwestiynau Cyffredin" onclick="closeMenu()">FAQ</a>
+    <a href="resources.html" data-cy="Adnoddau" onclick="closeMenu()">Resources</a>
+    <a href="checkpoint-course-player-full.html" class="btn btn-primary mobile-menu-cta" data-cy="Dechrau'r cwrs" onclick="closeMenu()">Start the course</a>
+  </div>
 </header>
 
 <section class="hero">
@@ -734,6 +764,17 @@
       document.getElementById('demo-fb-incorrect').classList.add('show');
     }
     document.getElementById('demo-reset').classList.add('show');
+  }
+
+  function toggleMenu(){
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('menu-toggle');
+    const open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function closeMenu(){
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
   }
 
   function resetDemo(){
