@@ -38,6 +38,10 @@ Challenge 25. Two audiences:
 - Radius: 24–28px large containers, 16–18px cards
 
 ## Files in this folder
+- `favicon.svg` — shield-and-checkmark mark (solid `#4E3FD1` lavender-deep,
+  white check), used as the site favicon and reused inline as the small
+  logo mark in the nav/footer on every page, and on the downloadable
+  certificate.
 - `index.html` (formerly `checkpoint-licensing-training-mockup.html`) — marketing/landing page, renamed so GitHub Pages serves it at the site root.
   Course grid links to the live course; other two cards are styled as
   "Coming soon" placeholders (no href).
