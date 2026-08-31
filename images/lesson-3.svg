@@ -1,0 +1,87 @@
+<svg viewBox="0 0 1200 750" width="1200" height="750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="frameClip"><rect x="0" y="0" width="1200" height="750"/></clipPath>
+    <clipPath id="burstClip"><circle cx="600" cy="330" r="430"/></clipPath>
+    <pattern id="halftoneDark" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="2.2" cy="2.2" r="1.6" fill="#22243B" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#frameClip)">
+    <rect x="0" y="0" width="1200" height="750" fill="#FBF7F1"/>
+
+    <g clip-path="url(#burstClip)">
+      <polygon points="728,330 1240,330 1214.08,510.31 722.82,366.06" fill="#EFE8FA"/>
+      <polygon points="722.82,366.06 1214.08,510.31 1138.4,676.01 707.68,399.2" fill="#FBF7F1"/>
+      <polygon points="707.68,399.2 1138.4,676.01 1019.11,813.68 683.82,426.74" fill="#EFE8FA"/>
+      <polygon points="683.82,426.74 1019.11,813.68 865.87,912.16 653.17,446.43" fill="#FBF7F1"/>
+      <polygon points="653.17,446.43 865.87,912.16 691.08,963.49 618.22,456.7" fill="#EFE8FA"/>
+      <polygon points="618.22,456.7 691.08,963.49 508.92,963.49 581.78,456.7" fill="#FBF7F1"/>
+      <polygon points="581.78,456.7 508.92,963.49 334.13,912.16 546.83,446.43" fill="#EFE8FA"/>
+      <polygon points="546.83,446.43 334.13,912.16 180.89,813.68 516.18,426.74" fill="#FBF7F1"/>
+      <polygon points="516.18,426.74 180.89,813.68 61.6,676.01 492.32,399.2" fill="#EFE8FA"/>
+      <polygon points="492.32,399.2 61.6,676.01 -14.08,510.31 477.18,366.06" fill="#FBF7F1"/>
+      <polygon points="477.18,366.06 -14.08,510.31 -40,330 472,330" fill="#EFE8FA"/>
+      <polygon points="472,330 -40,330 -14.08,149.69 477.18,293.94" fill="#FBF7F1"/>
+      <polygon points="477.18,293.94 -14.08,149.69 61.6,-16.01 492.32,260.8" fill="#EFE8FA"/>
+      <polygon points="492.32,260.8 61.6,-16.01 180.89,-153.68 516.18,233.26" fill="#FBF7F1"/>
+      <polygon points="516.18,233.26 180.89,-153.68 334.13,-252.16 546.83,213.57" fill="#EFE8FA"/>
+      <polygon points="546.83,213.57 334.13,-252.16 508.92,-303.49 581.78,203.3" fill="#FBF7F1"/>
+      <polygon points="581.78,203.3 508.92,-303.49 691.08,-303.49 618.22,203.3" fill="#EFE8FA"/>
+      <polygon points="618.22,203.3 691.08,-303.49 865.87,-252.16 653.17,213.57" fill="#FBF7F1"/>
+      <polygon points="653.17,213.57 865.87,-252.16 1019.11,-153.68 683.82,233.26" fill="#EFE8FA"/>
+      <polygon points="683.82,233.26 1019.11,-153.68 1138.4,-16.01 707.68,260.8" fill="#FBF7F1"/>
+      <polygon points="707.68,260.8 1138.4,-16.01 1214.08,149.69 722.82,293.94" fill="#EFE8FA"/>
+      <polygon points="722.82,293.94 1214.08,149.69 1240,330 728,330" fill="#FBF7F1"/>
+      <circle cx="600" cy="330" r="430" fill="none" stroke="#22243B" stroke-width="3" opacity="0.08"/>
+    </g>
+
+    <rect x="0" y="600" width="1200" height="150" fill="#22243B"/>
+    <rect x="0" y="596" width="1200" height="6" fill="#FFC49B"/>
+
+    <g fill="#FF7A59" stroke="#22243B" stroke-width="3" stroke-linejoin="round">
+      <path d="M170 120 L180 144 L204 154 L180 164 L170 188 L160 164 L136 154 L160 144 Z"/>
+    </g>
+    <g fill="#AEE3C8" stroke="#22243B" stroke-width="3" stroke-linejoin="round">
+      <path d="M1040 470 L1047 486 L1063 493 L1047 500 L1040 516 L1033 500 L1017 493 L1033 486 Z"/>
+    </g>
+
+    <!-- three fanned ID documents: passport, driving licence, PASS card -->
+    <g transform="translate(600,420)">
+      <g transform="rotate(-16) translate(-210,0)">
+        <rect x="-90" y="-130" width="180" height="240" rx="14" fill="#22243B" stroke="#22243B" stroke-width="8"/>
+        <rect x="-72" y="-108" width="144" height="18" rx="6" fill="#FFC49B" opacity="0.9"/>
+        <circle cx="0" cy="-30" r="46" fill="#FBF7F1" opacity="0.15"/>
+        <text x="0" y="60" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="15" fill="#FBF7F1" letter-spacing="1">PASSPORT</text>
+      </g>
+
+      <g transform="rotate(0) translate(0,20)">
+        <rect x="-108" y="-130" width="216" height="140" rx="14" fill="#FBF7F1" stroke="#22243B" stroke-width="8"/>
+        <rect x="-108" y="-130" width="216" height="30" rx="14" fill="#6E62E5"/>
+        <rect x="-108" y="-114" width="216" height="16" fill="#6E62E5"/>
+        <circle cx="-64" cy="-52" r="26" fill="#FFC49B" stroke="#22243B" stroke-width="4"/>
+        <rect x="-24" y="-72" width="112" height="10" rx="5" fill="#22243B" opacity="0.7"/>
+        <rect x="-24" y="-52" width="130" height="10" rx="5" fill="#22243B" opacity="0.45"/>
+        <rect x="-24" y="-32" width="90" height="10" rx="5" fill="#22243B" opacity="0.45"/>
+        <text x="-92" y="-138" font-family="Arial, sans-serif" font-weight="700" font-size="12" fill="#FBF7F1">DRIVING LICENCE</text>
+      </g>
+
+      <g transform="rotate(16) translate(210,0)">
+        <rect x="-90" y="-130" width="180" height="240" rx="14" fill="#AEE3C8" stroke="#22243B" stroke-width="8"/>
+        <rect x="-90" y="-130" width="180" height="46" rx="14" fill="#22243B"/>
+        <rect x="-90" y="-100" width="180" height="16" fill="#22243B"/>
+        <text x="0" y="-100" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="13" fill="#FBF7F1">PASS</text>
+        <circle cx="0" cy="0" r="34" fill="none" stroke="#22243B" stroke-width="3"/>
+        <g fill="#FFC49B" stroke="#22243B" stroke-width="2" stroke-linejoin="round">
+          <path d="M0 -22 L6 -6 L22 0 L6 6 L0 22 L-6 6 L-22 0 L-6 -6 Z"/>
+        </g>
+        <rect x="-60" y="60" width="120" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      </g>
+    </g>
+
+    <g transform="translate(56,690)">
+      <path d="M14 0s16-8 16-20V-40l-16-6-16 6v20C-2-8 14 0 14 0z" fill="#4E3FD1"/>
+      <path d="M4.6-15.4L11-8.4L21-19.4" fill="none" stroke="#FBF7F1" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

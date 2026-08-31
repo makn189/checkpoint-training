@@ -1,0 +1,96 @@
+<svg viewBox="0 0 1200 750" width="1200" height="750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="frameClip"><rect x="0" y="0" width="1200" height="750"/></clipPath>
+    <clipPath id="burstClip"><circle cx="600" cy="330" r="430"/></clipPath>
+    <pattern id="halftoneDark" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="2.2" cy="2.2" r="1.6" fill="#22243B" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#frameClip)">
+    <rect x="0" y="0" width="1200" height="750" fill="#FBF7F1"/>
+
+    <g clip-path="url(#burstClip)">
+      <polygon points="728,330 1240,330 1214.08,510.31 722.82,366.06" fill="#EFE8FA"/>
+      <polygon points="722.82,366.06 1214.08,510.31 1138.4,676.01 707.68,399.2" fill="#FBF7F1"/>
+      <polygon points="707.68,399.2 1138.4,676.01 1019.11,813.68 683.82,426.74" fill="#EFE8FA"/>
+      <polygon points="683.82,426.74 1019.11,813.68 865.87,912.16 653.17,446.43" fill="#FBF7F1"/>
+      <polygon points="653.17,446.43 865.87,912.16 691.08,963.49 618.22,456.7" fill="#EFE8FA"/>
+      <polygon points="618.22,456.7 691.08,963.49 508.92,963.49 581.78,456.7" fill="#FBF7F1"/>
+      <polygon points="581.78,456.7 508.92,963.49 334.13,912.16 546.83,446.43" fill="#EFE8FA"/>
+      <polygon points="546.83,446.43 334.13,912.16 180.89,813.68 516.18,426.74" fill="#FBF7F1"/>
+      <polygon points="516.18,426.74 180.89,813.68 61.6,676.01 492.32,399.2" fill="#EFE8FA"/>
+      <polygon points="492.32,399.2 61.6,676.01 -14.08,510.31 477.18,366.06" fill="#FBF7F1"/>
+      <polygon points="477.18,366.06 -14.08,510.31 -40,330 472,330" fill="#EFE8FA"/>
+      <polygon points="472,330 -40,330 -14.08,149.69 477.18,293.94" fill="#FBF7F1"/>
+      <polygon points="477.18,293.94 -14.08,149.69 61.6,-16.01 492.32,260.8" fill="#EFE8FA"/>
+      <polygon points="492.32,260.8 61.6,-16.01 180.89,-153.68 516.18,233.26" fill="#FBF7F1"/>
+      <polygon points="516.18,233.26 180.89,-153.68 334.13,-252.16 546.83,213.57" fill="#EFE8FA"/>
+      <polygon points="546.83,213.57 334.13,-252.16 508.92,-303.49 581.78,203.3" fill="#FBF7F1"/>
+      <polygon points="581.78,203.3 508.92,-303.49 691.08,-303.49 618.22,203.3" fill="#EFE8FA"/>
+      <polygon points="618.22,203.3 691.08,-303.49 865.87,-252.16 653.17,213.57" fill="#FBF7F1"/>
+      <polygon points="653.17,213.57 865.87,-252.16 1019.11,-153.68 683.82,233.26" fill="#EFE8FA"/>
+      <polygon points="683.82,233.26 1019.11,-153.68 1138.4,-16.01 707.68,260.8" fill="#FBF7F1"/>
+      <polygon points="707.68,260.8 1138.4,-16.01 1214.08,149.69 722.82,293.94" fill="#EFE8FA"/>
+      <polygon points="722.82,293.94 1214.08,149.69 1240,330 728,330" fill="#FBF7F1"/>
+      <circle cx="600" cy="330" r="430" fill="none" stroke="#22243B" stroke-width="3" opacity="0.08"/>
+    </g>
+
+    <rect x="0" y="600" width="1200" height="150" fill="#22243B"/>
+    <rect x="0" y="596" width="1200" height="6" fill="#6E62E5"/>
+
+    <g fill="#FF7A59" stroke="#22243B" stroke-width="3" stroke-linejoin="round">
+      <path d="M980 150 L988 168 L1006 176 L988 184 L980 202 L972 184 L954 176 L972 168 Z"/>
+    </g>
+    <g fill="#AEE3C8" stroke="#22243B" stroke-width="3" stroke-linejoin="round">
+      <path d="M200 470 L207 486 L223 493 L207 500 L200 516 L193 500 L177 493 L193 486 Z"/>
+    </g>
+
+    <!-- ID card being examined -->
+    <g transform="translate(560,400) rotate(-4)">
+      <rect x="-190" y="-120" width="380" height="240" rx="16" fill="#FBF7F1" stroke="#22243B" stroke-width="8"/>
+      <rect x="-190" y="-120" width="380" height="50" rx="16" fill="#6E62E5"/>
+      <rect x="-190" y="-90" width="380" height="20" fill="#6E62E5"/>
+      <text x="-170" y="-92" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#FBF7F1" letter-spacing="1">PROOF OF AGE</text>
+      <rect x="-166" y="-52" width="120" height="140" rx="10" fill="#AEE3C8" stroke="#22243B" stroke-width="5"/>
+      <circle cx="-106" cy="-6" r="28" fill="#FFC49B" stroke="#22243B" stroke-width="4"/>
+      <path d="M-136 62 C -130 40 -82 40 -76 62 Z" fill="#FFC49B" stroke="#22243B" stroke-width="4"/>
+      <rect x="-24" y="-40" width="180" height="14" rx="7" fill="#22243B" opacity="0.75"/>
+      <rect x="-24" y="-10" width="200" height="14" rx="7" fill="#22243B" opacity="0.5"/>
+      <rect x="-24" y="20" width="130" height="14" rx="7" fill="#22243B" opacity="0.5"/>
+      <rect x="-24" y="50" width="170" height="14" rx="7" fill="#22243B" opacity="0.5"/>
+      <rect x="-190" y="76" width="380" height="30" fill="url(#halftoneDark)"/>
+    </g>
+
+    <!-- magnifying glass over the photo -->
+    <g transform="translate(400,320)">
+      <circle r="98" fill="#FBF7F1" fill-opacity="0.55" stroke="#22243B" stroke-width="10"/>
+      <circle r="98" fill="none" stroke="#22243B" stroke-width="2" stroke-dasharray="4 8" opacity="0.4"/>
+      <circle cx="-16" cy="-6" r="40" fill="#FFC49B" stroke="#22243B" stroke-width="5"/>
+      <circle cx="-24" cy="-10" r="5" fill="#22243B"/>
+      <circle cx="-4" cy="-10" r="5" fill="#22243B"/>
+      <path d="M-24 10 C -16 18 -4 18 4 10" fill="none" stroke="#22243B" stroke-width="4.5" stroke-linecap="round"/>
+      <g transform="translate(56,54) rotate(45)">
+        <circle r="18" fill="#AEE3C8" stroke="#22243B" stroke-width="3"/>
+        <path d="M-7 0 L-2 6 L8 -7" fill="none" stroke="#22243B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <line x1="70" y1="70" x2="150" y2="150" stroke="#22243B" stroke-width="20" stroke-linecap="round"/>
+      <line x1="70" y1="70" x2="150" y2="150" stroke="#4E3FD1" stroke-width="12" stroke-linecap="round"/>
+    </g>
+
+    <!-- security checkmarks floating -->
+    <g transform="translate(720,470) rotate(10)">
+      <circle r="26" fill="#AEE3C8" stroke="#22243B" stroke-width="5"/>
+      <path d="M-10 0 L-3 8 L12 -10" fill="none" stroke="#22243B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g transform="translate(770,300) rotate(-14)">
+      <circle r="20" fill="#FFC49B" stroke="#22243B" stroke-width="4"/>
+      <path d="M-8 0 L-2 6 L9 -8" fill="none" stroke="#22243B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g transform="translate(56,690)">
+      <path d="M14 0s16-8 16-20V-40l-16-6-16 6v20C-2-8 14 0 14 0z" fill="#4E3FD1"/>
+      <path d="M4.6-15.4L11-8.4L21-19.4" fill="none" stroke="#FBF7F1" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

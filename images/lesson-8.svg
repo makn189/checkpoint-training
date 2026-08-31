@@ -1,0 +1,96 @@
+<svg viewBox="0 0 1200 750" width="1200" height="750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="frameClip"><rect x="0" y="0" width="1200" height="750"/></clipPath>
+    <clipPath id="burstClip"><circle cx="600" cy="330" r="430"/></clipPath>
+    <pattern id="halftoneDark" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="2.2" cy="2.2" r="1.6" fill="#22243B" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#frameClip)">
+    <rect x="0" y="0" width="1200" height="750" fill="#FBF7F1"/>
+
+    <g clip-path="url(#burstClip)">
+      <polygon points="728,330 1240,330 1214.08,510.31 722.82,366.06" fill="#EFE8FA"/>
+      <polygon points="722.82,366.06 1214.08,510.31 1138.4,676.01 707.68,399.2" fill="#FBF7F1"/>
+      <polygon points="707.68,399.2 1138.4,676.01 1019.11,813.68 683.82,426.74" fill="#EFE8FA"/>
+      <polygon points="683.82,426.74 1019.11,813.68 865.87,912.16 653.17,446.43" fill="#FBF7F1"/>
+      <polygon points="653.17,446.43 865.87,912.16 691.08,963.49 618.22,456.7" fill="#EFE8FA"/>
+      <polygon points="618.22,456.7 691.08,963.49 508.92,963.49 581.78,456.7" fill="#FBF7F1"/>
+      <polygon points="581.78,456.7 508.92,963.49 334.13,912.16 546.83,446.43" fill="#EFE8FA"/>
+      <polygon points="546.83,446.43 334.13,912.16 180.89,813.68 516.18,426.74" fill="#FBF7F1"/>
+      <polygon points="516.18,426.74 180.89,813.68 61.6,676.01 492.32,399.2" fill="#EFE8FA"/>
+      <polygon points="492.32,399.2 61.6,676.01 -14.08,510.31 477.18,366.06" fill="#FBF7F1"/>
+      <polygon points="477.18,366.06 -14.08,510.31 -40,330 472,330" fill="#EFE8FA"/>
+      <polygon points="472,330 -40,330 -14.08,149.69 477.18,293.94" fill="#FBF7F1"/>
+      <polygon points="477.18,293.94 -14.08,149.69 61.6,-16.01 492.32,260.8" fill="#EFE8FA"/>
+      <polygon points="492.32,260.8 61.6,-16.01 180.89,-153.68 516.18,233.26" fill="#FBF7F1"/>
+      <polygon points="516.18,233.26 180.89,-153.68 334.13,-252.16 546.83,213.57" fill="#EFE8FA"/>
+      <polygon points="546.83,213.57 334.13,-252.16 508.92,-303.49 581.78,203.3" fill="#FBF7F1"/>
+      <polygon points="581.78,203.3 508.92,-303.49 691.08,-303.49 618.22,203.3" fill="#EFE8FA"/>
+      <polygon points="618.22,203.3 691.08,-303.49 865.87,-252.16 653.17,213.57" fill="#FBF7F1"/>
+      <polygon points="653.17,213.57 865.87,-252.16 1019.11,-153.68 683.82,233.26" fill="#EFE8FA"/>
+      <polygon points="683.82,233.26 1019.11,-153.68 1138.4,-16.01 707.68,260.8" fill="#FBF7F1"/>
+      <polygon points="707.68,260.8 1138.4,-16.01 1214.08,149.69 722.82,293.94" fill="#EFE8FA"/>
+      <polygon points="722.82,293.94 1214.08,149.69 1240,330 728,330" fill="#FBF7F1"/>
+      <circle cx="600" cy="330" r="430" fill="none" stroke="#22243B" stroke-width="3" opacity="0.08"/>
+    </g>
+
+    <rect x="0" y="600" width="1200" height="150" fill="#22243B"/>
+    <rect x="0" y="596" width="1200" height="6" fill="#6E62E5"/>
+
+    <g fill="#FF7A59" stroke="#22243B" stroke-width="3" stroke-linejoin="round">
+      <path d="M980 150 L988 168 L1006 176 L988 184 L980 202 L972 184 L954 176 L972 168 Z"/>
+    </g>
+    <g fill="#AEE3C8" stroke="#22243B" stroke-width="3" stroke-linejoin="round">
+      <path d="M200 460 L207 476 L223 483 L207 490 L200 506 L193 490 L177 483 L193 476 Z"/>
+    </g>
+
+    <!-- open register/notebook -->
+    <g transform="translate(600,400) rotate(-2)">
+      <path d="M-260 -140 L0 -170 L260 -140 L260 150 L0 180 L-260 150 Z" fill="#FBF7F1" stroke="#22243B" stroke-width="8" stroke-linejoin="round"/>
+      <line x1="0" y1="-170" x2="0" y2="180" stroke="#22243B" stroke-width="6"/>
+
+      <rect x="-220" y="-96" width="180" height="10" rx="5" fill="#22243B" opacity="0.65"/>
+      <rect x="-220" y="-64" width="150" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <rect x="-220" y="-32" width="170" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <rect x="-220" y="0" width="120" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <rect x="-220" y="32" width="160" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <rect x="-220" y="64" width="130" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <rect x="-220" y="96" width="150" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+
+      <rect x="30" y="-86" width="200" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <rect x="30" y="-54" width="170" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <rect x="30" y="-22" width="200" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <g transform="translate(140,20)">
+        <circle r="24" fill="#AEE3C8" stroke="#22243B" stroke-width="4"/>
+        <path d="M-9 0 L-2 8 L11 -9" fill="none" stroke="#22243B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <rect x="30" y="56" width="200" height="10" rx="5" fill="#22243B" opacity="0.4"/>
+      <g transform="translate(140,96)">
+        <circle r="24" fill="#AEE3C8" stroke="#22243B" stroke-width="4"/>
+        <path d="M-9 0 L-2 8 L11 -9" fill="none" stroke="#22243B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+
+    <!-- pen writing -->
+    <g transform="translate(240,270) rotate(28)">
+      <rect x="-14" y="-140" width="28" height="180" rx="10" fill="#FF7A59" stroke="#22243B" stroke-width="6"/>
+      <path d="M-14 40 L0 74 L14 40 Z" fill="#22243B"/>
+      <rect x="-14" y="-140" width="28" height="34" rx="10" fill="#22243B"/>
+    </g>
+
+    <!-- clock accent -->
+    <g transform="translate(960,470)">
+      <circle r="46" fill="#FFC49B" stroke="#22243B" stroke-width="6"/>
+      <line x1="0" y1="0" x2="0" y2="-26" stroke="#22243B" stroke-width="5" stroke-linecap="round"/>
+      <line x1="0" y1="0" x2="18" y2="10" stroke="#22243B" stroke-width="5" stroke-linecap="round"/>
+      <circle r="5" fill="#22243B"/>
+    </g>
+
+    <g transform="translate(56,690)">
+      <path d="M14 0s16-8 16-20V-40l-16-6-16 6v20C-2-8 14 0 14 0z" fill="#4E3FD1"/>
+      <path d="M4.6-15.4L11-8.4L21-19.4" fill="none" stroke="#FBF7F1" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>
