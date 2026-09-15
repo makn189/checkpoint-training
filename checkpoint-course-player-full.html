@@ -6,7 +6,7 @@
 <title>Challenge 25 &amp; Acceptable ID — Checkpoint</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Challenge 25 &amp; Acceptable ID — Checkpoint">
-<meta property="og:description" content="Till-side training on Challenge 25 and acceptable ID, in 8 modules with a 10-question test each.">
+<meta property="og:description" content="Till-side training on Challenge 25 and acceptable ID, in 9 modules with a 10-question test each.">
 <meta property="og:image" content="https://makn189.github.io/checkpoint-training/images/challenge25-poster.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://makn189.github.io/checkpoint-training/images/challenge25-poster.svg">
@@ -213,7 +213,7 @@
   <aside class="sidebar">
     <div class="sidebar-head">
       <img src="images/challenge25-poster.svg" alt="Illustration of a till-side Challenge 25 ID check" style="width:100%;height:104px;object-fit:cover;object-position:50% 42%;border-radius:14px;display:block;margin-bottom:14px;">
-      <span class="tag">All staff · ~60 mins</span>
+      <span class="tag">All staff · ~65 mins</span>
       <h2>Challenge 25 &amp; Acceptable ID</h2>
     </div>
     <div id="sidebar-list"></div>
@@ -279,24 +279,50 @@ const lessons = [
     meta: "8 min",
     image: "images/lesson-3.svg",
     imageAlt: "A wallet with cards, representing the documents someone might offer as ID",
-    lead: "Challenge 25 recognises three standard forms of ID: a valid passport, a UK photocard driving licence, and a PASS-accredited proof-of-age card.",
+    lead: "Challenge 25 recognises three standard physical forms of ID — a valid passport, a UK photocard driving licence, and a PASS-accredited proof-of-age card — plus, since September 2026, certified digital ID from a small number of approved providers.",
     body: [
       "A PASS-accredited card carries the PASS hologram — that's the detail to look for, since plenty of unofficial \"proof of age\" cards exist without it.",
       "What doesn't count: student cards, workplace ID badges, bank cards, or a photo of someone's ID on their phone. None of these carry the security features needed to confirm both identity and age.",
-      "For alcohol specifically, only those three physical documents count — a digital ID app or verification service isn't currently accepted, even if the store also sells other age-restricted products where digital ID schemes are sometimes allowed under separate rules. If in doubt about a digital option, treat an alcohol sale as requiring one of the three physical forms."
+      "Since 15 September 2026, alcohol sales can also be verified with a certified digital ID — but only from a provider listed on the official GOV.UK register, and only where your store has chosen to support it. The next lesson covers exactly how that works. If your store hasn't set it up, or you're ever unsure about a digital option, treat the sale as requiring one of the three physical forms instead."
     ],
-    callout: "<strong>Quick check:</strong> passport, UK photocard driving licence, or PASS hologram card. If it's none of those three, it isn't acceptable ID under Challenge 25.",
+    callout: "<strong>Quick check:</strong> passport, UK photocard driving licence, PASS hologram card — or, where your store supports it, a certified digital ID check. If it's none of those, it isn't acceptable ID under Challenge 25.",
     quiz: [
-      { q: "Which three forms of ID does Challenge 25 recognise?", opts: ["Passport, student card, birth certificate","Passport, UK photocard driving licence, PASS-accredited card","Passport, bank card, workplace badge","Passport, provisional licence paper counterpart, library card"], correct: 1, explain: "The three accepted forms are a valid passport, a UK photocard driving licence, and a PASS-accredited card." },
-      { q: "Does a student ID card count as acceptable ID?", opts: ["Yes, if it has a photo","No — it doesn't carry the required security features","Yes, but only for tobacco","Only if laminated"], correct: 1, explain: "A student card isn't one of the three accepted forms, regardless of whether it has a photo." },
+      { q: "Which three physical forms of ID does Challenge 25 recognise?", opts: ["Passport, student card, birth certificate","Passport, UK photocard driving licence, PASS-accredited card","Passport, bank card, workplace badge","Passport, provisional licence paper counterpart, library card"], correct: 1, explain: "The three accepted physical forms are a valid passport, a UK photocard driving licence, and a PASS-accredited card." },
+      { q: "Does a student ID card count as acceptable ID?", opts: ["Yes, if it has a photo","No — it doesn't carry the required security features","Yes, but only for tobacco","Only if laminated"], correct: 1, explain: "A student card isn't one of the accepted forms, regardless of whether it has a photo." },
       { q: "What must a proof-of-age card carry to be considered acceptable?", opts: ["A loyalty scheme logo","The PASS hologram","A barcode","A QR code linking to a website"], correct: 1, explain: "A PASS-accredited card carries the PASS hologram — that's the detail that makes it acceptable." },
-      { q: "Is a photo of a driving licence on someone's phone acceptable ID?", opts: ["Yes, if the photo is recent","No — only the physical document counts","Yes, if the customer also shows a bank card","Only for over-21s"], correct: 1, explain: "A photo can be edited or belong to someone else — only the physical document, checked in hand, counts." },
-      { q: "Does a workplace ID badge count as acceptable ID under Challenge 25?", opts: ["Yes, if it has a photo and date of birth","No — it isn't one of the three accepted forms","Yes, for regular customers only","Only if issued by a large employer"], correct: 1, explain: "A workplace badge isn't one of the three recognised forms of ID, whatever it shows." },
-      { q: "For an alcohol sale specifically, is a digital ID verification app currently accepted?", opts: ["Yes, always","No — alcohol sales require one of the three physical forms","Only for customers over 21","Only with manager approval"], correct: 1, explain: "Digital ID isn't currently accepted for alcohol, even where it's allowed for some other age-restricted products." },
-      { q: "Which of these is NOT one of the three accepted forms of ID?", opts: ["UK photocard driving licence","Valid passport","Bank card","PASS-accredited proof-of-age card"], correct: 2, explain: "A bank card is never an accepted form of ID under Challenge 25." },
+      { q: "Is a photo of a driving licence on someone's phone acceptable ID?", opts: ["Yes, if the photo is recent","No — only the physical document counts","Yes, if the customer also shows a bank card","Only for over-21s"], correct: 1, explain: "A photo can be edited or belong to someone else — only the physical document, checked in hand, counts. (A certified digital ID check is different from this — more on that next lesson.)" },
+      { q: "Does a workplace ID badge count as acceptable ID under Challenge 25?", opts: ["Yes, if it has a photo and date of birth","No — it isn't one of the accepted forms","Yes, for regular customers only","Only if issued by a large employer"], correct: 1, explain: "A workplace badge isn't one of the recognised forms of ID, whatever it shows." },
+      { q: "For an alcohol sale specifically, can a certified digital ID check ever be used instead of physical ID?", opts: ["No, never — alcohol always requires physical ID","Yes — from a certified provider on the GOV.UK register, where the store supports it","Only for customers who are already over 25","Only for online orders, never in person"], correct: 1, explain: "Since 15 September 2026, a certified digital ID check is a valid alternative to physical ID for alcohol, where a store has chosen to accept it." },
+      { q: "Which of these is NOT one of the three accepted physical forms of ID?", opts: ["UK photocard driving licence","Valid passport","Bank card","PASS-accredited proof-of-age card"], correct: 2, explain: "A bank card is never an accepted form of ID under Challenge 25." },
       { q: "Why doesn't a bank card count as acceptable ID?", opts: ["It doesn't confirm date of birth or carry age-verification security features","Banks don't allow it to be used for ID","It's against store policy only, not the law","It's too easy to lose"], correct: 0, explain: "A bank card doesn't show a date of birth or carry the security features needed to confirm age." },
       { q: "A customer's passport photo doesn't quite look like them, but the document seems otherwise genuine. What should you do?", opts: ["Accept it since the document itself looks real","Decline the sale — the photo not matching is reason enough","Ask a colleague to make the final call instead of you","Accept it if they know their own date of birth"], correct: 1, explain: "A photo that doesn't match is reason enough to decline, regardless of how genuine the rest looks." },
       { q: "What's the safest response if you're not sure whether a document is one of the three accepted forms?", opts: ["Accept it and move on quickly","Treat it as not acceptable and explain the three forms that are","Ask the customer to describe the document instead","Accept it if the queue is long"], correct: 1, explain: "If in doubt, treat it as not acceptable and explain the three forms Challenge 25 recognises." }
+    ]
+  },
+  {
+    title: "Digital proof of age at the till",
+    meta: "6 min",
+    image: "images/lesson-digital-id.svg",
+    imageAlt: "A customer tapping a phone showing a QR code against a till-side scanner for a digital age check",
+    lead: "Since 15 September 2026, licensed premises in England and Wales can accept a certified digital ID alongside physical documents to prove someone is 18 or over. Physical ID hasn't gone anywhere — this is an additional option, not a replacement.",
+    body: [
+      "The change comes from an amendment to the Licensing Act 2003's mandatory licensing conditions. It allows certified Digital Verification Services — listed on the official statutory register on GOV.UK — to be used for alcohol age checks. Named providers include Yoti ID, Post Office EasyID, and Luciditi ID, though what matters isn't the brand, it's whether the provider is on that register.",
+      "At the till, a customer proves their age by showing a QR code or tapping their phone against a compatible reader. Your device shows a clear pass confirmation — a simple \"18+, verified\" style result. The customer only shares that confirmation, not their name, address, or date of birth, which is different from handing over a physical ID that shows all of that.",
+      "Accepting digital ID is entirely voluntary for a store — some shops will only take the three physical forms if they haven't set up a digital reader, so always follow your own store's policy on what's accepted. A screenshot, a photo of an ID, or a generic \"age calculator\" app doesn't count, exactly like it wouldn't for a physical ID — only a genuine check from a certified provider on the register counts.",
+      "None of this changes the legal drinking age or the Challenge 25 standard. It's still 18, and the same under-25 buffer applies whether the check in front of you is physical or digital. If a digital check fails, looks wrong, or your store simply hasn't set one up, treat it the same as any ID you can't verify — ask for one of the three accepted physical forms instead."
+    ],
+    callout: "<strong>Same standard, new route.</strong> A certified digital ID from the official GOV.UK register is as valid as a passport, driving licence, or PASS card — but it's an addition to physical ID, not a replacement for it, and it's down to your store whether it's supported at all.",
+    quiz: [
+      { q: "When did the rule change allowing certified digital ID for alcohol sales take effect in England and Wales?", opts: ["1 January 2026","15 September 2026","It hasn't taken effect yet","25 December 2025"], correct: 1, explain: "The change came into force on 15 September 2026, under an amendment to the Licensing Act 2003's mandatory licensing conditions." },
+      { q: "What must a digital ID provider be, for its age check to count for an alcohol sale?", opts: ["Any app that displays a date of birth","A certified Digital Verification Service listed on the statutory register on GOV.UK","Any UK-based tech company","A banking app with ID verification built in"], correct: 1, explain: "Only certified providers listed on the official GOV.UK register meet the standard — not just any app that shows an age." },
+      { q: "Does accepting digital ID mean physical ID (passport, driving licence, PASS card) is no longer valid?", opts: ["Yes, physical ID has been phased out","No — physical ID remains just as valid; digital ID is an additional option","Only passports remain valid now","Only for customers over 21"], correct: 1, explain: "Digital ID sits alongside physical ID — it doesn't replace it, and plenty of stores and customers will keep using physical documents." },
+      { q: "At the till, how does a customer typically prove their age with a certified digital ID?", opts: ["By emailing a copy of their passport in advance","By showing a QR code or tapping their phone against a compatible reader","By reciting their date of birth to staff","By showing a photo of their driving licence on their phone"], correct: 1, explain: "The standard flow is a QR code scan or a tap against a reader, with a clear pass confirmation on the staff device." },
+      { q: "What information does a customer typically share during a certified digital age check?", opts: ["Their full name, address, and date of birth","Just a confirmation that they meet the age requirement, not their personal details","Their bank account details","Their National Insurance number"], correct: 1, explain: "A key feature of these checks is confirming age without exposing the customer's full personal details, unlike a physical ID." },
+      { q: "Is a store required to accept digital ID for alcohol sales?", opts: ["Yes, all stores must accept it from the effective date","No — accepting digital ID is voluntary for each store","Only large supermarkets are required to accept it","Only stores that already sell vapes must accept it"], correct: 1, explain: "Adoption is voluntary — a store can choose whether to support digital verification, so always follow your own store's policy." },
+      { q: "A customer shows you a screenshot of an ID or a result from a generic \"age calculator\" app. Does this count as a certified digital ID check?", opts: ["Yes, any app showing an age counts", "No — only a certified provider's official verification flow, from the statutory register, counts","Yes, but only for tobacco sales","Only if the screenshot looks recent"], correct: 1, explain: "A screenshot or uncertified app isn't a genuine check, exactly like a photo of a physical ID isn't acceptable — it must come from a listed, certified provider." },
+      { q: "Does the new digital ID option change the legal minimum age to buy alcohol?", opts: ["Yes, it raises it to 21","No — the legal age stays 18, and Challenge 25's under-25 buffer applies the same way","Yes, it lowers it to 16","It removes the minimum age for verified customers"], correct: 1, explain: "The rule change is about how age can be proven, not what the legal age is — 18 stays 18, and the same buffer applies." },
+      { q: "A customer's digital ID check fails, or your store hasn't set up digital verification. What should you do?", opts: ["Serve them anyway to avoid a delay","Ask for one of the accepted physical forms of ID instead","Assume the failure proves they're underage and call the police","Let them keep retrying different apps until one works"], correct: 1, explain: "Treat a failed or unavailable digital check the same as any ID you can't verify — fall back to physical ID." },
+      { q: "Which of these is a named example of a certified Digital Verification Service mentioned by the government?", opts: ["Yoti ID","Instagram Verified","Google Pay","Experian Boost"], correct: 0, explain: "Yoti ID is one of several providers named by the government as certified, alongside others such as Post Office EasyID and Luciditi ID." }
     ]
   },
   {
@@ -434,6 +460,7 @@ let streak = 0;
 let bestStreak = 0;
 let quizAnswers = [];
 let quizSubmitted = false;
+const lessonAnswers = {};
 
 function renderSidebar(){
   const list = document.getElementById('sidebar-list');
@@ -509,8 +536,9 @@ function renderContent(){
   }
 
   const l = lessons[current];
-  quizAnswers = new Array(l.quiz.length).fill(null);
-  quizSubmitted = false;
+  const savedAnswers = lessonAnswers[current];
+  quizAnswers = savedAnswers ? savedAnswers.slice() : new Array(l.quiz.length).fill(null);
+  quizSubmitted = !!savedAnswers;
   const alreadyPassed = passedModules.has(current);
 
   document.getElementById('content').innerHTML = `
@@ -553,6 +581,8 @@ function renderContent(){
       </div>
     </div>
   `;
+
+  if (quizSubmitted) paintSubmittedQuiz(l, false);
 }
 
 function selectAnswer(qi, oi){
@@ -570,10 +600,17 @@ function submitQuiz(){
     return;
   }
   quizSubmitted = true;
+  lessonAnswers[current] = quizAnswers.slice();
+  paintSubmittedQuiz(l, true);
+}
+
+// Paints the graded state of a submitted quiz (highlighted answers, explanations,
+// pass/fail banner). Used both for a fresh submission and when re-visiting a
+// lesson whose quiz was already answered, so progress doesn't look lost.
+function paintSubmittedQuiz(l, isFreshSubmit){
   let correctCount = 0;
   l.quiz.forEach((q, qi) => {
-    const isRight = quizAnswers[qi] === q.correct;
-    if (isRight) correctCount++;
+    if (quizAnswers[qi] === q.correct) correctCount++;
     document.querySelectorAll(`.quiz-q[data-qi="${qi}"] .qopt`).forEach(optEl => {
       optEl.style.pointerEvents = 'none';
       const oi = parseInt(optEl.dataset.oi);
@@ -587,6 +624,14 @@ function submitQuiz(){
 
   const score = Math.round((correctCount / l.quiz.length) * 100);
   const passed = score >= CERT_PASS_RATE;
+
+  document.getElementById('quiz-result').innerHTML = passed
+    ? `<div class="quiz-pass">✓ ${correctCount}/${l.quiz.length} — ${score}% — Passed</div>`
+    : `<div class="quiz-fail">${correctCount}/${l.quiz.length} — ${score}% — below the ${CERT_PASS_RATE}% pass mark. <a onclick="retryQuiz();return false;">Retry the test</a></div>`;
+  document.getElementById('quiz-submit-btn').style.display = 'none';
+
+  if (!isFreshSubmit) return;
+
   if (passed) passedModules.add(current);
 
   if (!firstAttemptResult[current]){
@@ -599,11 +644,6 @@ function submitQuiz(){
     }
     renderStreak();
   }
-
-  document.getElementById('quiz-result').innerHTML = passed
-    ? `<div class="quiz-pass">✓ ${correctCount}/${l.quiz.length} — ${score}% — Passed</div>`
-    : `<div class="quiz-fail">${correctCount}/${l.quiz.length} — ${score}% — below the ${CERT_PASS_RATE}% pass mark. <a onclick="retryQuiz();return false;">Retry the test</a></div>`;
-  document.getElementById('quiz-submit-btn').style.display = 'none';
 
   if (passed){
     const contBtn = document.getElementById('continue-btn');
@@ -636,6 +676,7 @@ function celebrate(){
 }
 
 function retryQuiz(){
+  delete lessonAnswers[current];
   renderContent();
   const box = document.querySelector('.quiz-box');
   if (box) box.scrollIntoView({ block: 'start' });
@@ -684,7 +725,7 @@ function downloadCertificate(score){
     <h1>Challenge 25 &amp; Acceptable ID</h1>
     <div class="name">${esc(name)}</div>
     <div class="shop">${esc(shop)}</div>
-    <div class="meta">Completed <strong>${date}</strong> &middot; Passed all 8 module tests at 80%+ &middot; Overall first-attempt score <strong>${score}%</strong></div>
+    <div class="meta">Completed <strong>${date}</strong> &middot; Passed all ${lessons.length} module tests at 80%+ &middot; Overall first-attempt score <strong>${score}%</strong></div>
     <div class="disclaimer">This certificate confirms completion of Checkpoint's Challenge 25 &amp; Acceptable ID training. It is a non-accredited training resource, not a legal qualification, and is not a substitute for the official Level 2 Award for Personal Licence Holders (APLH).</div>
   </div>
 </body></html>`;

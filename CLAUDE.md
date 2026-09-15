@@ -46,18 +46,19 @@ Challenge 25. Two audiences:
   Course grid links to the live course; other two cards are styled as
   "Coming soon" placeholders (no href).
 - `checkpoint-course-player-full.html` — fully built, interactive
-  8-module Challenge 25 & Acceptable ID course. Each module ends in a
-  10-question test (80% to pass, gates progress to the next module),
-  with sidebar navigation, a streak stat, and a downloadable certificate
-  on completion. Content and lesson list are hardcoded in a JS array
-  inside the file (`lessons = [...]`).
+  9-module Challenge 25 & Acceptable ID course (includes a module on
+  the digital ID rules that took effect 15 September 2026). Each module
+  ends in a 10-question test (80% to pass, gates progress to the next
+  module), with sidebar navigation, a streak stat, and a downloadable
+  certificate on completion. Content and lesson list are hardcoded in a
+  JS array inside the file (`lessons = [...]`).
 - `resources.html` — free downloadable templates page (currently three:
   a Refusal of Sales Log Sheet .docx, an Age By Year of Birth
   Calculator PDF, and a Due Diligence Checklist .docx, all in
   `resources/`). Linked from the main nav and footer.
 
 ## Content status — IMPORTANT
-- Challenge 25 module: 8 lessons, fully written, but this is **mockup
+- Challenge 25 module: 9 lessons, fully written, but this is **mockup
   content** — grounded in the real Challenge 25 scheme basics, not
   legally reviewed. Flag clearly if asked to treat it as production-
   ready; it should be checked by someone licensing-literate before real
