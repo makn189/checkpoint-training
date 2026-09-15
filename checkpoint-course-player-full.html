@@ -36,6 +36,11 @@
     padding:0 28px;background:#fff;position:sticky;top:0;z-index:10;
   }
   .tb-left{display:flex;align-items:center;gap:18px;}
+  /* ---------- LANGUAGE TOGGLE ---------- */
+  .lang-toggle{display:flex;background:var(--cream-deep);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;}
+  .lang-btn{border:none;background:transparent;padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;letter-spacing:.02em;font-family:'Inter',sans-serif;}
+  .lang-btn.active{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(34,36,59,.15);}
+  #lang-caveat{display:none;text-align:center;font-size:12px;color:var(--ink-soft);background:var(--cream-deep);padding:8px 16px;border-bottom:1px solid var(--line);}
   .exit{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
   .exit svg{width:16px;height:16px;}
   .divider{width:1px;height:22px;background:var(--line);}
@@ -191,20 +196,25 @@
 </head>
 <body>
 
+<div id="lang-caveat">Cyfieithiad Cymraeg wedi'i gynhyrchu gan AI ac heb ei adolygu gan siaradwr Cymraeg proffesiynol.</div>
 <div class="topbar">
   <div class="tb-left">
-    <span class="exit" onclick="alert('This would exit to the course dashboard.')">
+    <span class="exit" onclick="exitCourse()">
       <svg viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Exit
+      <span id="exit-label">Exit</span>
     </span>
     <div class="divider"></div>
-    <span class="course-name">Challenge 25 &amp; Acceptable ID</span>
+    <span class="course-name" id="course-name">Challenge 25 &amp; Acceptable ID</span>
   </div>
   <div class="tb-progress">
+    <div class="lang-toggle">
+      <button type="button" class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button type="button" class="lang-btn" data-lang="cy" onclick="setLang('cy')">CY</button>
+    </div>
     <div class="streak-badge zero" id="streak-badge" title="Module tests passed at 80%+ on the first attempt, in a row">
       <span class="streak-flame">🔥</span><span id="streak-count">0</span>
     </div>
-    <span class="bar-label" id="progress-label">1 of 8</span>
+    <span class="bar-label" id="progress-label">1 of 9</span>
     <div class="bar-track"><div class="bar-fill" id="progress-fill" style="width:12.5%"></div></div>
   </div>
 </div>
@@ -213,8 +223,8 @@
   <aside class="sidebar">
     <div class="sidebar-head">
       <img src="images/challenge25-poster.svg" alt="Illustration of a till-side Challenge 25 ID check" style="width:100%;height:104px;object-fit:cover;object-position:50% 42%;border-radius:14px;display:block;margin-bottom:14px;">
-      <span class="tag">All staff · ~65 mins</span>
-      <h2>Challenge 25 &amp; Acceptable ID</h2>
+      <span class="tag" id="sidebar-tag">All staff · ~65 mins</span>
+      <h2 id="sidebar-h2">Challenge 25 &amp; Acceptable ID</h2>
     </div>
     <div id="sidebar-list"></div>
   </aside>
@@ -452,6 +462,229 @@ const lessons = [
   }
 ];
 
+// Welsh translations of the lesson content above, in the same order.
+// AI-generated, not reviewed by a professional Welsh speaker — see the
+// #lang-caveat banner shown whenever Welsh is selected.
+const lessonsCY = [
+  {
+    title: "Pam mae Challenge 25 yn bodoli",
+    meta: "8 munud",
+    imageAlt: "Cownter siop gornel yn y DU yn gwerthu bwyd, papurau newydd, a nwyddau bob dydd",
+    lead: "Mae'n anghyfreithlon gwerthu alcohol i unrhyw un dan 18 oed — unrhyw le yn y DU, heb eithriad. Os ewch chi'n anghywir, mae'r cosbau'n real: dirwy ddiderfyn i'r siop, dirwy neu hyd yn oed ddedfryd carchar fer i'r unigolyn a werthodd, a thrwydded bersonol y gellir ei hadolygu neu ei diddymu.",
+    body: [
+      "Y broblem yw ei bod hi'n anodd dyfalu oedran rhywun dim ond wrth edrych arnyn nhw. Mae'r rhan fwyaf o bobl yn waeth am wneud hynny nag y maen nhw'n meddwl — a dyna'n union y sefyllfa mae Challenge 25 wedi'i chynllunio ar ei chyfer.",
+      "Yn hytrach na cheisio adnabod yn union pwy sydd dan 18, mae staff yn gofyn am ID gan unrhyw un sy'n edrych dan 25. Os ydych chi'n dyfalu'n anghywir am rywun 25 oed, dydych chi dal ddim yn agos at werthu i rywun dan oed. Os ydych chi'n dyfalu'n anghywir am rywun 18 oed, efallai eich bod newydd dorri'r gyfraith.",
+      "Dyw gwerthiannau dan oed ddim ond yn cael eu dal yn y foment — mae llawer yn cael eu darganfod wedyn, drwy adolygu CCTV, cwyn gan riant, neu bryniant prawf gan Safonau Masnach lle mae rhywun sy'n wirioneddol dan 18 yn cael ei anfon i mewn i drio prynu. Dyw'r un o'r gwiriadau hynny'n poeni pa mor brysur oedd y siop na pha mor hyderus roedd y cwsmer yn ymddangos."
+    ],
+    callout: "<strong>Y syniad allweddol:</strong> Dyw Challenge 25 ddim yn rheol fwy llym na'r hyn mae'r gyfraith yn ei ofyn. Mae'n rhan o adeiladu <em>diwydrwydd dyladwy</em> y siop — prawf bod pob rhagofal rhesymol wedi'i gymryd i atal gwerthiannau dan oed, sef yn union yr hyn mae'r gyfraith yn chwilio amdano fel amddiffyniad.",
+    quiz: [
+      { q: "Beth yw'r isafswm oedran cyfreithiol i brynu alcohol yn y DU?", opts: ["16","18","21","25"], explain: "18 yw'r oedran cyfreithiol ym mhobman yn y DU — dyw Challenge 25 ddim yn newid hyn, mae'n unig yn adeiladu ymyl ar gyfer camgymeriad." },
+      { q: "Beth mae'r \"25\" yn Challenge 25 yn ei gynrychioli mewn gwirionedd?", opts: ["Oedran yfed cyfreithiol ar wahân","Ymyl diogelwch ar gyfer barnu oedran yn gywir","Isafswm oedran staff i werthu alcohol","Trothwy cynllun teyrngarwch"], explain: "Mae'r trothwy 25 yn bodoli'n unig fel byffer yn erbyn camfarnu oedran — dyw e ddim yn oedran yfed cyfreithiol ar wahân." },
+      { q: "Pwy allai fod yn atebol yn bersonol os yw alcohol yn cael ei werthu'n fwriadol i rywun dan oed?", opts: ["Y siop yn unig, byth yr unigolyn","Yr aelod unigol o staff a wnaeth y gwerthiant","Rheolwr y siop yn unig","Neb — mater sifil yn unig ydyw"], explain: "Gall staff unigol gael dirwy bersonol (neu mewn achosion difrifol, eu herlyn) am werthiant bwriadol — dyw e ddim yn broblem i'r siop yn unig." },
+      { q: "Beth all ddigwydd i drwydded siop ar ôl gwerthiant dan oed sy'n cael ei brofi?", opts: ["Dim byd, dyw trwyddedau ddim yn cael eu heffeithio gan gamgymeriadau staff","Gall gael ei hadolygu neu ei diddymu gan yr awdurdod trwyddedu","Mae'n cael ei hatal yn awtomatig am un diwrnod","Mae'n cael ei throsglwyddo i reolwr gwahanol"], explain: "Gall gwerthiant dan oed sy'n cael ei brofi sbarduno adolygiad trwydded, ac mewn achosion difrifol neu ailadroddus, ei diddymu." },
+      { q: "Sut mae'r rhan fwyaf o werthiannau dan oed yn cael eu darganfod mewn gwirionedd?", opts: ["Dim ond os yw'r cwsmer yn cyfaddef wedyn","Gweithrediadau pryniant prawf, adolygu CCTV, neu gwynion","Archwiliadau til ariannol ar hap yn unig","Dyn nhw byth yn cael eu darganfod"], explain: "Pryniannau prawf Safonau Masnach, CCTV, a chwynion yw'r prif ffyrdd mae gwerthiannau dan oed yn dod i'r amlwg — yn aml ymhell wedi i'r gwerthiant ddigwydd." },
+      { q: "Gwir neu anwir: mae Challenge 25 yn ofyniad cyfreithiol mwy llym na'r Ddeddf Drwyddedu ei hun.", opts: ["Gwir — mae'n codi'r oedran cyfreithiol i 25","Anwir — ymyl ymarferol ar gyfer camgymeriad ydyw, mae'r oedran cyfreithiol yn aros yn 18","Gwir, ond yn yr Alban yn unig","Anwir — mae'n disodli'r Ddeddf Drwyddedu"], explain: "Mae Challenge 25 yn arferiad diwydrwydd dyladwy sy'n eistedd ar ben y gyfraith, nid yn gyfraith ar wahân neu fwy llym." },
+      { q: "Pam allai cwsmer sy'n edrych yn hyderus ac yn dawel ei feddwl fod yn dal i fod dan oed?", opts: ["Does gan hyder ddim cysylltiad ag oedran gwirioneddol rhywun","Mae cwsmeriaid hyderus bob amser dros 18","Mae polisi'r siop yn tybio bod cwsmeriaid hyderus yn ddiogel i'w gwasanaethu","Mae'n anghyfreithlon ystyried hyder o gwbl"], explain: "Dyw'r ffordd mae rhywun yn ymddwyn yn dweud dim am eu dyddiad geni — dyna'n union pam mae Challenge 25 yn dibynnu ar ID, nid argraffiadau." },
+      { q: "Beth yw \"diwydrwydd dyladwy\" yng nghyd-destun cyfraith gwerthiannau dan oed?", opts: ["Cynllun disgownt i gwsmeriaid teyrngar","Prawf bod pob rhagofal rhesymol wedi'i gymryd i atal gwerthiant anghyfreithlon","Math o dderbynneb til","Cyfystyr ag arwyddion Challenge 25"], explain: "Diwydrwydd dyladwy yw'r amddiffyniad cyfreithiol sy'n cael ei adeiladu o bethau fel Challenge 25, gwiriadau ID priodol, a chofnodion gwrthod, gyda'i gilydd." },
+      { q: "Os yw gweithredwr til yn gwerthu alcohol i rywun dan 18 heb wirio ID, pwy sy'n gyfrifol?", opts: ["Neb, os oedd yn gamgymeriad go iawn","Yn bosib y ddau — yr aelod o staff a'r siop","Y cwsmer yn unig, am ddweud celwydd am eu hoedran","Yswiriant y siop yn unig sy'n ei gwmpasu"], explain: "Gall yr unigolyn a werthodd a'r siop ill dau ysgwyddo cyfrifoldeb am werthiant anghyfreithlon." },
+      { q: "Beth yw prif bwrpas gofyn am ID gan unrhyw un sy'n edrych dan 25?", opts: ["I arafu tiliau prysur yn fwriadol","I greu byffer fel bod gwerthiannau dan oed gwirioneddol yn llawer llai tebygol","I gyrraedd targed gwerthiant y brif swyddfa","I gasglu data cwsmeriaid ar gyfer marchnata"], explain: "Mae'r trothwy 25 yn bodoli i wneud gwerthiannau dan oed gwirioneddol yn llawer llai tebygol, hyd yn oed pan fydd staff yn camfarnu oedran rhywun." }
+    ]
+  },
+  {
+    title: "Pwy i'w herio, a pham mae'n cael ei gymhwyso'n gyson",
+    meta: "7 munud",
+    imageAlt: "Terfynell talu â cherdyn a cherdyn gwag, yn cynrychioli gwiriad til cyson",
+    lead: "Dim ond os caiff ei gymhwyso yr un ffordd i bawb sy'n edrych dan 25 y mae Challenge 25 yn gweithio — gan gynnwys cwsmeriaid rheolaidd, pobl mewn iwnifform waith, a phobl sy'n mynnu eu bod yn hŷn.",
+    body: [
+      "Cyn gynted ag y daw'r rheol yn agored i drafodaeth, mae'n peidio â bod yn amddiffyniad cyfreithiol ac yn dechrau bod yn fater o farn — a dyna'n union sy'n cael ei brofi os yw gwerthiant byth yn cael ei herio gan swyddog trwyddedu.",
+      "Os yw cydweithiwr yn gwrthod gwerthiant, mae cefnogi'r penderfyniad hwnnw ar y pryd (yn hytrach na'i wrthdroi o flaen y cwsmer) yr un mor bwysig â'r gwiriad gwreiddiol. Mae gwrthdroi gwrthodiad yn fyw yn dweud wrth staff nad yw eu barn yn cael ei thrystio, ac yn tanseilio'r cynllun cyfan.",
+      "Mae'n gweithio'r ffordd arall hefyd — gall aelod o staff sydd ei hun dan 18 oed dal i wrthod gwerthiant, ac mae'r gwrthodiad hwnnw'n cario'r un pwysau'n union. Dyw cysondeb ddim yn ymwneud â pha mor brofiadol neu uwch yw'r person sy'n gwirio ID; mae'n ymwneud â chymhwyso'r un safon, bob tro, i bawb sy'n edrych dan 25."
+    ],
+    callout: "<strong>Rheol gyffredinol:</strong> os byddech chi'n gofyn i ddieithryn am ID, gofynnwch i gwsmer rheolaidd hefyd. Cysondeb sy'n gwneud y polisi'n amddiffynadwy.",
+    quiz: [
+      { q: "Pam mae cysondeb yn bwysicaf ar gyfer Challenge 25?", opts: ["Mae'n edrych yn daclusach ar bapur","Mae gorfodi anghyson yn gwneud y polisi'n hawdd ei herio a'i amddiffyn mewn adolygiad trwyddedu","Mae'n ofynnol ar gyfer bonysau staff","Dim ond ar gyfer ffilm CCTV mae'n bwysig"], explain: "Mae polisi sy'n cael ei gymhwyso weithiau'n unig yn peidio ag edrych fel gorfodaeth wirioneddol ac yn dod yn anodd ei amddiffyn." },
+      { q: "Mae cydweithiwr yn gwrthod gwerthiant. Beth ddylech chi ei wneud os yw'r un cwsmer yn dod atoch chi wedyn?", opts: ["Eu gwasanaethu gan fod gwiriad newydd yn iawn","Cefnogi'r penderfyniad gwreiddiol a chymhwyso'r un safon","Ymddiheuro i'r cwsmer am gamgymeriad eich cydweithiwr","Gofyn i reolwr ei wrthdroi ar unwaith"], explain: "Mae cefnogi gwrthodiad cydweithiwr yn cadw'r polisi'n gyson ac yn dangos bod barn staff yn cael ei thrystio." },
+      { q: "Ydy bod yn gwsmer rheolaidd yn newid y gofyniad ID?", opts: ["Ydy, mae cwsmeriaid rheolaidd wedi'u heithrio ar ôl eu gwiriad cyntaf","Nac ydy — mae'r un safon yn berthnasol waeth beth am gyfarwyddeb","Dim ond os ydyn nhw wedi bod yn dod ers dros flwyddyn","Ddim ond ar ddyddiau'r wythnos"], explain: "Dyw cyfarwydd-deb ddim yn newid y safon — mae'r un gwiriad yn berthnasol i bawb sy'n edrych dan 25." },
+      { q: "All aelod o staff sydd ei hun dan 18 oed wrthod gwerthiant alcohol?", opts: ["Na all, dim ond staff sy'n oedolion all wrthod gwerthiannau","Gall — mae eu gwrthodiad yn cario'r un pwysau ag unrhyw un arall","Dim ond os oes rheolwr yn bresennol","Dim ond ar gyfer tybaco, nid alcohol"], explain: "Mae gwrthodiad unrhyw aelod o staff yn cario'r un pwysau, waeth beth yw eu hoedran eu hunain." },
+      { q: "Beth sy'n digwydd i Challenge 25 fel amddiffyniad os caiff ei gymhwyso'n ddetholus?", opts: ["Does dim byd yn newid, mae'n dal yn amddiffyniad dilys","Mae'n dod yn llawer gwannach, gan ei fod yn peidio ag edrych fel polisi gwirioneddol","Mae'n dod yn gryfach, gan ddangos bod staff yn defnyddio barn","Dim ond gwerthiannau ar-lein mae'n effeithio arnyn nhw"], explain: "Mae gorfodi detholus yn gwanhau'r amddiffyniad diwydrwydd dyladwy — mae angen iddo edrych fel polisi gwirioneddol, cyson." },
+      { q: "Mae cwsmer mewn iwnifform waith (e.e. gyrrwr danfon) yn edrych dan 25. Beth sy'n berthnasol?", opts: ["Mae iwnifformau'n cael eu trin fel prawf oedran","Yr un safon Challenge 25 ag unrhyw un arall","Mae cwsmeriaid mewn iwnifform yn cael eu gwrthod yn awtomatig","Dim ond ID gan reolwr sy'n cael ei dderbyn"], explain: "Dyw iwnifform ddim yn ID — mae'r un safon yn berthnasol waeth beth mae rhywun yn ei wisgo." },
+      { q: "Pam allai gwrthdroi gwrthodiad cydweithiwr o flaen y cwsmer fod yn niweidiol?", opts: ["Mae'n iawn cyn belled â bod yr ail aelod o staff yn fwy uwch","Mae'n arwyddo bod gwrthodiadau'n agored i drafodaeth, gan danseilio ymddiriedaeth yn y polisi","Does ganddo ddim effaith wirioneddol ar unrhyw beth","Dim ond yn broblem os yw'r cwsmer yn cwyno"], explain: "Mae gwrthdroi gwrthodiad yn fyw yn dweud wrth staff nad yw eu barn yn cael ei thrystio ac yn gwanhau'r cynllun cyfan." },
+      { q: "Beth yw'r \"rheol gyffredinol\" ar gyfer penderfynu pwy i ofyn iddo am ID?", opts: ["Gofyn i bawb dan 30 i fod yn ychwanegol ddiogel","Os byddech chi'n gofyn i ddieithryn, gofynnwch i gwsmer rheolaidd hefyd","Dim ond gofyn os oes rheolwr yn gwylio","Gofyn dim ond pan fydd system y til yn annog"], explain: "Os byddech chi'n gwirio ID dieithryn, dylai'r un safon fod yn berthnasol i gwsmer rheolaidd sy'n edrych dan 25." },
+      { q: "Beth sy'n cael ei brofi os yw gwerthiant byth yn cael ei herio'n ffurfiol gan swyddog trwyddedu?", opts: ["Pa mor gyflym wnaeth y til wasanaethu'r cwsmer","P'un a gafodd y polisi ei gymhwyso'n gyson, nid dim ond pan oedd yn gyfleus","Oriau agor y siop","Hanes derbynebau'r cwsmer"], explain: "Mae adolygiad trwyddedu yn edrych ar p'un a gafodd y polisi ei orfodi'n wirioneddol ac yn gyson." },
+      { q: "Pa un o'r rhain sydd orau'n disgrifio polisi Challenge 25 amddiffynadwy?", opts: ["Un sy'n cael ei gymhwyso weithiau, pan fydd staff yn cofio","Un sy'n cael ei gymhwyso'r un ffordd i bob cwsmer sy'n edrych dan 25, heb eithriadau","Un sy'n cael ei gymhwyso dim ond gyda'r nos ar benwythnosau","Un sy'n cael ei adael yn gyfan gwbl i ddisgresiwn staff"], explain: "Polisi amddiffynadwy yw un sy'n cael ei gymhwyso'r un ffordd, bob tro, i bawb sy'n edrych dan 25." }
+    ]
+  },
+  {
+    title: "Mathau derbyniol o ID",
+    meta: "8 munud",
+    imageAlt: "Waled gyda cherdyn, yn cynrychioli'r dogfennau y gallai rhywun eu cynnig fel ID",
+    lead: "Mae Challenge 25 yn cydnabod tri math safonol o ID corfforol — pasbort dilys, trwydded yrru cerdyn llun y DU, a cherdyn prawf-oedran achrededig PASS — a hefyd, ers Medi 2026, ID digidol achrededig gan nifer fach o ddarparwyr cymeradwy.",
+    body: [
+      "Mae cerdyn achrededig PASS yn cario holograff PASS — dyna'r manylyn i chwilio amdano, gan fod digon o gardiau \"prawf oedran\" answyddogol yn bodoli hebddo.",
+      "Beth sydd ddim yn cyfrif: cardiau myfyrwyr, bathodynnau ID gweithle, cardiau banc, neu lun o ID rhywun ar eu ffôn. Dyw'r un o'r rhain yn cario'r nodweddion diogelwch sydd eu hangen i gadarnhau hunaniaeth ac oedran.",
+      "Ers 15 Medi 2026, gellir gwirio gwerthiannau alcohol hefyd gydag ID digidol achrededig — ond dim ond gan ddarparwr sydd wedi'i restru ar gofrestr swyddogol GOV.UK, a dim ond lle mae eich siop wedi dewis ei chefnogi. Mae'r wers nesaf yn esbonio'n union sut mae hynny'n gweithio. Os nad yw eich siop wedi'i sefydlu, neu os nad ydych chi byth yn siŵr am opsiwn digidol, trin y gwerthiant fel un sy'n gofyn am un o'r tri math corfforol yn lle."
+    ],
+    callout: "<strong>Gwiriad cyflym:</strong> pasbort, trwydded yrru cerdyn llun y DU, cerdyn holograff PASS — neu, lle mae eich siop yn ei gefnogi, gwiriad ID digidol achrededig. Os nad yw'n un o'r rhain, dyw e ddim yn ID derbyniol o dan Challenge 25.",
+    quiz: [
+      { q: "Pa dri math corfforol o ID mae Challenge 25 yn eu cydnabod?", opts: ["Pasbort, cerdyn myfyriwr, tystysgrif geni","Pasbort, trwydded yrru cerdyn llun y DU, cerdyn achrededig PASS","Pasbort, cerdyn banc, bathodyn gweithle","Pasbort, gwrthddalen bapur trwydded dros dro, cerdyn llyfrgell"], explain: "Y tri math corfforol a dderbynnir yw pasbort dilys, trwydded yrru cerdyn llun y DU, a cherdyn achrededig PASS." },
+      { q: "Ydy cerdyn ID myfyriwr yn cyfrif fel ID derbyniol?", opts: ["Ydy, os oes llun arno","Nac ydy — dyw e ddim yn cario'r nodweddion diogelwch angenrheidiol","Ydy, ond ar gyfer tybaco'n unig","Dim ond os yw wedi'i lamineiddio"], explain: "Dyw cerdyn myfyriwr ddim yn un o'r mathau a dderbynnir, ni waeth a oes llun arno ai peidio." },
+      { q: "Beth sy'n rhaid i gerdyn prawf-oedran ei gario i gael ei ystyried yn dderbyniol?", opts: ["Logo cynllun teyrngarwch","Holograff PASS","Cod bar","Cod QR sy'n cysylltu â gwefan"], explain: "Mae cerdyn achrededig PASS yn cario holograff PASS — dyna'r manylyn sy'n ei wneud yn dderbyniol." },
+      { q: "Ydy llun o drwydded yrru ar ffôn rhywun yn ID derbyniol?", opts: ["Ydy, os yw'r llun yn ddiweddar","Nac ydy — dim ond y ddogfen gorfforol sy'n cyfrif","Ydy, os yw'r cwsmer hefyd yn dangos cerdyn banc","Dim ond ar gyfer pobl dros 21"], explain: "Gellir golygu llun neu gall fod yn perthyn i rywun arall — dim ond y ddogfen gorfforol, wedi'i gwirio yn y llaw, sy'n cyfrif. (Mae gwiriad ID digidol achrededig yn wahanol i hyn — mwy am hynny yn y wers nesaf.)" },
+      { q: "Ydy bathodyn ID gweithle'n cyfrif fel ID derbyniol o dan Challenge 25?", opts: ["Ydy, os oes llun a dyddiad geni arno","Nac ydy — dyw e ddim yn un o'r mathau a dderbynnir","Ydy, ar gyfer cwsmeriaid rheolaidd yn unig","Dim ond os yw wedi'i gyhoeddi gan gyflogwr mawr"], explain: "Dyw bathodyn gweithle ddim yn un o'r mathau cydnabyddedig o ID, beth bynnag mae'n ei ddangos." },
+      { q: "Ar gyfer gwerthiant alcohol yn benodol, all gwiriad ID digidol achrededig gael ei ddefnyddio yn lle ID corfforol?", opts: ["Na all, byth — mae alcohol bob amser yn gofyn am ID corfforol","Gall — gan ddarparwr achrededig ar gofrestr GOV.UK, lle mae'r siop yn ei gefnogi","Dim ond ar gyfer cwsmeriaid sydd eisoes dros 25","Dim ond ar gyfer archebion ar-lein, byth wyneb yn wyneb"], explain: "Ers 15 Medi 2026, mae gwiriad ID digidol achrededig yn ddewis dilys yn lle ID corfforol ar gyfer alcohol, lle mae siop wedi dewis ei dderbyn." },
+      { q: "Pa un o'r rhain NAD yw'n un o'r tri math corfforol derbyniol o ID?", opts: ["Trwydded yrru cerdyn llun y DU","Pasbort dilys","Cerdyn banc","Cerdyn prawf-oedran achrededig PASS"], explain: "Dyw cerdyn banc byth yn fath derbyniol o ID o dan Challenge 25." },
+      { q: "Pam nad yw cerdyn banc yn cyfrif fel ID derbyniol?", opts: ["Dyw e ddim yn cadarnhau dyddiad geni nac yn cario nodweddion diogelwch gwirio oedran","Dyw banciau ddim yn caniatáu ei ddefnyddio fel ID","Polisi'r siop yn unig ydyw, nid y gyfraith","Mae'n rhy hawdd ei golli"], explain: "Dyw cerdyn banc ddim yn dangos dyddiad geni nac yn cario'r nodweddion diogelwch sydd eu hangen i gadarnhau oedran." },
+      { q: "Dyw llun pasbort cwsmer ddim yn edrych yn union fel nhw, ond mae'r ddogfen yn ymddangos yn ddilys fel arall. Beth ddylech chi ei wneud?", opts: ["Ei dderbyn gan fod y ddogfen ei hun yn edrych yn real","Gwrthod y gwerthiant — mae'r llun ddim yn cyfateb yn ddigon o reswm","Gofyn i gydweithiwr wneud y penderfyniad terfynol yn lle chi","Ei dderbyn os ydyn nhw'n gwybod eu dyddiad geni eu hunain"], explain: "Mae llun sydd ddim yn cyfateb yn ddigon o reswm i wrthod, ni waeth pa mor ddilys mae'r gweddill yn edrych." },
+      { q: "Beth yw'r ymateb mwyaf diogel os nad ydych chi'n siŵr a yw dogfen yn un o'r tri math derbyniol?", opts: ["Ei derbyn a symud ymlaen yn gyflym","Ei thrin fel un annerbyniol ac esbonio'r tri math sydd","Gofyn i'r cwsmer ddisgrifio'r ddogfen yn lle hynny","Ei derbyn os yw'r ciw'n hir"], explain: "Os oes amheuaeth, triniwch hi fel un annerbyniol ac esboniwch y tri math mae Challenge 25 yn eu cydnabod." }
+    ]
+  },
+  {
+    title: "Prawf oedran digidol wrth y til",
+    meta: "6 munud",
+    imageAlt: "Cwsmer yn tapio ffôn sy'n dangos cod QR yn erbyn sganiwr wrth y til ar gyfer gwiriad oedran digidol",
+    lead: "Ers 15 Medi 2026, gall mangreoedd trwyddedig yng Nghymru a Lloegr dderbyn ID digidol achrededig ochr yn ochr â dogfennau corfforol i brofi bod rhywun yn 18 oed neu'n hŷn. Dyw ID corfforol ddim wedi mynd i unman — mae hwn yn opsiwn ychwanegol, nid yn rhywbeth sy'n ei ddisodli.",
+    body: [
+      "Daw'r newid o welliant i amodau trwyddedu gorfodol Deddf Drwyddedu 2003. Mae'n caniatáu i Wasanaethau Dilysu Digidol achrededig — sydd wedi'u rhestru ar y gofrestr statudol swyddogol ar GOV.UK — gael eu defnyddio ar gyfer gwiriadau oedran alcohol. Mae darparwyr a enwir yn cynnwys Yoti ID, Post Office EasyID, a Luciditi ID, er nad y brand sy'n bwysig, ond a yw'r darparwr ar y gofrestr honno.",
+      "Wrth y til, mae cwsmer yn profi ei oedran drwy ddangos cod QR neu dapio'i ffôn yn erbyn darllenydd cydnaws. Mae eich dyfais yn dangos cadarnhad clir o basio — canlyniad syml fel \"18+, wedi'i wirio\". Dim ond y cadarnhad hwnnw mae'r cwsmer yn ei rannu, nid ei enw, cyfeiriad, na dyddiad geni, sy'n wahanol i roi ID corfforol sy'n dangos hynny i gyd.",
+      "Mae derbyn ID digidol yn gwbl wirfoddol i siop — bydd rhai siopau ond yn derbyn y tri math corfforol os nad ydyn nhw wedi sefydlu darllenydd digidol, felly dilynwch bolisi eich siop eich hun bob amser ynghylch beth sy'n cael ei dderbyn. Dyw sgrinlun, llun o ID, neu ap \"cyfrifiannell oedran\" cyffredinol ddim yn cyfrif, yn union fel na fyddai ar gyfer ID corfforol — dim ond gwiriad gwirioneddol gan ddarparwr achrededig ar y gofrestr sy'n cyfrif.",
+      "Dyw dim o hyn yn newid yr oedran yfed cyfreithiol na safon Challenge 25. Mae'n dal yn 18, ac mae'r un byffer dan-25 yn berthnasol p'un a yw'r gwiriad o'ch blaen yn gorfforol neu'n ddigidol. Os yw gwiriad digidol yn methu, yn edrych yn anghywir, neu os nad yw eich siop wedi sefydlu un, triniwch hynny fel unrhyw ID na allwch ei wirio — gofynnwch am un o'r tri math corfforol a dderbynnir yn lle hynny."
+    ],
+    callout: "<strong>Yr un safon, llwybr newydd.</strong> Mae ID digidol achrededig o gofrestr swyddogol GOV.UK yr un mor ddilys â phasbort, trwydded yrru, neu gerdyn PASS — ond mae'n ychwanegiad at ID corfforol, nid yn rhywbeth sy'n ei ddisodli, ac mae i fyny i'ch siop a yw'n cael ei gefnogi o gwbl.",
+    quiz: [
+      { q: "Pryd daeth y newid rheol sy'n caniatáu ID digidol achrededig ar gyfer gwerthiannau alcohol i rym yng Nghymru a Lloegr?", opts: ["1 Ionawr 2026","15 Medi 2026","Dyw e ddim wedi dod i rym eto","25 Rhagfyr 2025"], explain: "Daeth y newid i rym ar 15 Medi 2026, o dan welliant i amodau trwyddedu gorfodol Deddf Drwyddedu 2003." },
+      { q: "Beth sy'n rhaid i ddarparwr ID digidol fod, er mwyn i'w wiriad oedran gyfrif ar gyfer gwerthiant alcohol?", opts: ["Unrhyw ap sy'n dangos dyddiad geni","Gwasanaeth Dilysu Digidol achrededig sydd wedi'i restru ar gofrestr statudol GOV.UK","Unrhyw gwmni technoleg o'r DU","Ap bancio sydd â gwirio ID wedi'i adeiladu i mewn"], explain: "Dim ond darparwyr achrededig sydd wedi'u rhestru ar gofrestr swyddogol GOV.UK sy'n bodloni'r safon — nid unrhyw ap sy'n dangos oedran." },
+      { q: "Ydy derbyn ID digidol yn golygu nad yw ID corfforol (pasbort, trwydded yrru, cerdyn PASS) yn ddilys mwyach?", opts: ["Ydy, mae ID corfforol wedi'i ddiddymu'n raddol","Nac ydy — mae ID corfforol yn parhau yr un mor ddilys; opsiwn ychwanegol yw ID digidol","Dim ond pasbortau sy'n aros yn ddilys nawr","Dim ond ar gyfer cwsmeriaid dros 21"], explain: "Mae ID digidol yn eistedd ochr yn ochr ag ID corfforol — dyw e ddim yn ei ddisodli, a bydd digon o siopau a chwsmeriaid yn parhau i ddefnyddio dogfennau corfforol." },
+      { q: "Wrth y til, sut mae cwsmer fel arfer yn profi ei oedran gydag ID digidol achrededig?", opts: ["Drwy e-bostio copi o'i basbort ymlaen llaw","Drwy ddangos cod QR neu dapio'i ffôn yn erbyn darllenydd cydnaws","Drwy adrodd ei ddyddiad geni i staff","Drwy ddangos llun o'i drwydded yrru ar ei ffôn"], explain: "Y llif safonol yw sganio cod QR neu dapio yn erbyn darllenydd, gyda chadarnhad clir o basio ar ddyfais staff." },
+      { q: "Pa wybodaeth mae cwsmer fel arfer yn ei rhannu yn ystod gwiriad oedran digidol achrededig?", opts: ["Ei enw llawn, cyfeiriad, a dyddiad geni","Dim ond cadarnhad ei fod yn bodloni'r gofyniad oedran, nid ei fanylion personol","Ei fanylion cyfrif banc","Ei rif Yswiriant Gwladol"], explain: "Nodwedd allweddol o'r gwiriadau hyn yw cadarnhau oedran heb ddatgelu manylion personol llawn y cwsmer, yn wahanol i ID corfforol." },
+      { q: "Ydy'n ofynnol i siop dderbyn ID digidol ar gyfer gwerthiannau alcohol?", opts: ["Ydy, mae'n rhaid i bob siop ei dderbyn o'r dyddiad dod i rym","Nac ydy — mae derbyn ID digidol yn wirfoddol i bob siop","Dim ond archfarchnadoedd mawr sy'n gorfod ei dderbyn","Dim ond siopau sydd eisoes yn gwerthu fêps sy'n gorfod ei dderbyn"], explain: "Mae mabwysiadu'n wirfoddol — gall siop ddewis a yw'n cefnogi dilysu digidol, felly dilynwch bolisi eich siop eich hun bob amser." },
+      { q: "Mae cwsmer yn dangos i chi sgrinlun o ID neu ganlyniad o ap \"cyfrifiannell oedran\" cyffredinol. Ydy hyn yn cyfrif fel gwiriad ID digidol achrededig?", opts: ["Ydy, mae unrhyw ap sy'n dangos oedran yn cyfrif","Nac ydy — dim ond llif dilysu swyddogol darparwr achrededig, o'r gofrestr statudol, sy'n cyfrif","Ydy, ond ar gyfer gwerthiannau tybaco'n unig","Dim ond os yw'r sgrinlun yn edrych yn ddiweddar"], explain: "Dyw sgrinlun neu ap heb ei achredu ddim yn wiriad gwirioneddol, yn union fel nad yw llun o ID corfforol yn dderbyniol — mae'n rhaid iddo ddod gan ddarparwr achrededig, rhestredig." },
+      { q: "Ydy'r opsiwn ID digidol newydd yn newid yr isafswm oedran cyfreithiol i brynu alcohol?", opts: ["Ydy, mae'n ei godi i 21","Nac ydy — mae'r oedran cyfreithiol yn aros yn 18, ac mae byffer dan-25 Challenge 25 yn berthnasol yr un ffordd","Ydy, mae'n ei ostwng i 16","Mae'n dileu'r isafswm oedran ar gyfer cwsmeriaid wedi'u gwirio"], explain: "Mae'r newid rheol yn ymwneud â sut gellir profi oedran, nid beth yw'r oedran cyfreithiol — mae 18 yn aros yn 18, ac mae'r un byffer yn berthnasol." },
+      { q: "Mae gwiriad ID digidol cwsmer yn methu, neu dyw eich siop ddim wedi sefydlu dilysu digidol. Beth ddylech chi ei wneud?", opts: ["Eu gwasanaethu beth bynnag i osgoi oedi","Gofyn am un o'r mathau corfforol derbyniol o ID yn lle hynny","Tybio bod y methiant yn profi eu bod dan oed a ffonio'r heddlu","Gadael iddyn nhw ail-drio apiau gwahanol nes bod un yn gweithio"], explain: "Triniwch wiriad digidol sy'n methu neu ddim ar gael yr un fath ag unrhyw ID na allwch ei wirio — dychwelwch i ID corfforol." },
+      { q: "Pa un o'r rhain sy'n enghraifft a enwir o Wasanaeth Dilysu Digidol achrededig a grybwyllwyd gan y llywodraeth?", opts: ["Yoti ID","Instagram Verified","Google Pay","Experian Boost"], explain: "Mae Yoti ID yn un o sawl darparwr a enwyd gan y llywodraeth fel un achrededig, ochr yn ochr ag eraill fel Post Office EasyID a Luciditi ID." }
+    ]
+  },
+  {
+    title: "Sut i wirio ID yn iawn",
+    meta: "8 munud",
+    imageAlt: "Close-up o gerdyn yn cael ei drosglwyddo wrth gownter",
+    lead: "Mae gwirio ID yn iawn yn golygu edrych ar dri pheth gyda'i gilydd, nid dim ond un: y llun, y dyddiad geni, a'r nodweddion diogelwch.",
+    body: [
+      "Ydy'r llun yn wirioneddol yn cyfateb i'r person o'ch blaen? Ydy'r dyddiad geni'n wirioneddol eu gwneud yn ddigon hen? Ydy'r ddogfen dal o fewn dyddiad, ac oes ganddi'r marciau diogelwch cywir — yr edefyn diogelwch a'r dyfrnod ar basbort, neu'r holograff ar gerdyn PASS? Goleddfwch gerdyn PASS o dan olau: mae holograff go iawn yn dal y golau ac yn ymddangos i symud, ac ni fydd ffug wedi'i argraffu.",
+      "Os yw rhywbeth yn teimlo'n od — llun sydd ddim yn cyfateb yn iawn, ymylon sy'n edrych fel pe baen nhw wedi'u trin, dyddiad sydd ddim yn gwneud synnwyr — mae hynny'n ddigon o reswm i wrthod y gwerthiant ac esbonio pam, yn hytrach na'ch perswadio'ch hun i'w dderbyn.",
+      "Mae'n hawdd teimlo dan bwysau gan giw, ond dim ond eiliadau, nid munudau, mae gwiriad priodol yn ei gymryd — llun, dyddiad geni, nodwedd ddiogelwch. Mae arafu am yr ychydig eiliadau hynny'n llawer rhatach na'r dewis arall."
+    ],
+    callout: "<strong>Ymddiried yn y gwiriad, nid yr hyder.</strong> Dyw cwsmer sy'n dawel a hyderus yn dweud dim am p'un a yw ei ID yn wirioneddol.",
+    quiz: [
+      { q: "Pa dri pheth ddylid eu gwirio gyda'i gilydd ar ID?", opts: ["Cyfateb llun, dyddiad geni, nodweddion diogelwch","Dim ond y dyddiad geni","Dim ond y llun","Lliw a phwysau'r cerdyn yn unig"], explain: "Gall unrhyw un gwiriad ar ei ben ei hun fod yn gamarweiniol — y cyfuniad sy'n cadarnhau bod ID yn wirioneddol." },
+      { q: "Sut allwch chi wirio a yw holograff cerdyn PASS yn wirioneddol?", opts: ["Ei oleddfu o dan olau a gweld a yw'n dal y golau ac yn ymddangos i symud","Ei grafu'n ysgafn â'ch ewin","Gwirio a yw'n liw penodol","Ei ddal i fyny at ffenest yn unig"], explain: "Mae holograff go iawn yn dal y golau ac yn ymddangos i symud pan gaiff ei oleddfu; ni fydd ffug wedi'i argraffu." },
+      { q: "Pa nodweddion diogelwch sy'n ymddangos ar basbort gwirioneddol?", opts: ["Llun yn unig","Edefyn diogelwch a dyfrnod","Sticer holograff ar y clawr cefn yn unig","Cod bar wedi'i argraffu ar y blaen"], explain: "Mae pasbort gwirioneddol yn cario edefyn diogelwch a dyfrnod, ymhlith nodweddion eraill." },
+      { q: "Os nad yw llun ar ID yn cyfateb yn iawn i'r person o'ch blaen, beth ddylech chi ei wneud?", opts: ["Ei dderbyn os yw gweddill y ddogfen yn edrych yn iawn","Gwrthod y gwerthiant ac esbonio pam","Gofyn iddyn nhw wenu i gymharu'n well","Ei dderbyn os nad ydyn nhw ar eu pen eu hunain"], explain: "Mae llun sydd ddim yn cyfateb yn ddigon o reswm i wrthod y gwerthiant, ni waeth beth arall." },
+      { q: "Pam mae'n gamgymeriad dibynnu ar hyder cwsmer wrth wirio ID?", opts: ["Does gan hyder ddim perthynas â p'un a yw dogfen yn wirioneddol neu'n perthyn iddyn nhw","Mae cwsmeriaid hyderus, yn ystadegol, bob amser o oedran","Dyw e ddim yn gamgymeriad, mae hyder yn arwydd defnyddiol","Mae polisi'r siop yn mynnu ymddiried mewn cwsmeriaid hyderus"], explain: "Dyw pa mor dawel neu hyderus mae rhywun yn ymddangos yn dweud dim am p'un a yw eu ID yn wirioneddol." },
+      { q: "Beth ddylech chi ei wneud os yw ymylon ID yn edrych fel pe baen nhw wedi'u trin?", opts: ["Ei anwybyddu os yw'r llun yn cyfateb","Mae hynny'n ddigon o reswm ar ei ben ei hun i wrthod y gwerthiant","Ei dderbyn ond gwneud nodyn meddyliol","Gofyn am ail fath o ID yn lle hynny"], explain: "Mae ymylon wedi'u trin yn rheswm clir i wrthod y gwerthiant ar eu pen eu hunain." },
+      { q: "Yn fras, pa mor hir ddylai gwiriad ID priodol ei gymryd?", opts: ["Sawl munud, gan fynd trwy restr wirio lawn yn uchel","Dim ond ychydig eiliadau — digon i wirio llun, dyddiad geni, a nodwedd ddiogelwch","Cyn hired ag y mae'r ciw'n ei ganiatáu, hyd yn oed os yw hynny'n sero eiliad","Does dim ots cyn belled â bod ID wedi'i ofyn amdano"], explain: "Dim ond eiliadau mae gwiriad priodol yn ei gymryd — does dim esgus da dros ei hepgor o dan bwysau ciw." },
+      { q: "Beth mae'n ei olygu os yw dyddiad geni ID \"ddim yn gwneud synnwyr\"?", opts: ["Mae'r ddogfen yn defnyddio fformat dyddiad anghyfarwydd","Dyw'r oedran a nodwyd ddim yn cyfateb i ba mor hen mae'r ddogfen yn awgrymu yw'r person","Mae gan y cerdyn stamp teyrngarwch wedi dod i ben","Dim byd — ni ellir gwirio dyddiadau geni wrth y til"], explain: "Mae dyddiad geni sydd ddim yn gwneud synnwyr yn arwydd clir y gallai fod rhywbeth o'i le ar yr ID." },
+      { q: "Beth yw'r arfer gorau pan fydd rhywbeth am ID yn teimlo'n od, hyd yn oed os na allwch chi ddweud yn union pam?", opts: ["Ei dderbyn er mwyn osgoi ymddangos yn anghwrtais","Gwrthod y gwerthiant ac esbonio bod rhywbeth ddim yn gwirio allan","Gofyn i'r cwsmer eich perswadio ei fod yn real","Gwerthu hanner yr archeb yn unig"], explain: "Ymddiriedwch yn y gwiriad — os yw rhywbeth yn teimlo'n anghywir, gwrthodwch ac esboniwch yn hytrach na'ch perswadio'ch hun." },
+      { q: "Beth yw'r risg o wirio dim ond un peth (fel dim ond y dyddiad geni) ar ID?", opts: ["Does dim risg, mae un gwiriad yn ddigon","Gall un manylyn fod yn gamarweiniol ar ei ben ei hun, gan golli arwyddion o ID ffug neu anghyson","Mae'n cymryd gormod o amser i wirio mwy nag un peth","Dyw e ddim yn cael ei ganiatáu o dan Challenge 25"], explain: "Gall un gwiriad golli ID ffug neu anghyson — cyfuniad y gwiriadau sy'n bwysig." }
+    ]
+  },
+  {
+    title: "Gwrthod gwerthiant yn hyderus",
+    meta: "8 munud",
+    imageAlt: "Cwsmer yn talu gweithredwr til wrth gownter siop",
+    lead: "Mae gwrthodiad yn mynd yn llyfn pan gaiff ei fframio fel polisi, nid barn bersonol: \"Mae'n ddrwg gen i, alla i ddim gwerthu hwn heb ID dilys\" — wedi'i ddweud yn dawel, yr un ffordd bob tro.",
+    body: [
+      "Mae'r rhan fwyaf o gwsmeriaid yn derbyn hyn heb broblem. Os yw rhywun yn gwrthwynebu, arhoswch yn dawel ac ailadroddwch y polisi yn hytrach na chael eich tynnu i mewn i ddadl am ba mor hen maen nhw'n edrych. Does dim rhaid i chi gyfiawnhau eich barn ar y pryd — mae'r polisi'n berthnasol beth bynnag.",
+      "Os yw cwsmer yn dod yn ymosodol, yn fygythiol, neu'n gwrthod gadael ardal y til, dyna'r pwynt i gamu'n ôl a chynnwys cydweithiwr neu reolwr yn hytrach na pharhau â'r sgwrs ar eich pen eich hun. Os byddwch chi byth yn teimlo'n anniogel, mae bob amser yn iawn ffonio'r heddlu — dyw'r un gwerthiant yn werth rhoi'ch hun mewn perygl drosto.",
+      "Sut bynnag mae'r gwrthodiad yn mynd, gwnewch nodyn meddyliol (neu'n well, ysgrifennwch e i lawr yn syth wedyn) o beth gafodd ei ofyn amdano, yn fras pryd, a pham gafodd ei wrthod. Mae'r cofnod hwnnw'n bwysicach nag y gallai deimlo ar y pryd."
+    ],
+    callout: "<strong>Cadwch e am y polisi, nid y person.</strong> Mae \"Alla i ddim gwerthu hwn heb ID\" yn glanio'n wahanol iawn i \"Dw i ddim yn credu eich bod chi'n ddigon hen\".",
+    quiz: [
+      { q: "Beth yw'r ffordd argymhellir o eirio gwrthodiad?", opts: ["\"Dw i ddim yn meddwl eich bod chi'n ddigon hen\"","\"Mae'n ddrwg gen i, alla i ddim gwerthu hwn heb ID dilys\"","\"Gofynnwch i rywun arall ei brynu i chi\"","\"Mae polisi'r siop yn wirion ond mae'n rhaid i mi ofyn\""], explain: "Mae ei fframio fel polisi, wedi'i ddweud yn dawel, yn cadw'r rhyngweithiad yn broffesiynol ac yn gyson." },
+      { q: "Pam mae fframio gwrthodiad o amgylch polisi (nid barn bersonol) yn well?", opts: ["Mae'n swnio'n fwy swyddogol ar gamera","Mae'n osgoi dadl am olwg y cwsmer ac yn cadw pethau'n gyson","Mae'n ofynnol gan eiriad yswiriant","Mae'n gwneud y gwrthodiad yn adferadwy'n hwyrach"], explain: "Mae cadw'r peth am bolisi'n osgoi dadlau am olwg ac yn cadw gorfodaeth yn gyson." },
+      { q: "Mae cwsmer yn dweud \"Dw i'n cael fy ngwasanaethu ym mhobman arall\" ar ôl cael ei ofyn am ID. Ymateb gorau?", opts: ["Eu gwasanaethu i osgoi golygfa chwithig","Ailadrodd yn dawel mai polisi'r siop ydyw i unrhyw un sy'n edrych dan 25","Dweud wrthyn nhw eu bod yn amlwg yn edrych dan oed","Gofyn i reolwr eu gwasanaethu yn lle hynny"], explain: "Ailadrodd y polisi'n dawel — heb ddadlau am eu golwg — yw'r ymateb proffesiynol." },
+      { q: "Os yw cwsmer yn dod yn ymosodol yn ystod gwrthodiad, beth ddylech chi ei wneud?", opts: ["Parhau i ddadlau nes eu bod nhw'n ildio","Camu'n ôl a chynnwys cydweithiwr neu reolwr","Eu gwasanaethu'n gyflym dim ond i orffen y rhyngweithiad","Eu dilyn i'w car i barhau i drafod"], explain: "Camwch yn ôl a chael cefnogaeth yn hytrach na pharhau â'r sgwrs ar eich pen eich hun." },
+      { q: "Pryd mae'n briodol ffonio'r heddlu yn ystod gwrthodiad?", opts: ["Byth, mae'n orymateb i wrthodiad siop","Os byddwch chi byth yn teimlo'n anniogel neu wedi'ch bygwth","Dim ond os yw'r cwsmer yn mynd i mewn i ardal y til yn gorfforol","Dim ond gyda chymeradwyaeth flaenorol y brif swyddfa"], explain: "Mae bob amser yn iawn ffonio'r heddlu os ydych chi'n teimlo'n anniogel — dyw'r un gwerthiant yn werth y risg." },
+      { q: "Beth ddylech chi osgoi ei ddweud yn ystod gwrthodiad?", opts: ["\"Polisi'r siop ydyw\"","\"Alla i ddim gwerthu hwn heb ID\"","\"Dw i ddim yn credu eich bod chi'n ddigon hen\"","\"Mae'n ddrwg gen i am hynny\""], explain: "Mae dadlau am olwg rhywun yn gwaethygu pethau — cadwch e am bolisi, nid barn bersonol." },
+      { q: "Pam na ddylech chi ddadlau am ba mor hen mae cwsmer yn edrych?", opts: ["Mae'n anghwrtais trafod golwg yn gyhoeddus","Mae dadlau am olwg yn gwaethygu'r sefyllfa ac nid dyna'r safon gwirioneddol sy'n cael ei gymhwyso — ID ydyw","Mae polisi'r siop yn gwahardd trafod oedran o gwbl","Mae'n gwastraffu amser til yn unig"], explain: "Y gwiriad ID yw'r safon, nid barn am olwg — mae dadlau amdano ond yn gwaethygu pethau." },
+      { q: "Beth sy'n werth ei wneud yn syth ar ôl unrhyw wrthodiad?", opts: ["Does dim byd arall ei angen","Nodi beth ddigwyddodd, ar gyfer y gofrestr wrthod","Ymddiheuro eto i'r cwsmer","Adrodd wrth Safonau Masnach yn uniongyrchol"], explain: "Mae nodyn cyflym yn syth ar ôl gwrthodiad yn bwydo'n uniongyrchol i mewn i gofrestr wrthod y siop." },
+      { q: "Ydy'n ofynnol i aelod o staff gyfiawnhau ei farn i'r cwsmer ar y pryd?", opts: ["Ydy, esboniwch eich rhesymeg lawn bob amser","Nac ydy — mae'r polisi'n berthnasol beth bynnag am roi cyfiawnhad","Dim ond os yw'r cwsmer yn gofyn yn neis","Dim ond os oes rheolwr yn bresennol"], explain: "Mae'r polisi'n berthnasol beth bynnag — does dim rhaid i staff gyfiawnhau eu barn ar y pryd." },
+      { q: "Beth yw'r ymagwedd gyffredinol orau i gadw gwrthodiad yn broffesiynol?", opts: ["Aros yn dawel, cadw'r peth am bolisi, cael cefnogaeth os yw'n gwaethygu","Bod yn amddiffynnol i ddangos eich bod o ddifrif","Gwerthu cyfran lai yn lle gwrthod yn llwyr","Gadael i'r cwsmer benderfynu a yw'r polisi'n berthnasol iddyn nhw"], explain: "Tawel, wedi'i ganolbwyntio ar bolisi, a pharod i gael cefnogaeth os oes angen — dyna sy'n cadw gwrthodiad yn broffesiynol." }
+    ]
+  },
+  {
+    title: "Gwerthiannau dirprwyol — prynu alcohol ar ran rhywun arall",
+    meta: "7 munud",
+    imageAlt: "Bag siopa'n cael ei gario ar stryd, yn cynrychioli pryniant sy'n cael ei drosglwyddo i rywun arall",
+    lead: "Gwerthiant dirprwyol yw pan fydd oedolyn yn prynu alcohol ar ran rhywun dan 18 oed — ac mae'r un mor anghyfreithlon â'i werthu iddyn nhw'n uniongyrchol.",
+    body: [
+      "Dyw e ddim bob amser yn amlwg, ond mae ychydig o sefyllfaoedd yn werth bod yn effro iddyn nhw: oedolyn yn prynu tra bod grŵp o bobl ifanc yn aros y tu allan neu gerllaw, rhywun yn prynu un eitem sydd ddim yn cyfateb i'w patrwm arferol, neu bryniant sy'n ymddangos yn amlwg wedi'i fwriadu ar gyfer rhywun arall yn gyfan gwbl.",
+      "Allwch chi ddim gwrthod gwerthiant i oedolyn ar sail amheuaeth yn unig heb reswm da — ond os yw'r arwyddion yno, mae'n werth ymddiried yn y greddf honno a defnyddio barn, yr un ffordd ag y byddech chi gyda gwerthiant dan oed uniongyrchol.",
+      "Mae'r un greddf yn berthnasol pryd bynnag nad yw'r manylion yn gwneud synnwyr — nid alcohol yn unig. Os yw rhywbeth am bryniant yn gwneud i werthiant dirprwyol deimlo'n debygol, mae'n werth oedi yn hytrach na gwasanaethu ar beilot awtomatig."
+    ],
+    callout: "<strong>Yn werth ei gofio:</strong> mae'r gyfraith yn trin hwyluso gwerthiant dirprwyol yn fwriadol yr un fath â gwerthu'n uniongyrchol i berson dan oed.",
+    quiz: [
+      { q: "Beth yw \"gwerthiant dirprwyol\"?", opts: ["Gwerthiant wedi'i wneud gan ddefnyddio darllenydd cerdyn dirprwyol","Oedolyn yn prynu alcohol ar ran rhywun dan 18 oed","Gwerthiant wedi'i brosesu gan y brif swyddfa o bell","Gwerthiant swmp gyda disgownt"], explain: "Gwerthiant dirprwyol yw oedolyn yn prynu alcohol ar ran rhywun dan oed." },
+      { q: "Ydy hwyluso gwerthiant dirprwyol yn cael ei drin yr un fath â gwerthu'n uniongyrchol i berson dan oed?", opts: ["Nac ydy, trosedd lai ydyw","Ydy — mae'r gyfraith yn trin ei hwyluso'n fwriadol yr un fath","Dim ond os yw'r oedolyn yn cyfaddef","Dim ond os yw'n alcohol, nid cynhyrchion eraill"], explain: "Mae hwyluso gwerthiant dirprwyol yn fwriadol yn cario'r un pwysau cyfreithiol â gwerthiant dan oed uniongyrchol." },
+      { q: "Mae oedolyn yn prynu potel o fodca tra bod pobl ifanc yn aros y tu allan. Beth ddylai groesi'ch meddwl?", opts: ["Dim byd — dim ond oedran y prynwr sy'n bwysig yn gyfreithiol","Gallai hyn fod yn werthiant dirprwyol, yn werth defnyddio barn amdano","Mae'n iawn cyn belled â'u bod yn talu â cherdyn","Gwrthod yn awtomatig heb air"], explain: "Dyw e ddim o reidrwydd yn golygu ei fod yn werthiant dirprwyol, ond dyna'n union y math o sefyllfa sy'n werth ei sylwi." },
+      { q: "Allwch chi wrthod gwerthiant i oedolyn ar sail amheuaeth yn unig, heb unrhyw reswm ategol?", opts: ["Gallwch, gwrthodwch unrhyw oedolyn nad ydych chi'n siŵr amdano","Nid ar sail amheuaeth yn unig — ond dylai arwyddion gwerth eu sylwi barnu o hyd","Na allwch, ni ellir gwrthod oedolion byth","Dim ond os yw rheolwr yn cymeradwyo ymlaen llaw"], explain: "Dyw amheuaeth ar ei ben ei hun ddim yn ddigon i wrthod, ond mae arwyddion gwirioneddol yn werth defnyddio barn arnyn nhw." },
+      { q: "Pa un o'r rhain yw arwydd sy'n werth bod yn effro iddo?", opts: ["Oedolyn yn prynu ei siop wythnosol arferol","Pryniant sydd ddim yn amlwg yn cyfateb i batrwm arferol y prynwr, ochr yn ochr ag arwyddion eraill","Unrhyw oedolyn yn prynu alcohol o gwbl","Cwsmer yn defnyddio taliad cyffwrdd"], explain: "Mae patrwm pryniant anarferol, ochr yn ochr ag arwyddion eraill, yn werth rhoi sylw iddo." },
+      { q: "Ydy hi'n bwysig pwy sy'n trosglwyddo'r taliad yn gorfforol mewn gwerthiant dirprwyol?", opts: ["Ydy, dyna'r cyfan sy'n bwysig yn gyfreithiol","Nid yn llwyr — mae gwerthiant dirprwyol yn ymwneud â phwy mae'r alcohol wir ar ei gyfer","Ydy, dim ond oedran deiliad y cerdyn sy'n bwysig","Nac ydy, y dull talu sy'n penderfynu"], explain: "Mae gwerthiant dirprwyol yn ymwneud â phwy mae'r alcohol wir wedi'i fwriadu ar ei gyfer, nid dim ond pwy sy'n talu." },
+      { q: "Beth yw'r ymateb gorau os ydych chi'n amau gwerthiant dirprwyol ond ddim yn siŵr?", opts: ["Ei anwybyddu, gan na allwch chi fod yn siŵr","Defnyddio barn — does dim rhaid i chi wasanaethu os yw rhywbeth yn teimlo'n anghywir","Gwrthod bob amser ar unwaith heb sgwrs","Gofyn i'r bobl ifanc y tu allan yn uniongyrchol"], explain: "Does dim rhaid i chi wasanaethu os yw rhywbeth yn teimlo'n anghywir — defnyddiwch farn yn hytrach na'i anwybyddu." },
+      { q: "Ydy'r cysyniad \"gwerthiant dirprwyol\" yn berthnasol i alcohol yn unig?", opts: ["Ydy, alcohol yn unig","Nac ydy — mae'r un syniad yn berthnasol i gynhyrchion eraill sydd wedi'u cyfyngu yn ôl oedran hefyd","Tybaco'n unig","Tân gwyllt yn unig"], explain: "Mae'r un syniad — rhywun yn prynu ar ran rhywun dan oed — yn berthnasol i gynhyrchion eraill sydd wedi'u cyfyngu yn ôl oedran hefyd." },
+      { q: "Pam na all siop ddim ond anwybyddu gwerthiannau dirprwyol fel \"nid ei broblem\"?", opts: ["Gall — dim ond y prynwr oedolyn sy'n gyfrifol erioed","Mae hwyluso un yn fwriadol yn cario'r un risg gyfreithiol â gwerthiant dan oed uniongyrchol","Mater enw da yn unig ydyw, nid un cyfreithiol","Dim ond os caiff ei ddal ar gamera mae'n bwysig"], explain: "Mae hwyluso gwerthiant dirprwyol yn fwriadol yn cario risg gyfreithiol wirioneddol i'r siop, nid risg enw da'n unig." },
+      { q: "Beth yw cam cyntaf rhesymol os ydych chi'n amheus am bryniant?", opts: ["Cyhuddo'r cwsmer o brynu ar ran rhywun dan oed","Oedi, defnyddio barn, a phenderfynu a ddylid ei godi neu wrthod","Ffonio'r heddlu ar unwaith bob tro","Gwasanaethu'n gyflym i osgoi gwrthdaro"], explain: "Oedi i ddefnyddio barn yw'r cam cyntaf rhesymol, yn hytrach na chyhuddo neu wasanaethu ar beilot awtomatig." }
+    ]
+  },
+  {
+    title: "Cynhyrchion eraill sydd wedi'u cyfyngu yn ôl oedran",
+    meta: "7 munud",
+    imageAlt: "Arwydd siop gornel yn y DU yn hysbysebu offer cegin, tybaco, ffonau a fêps",
+    lead: "Mae llawer o siopau'n cymhwyso'r un safon Challenge 25 y tu hwnt i alcohol — i dybaco, fêps ac e-sigarennau, tân gwyllt, cyllyll, a chynhyrchion loteri.",
+    body: [
+      "Yng Nghymru a Lloegr mae hyn yn gyffredinol yn estyniad gwirfoddol o bolisi'r siop ar gyfer cynhyrchion heblaw alcohol. Yn yr Alban, mae gwirio oedran ar gyfer alcohol, tybaco, a fêps yn ofyniad cyfreithiol, nid arfer da'n unig — felly mae'r safon yno'n cario mwy o bwysau na dewis polisi siop.",
+      "Beth bynnag yw'r cynhyrchion mae eich siop yn ei gymhwyso iddyn nhw, mae'r un arferiad craidd yn berthnasol: gwiriwch ID yr un ffordd, bob tro, i unrhyw un sy'n edrych dan 25.",
+      "Mae gan dân gwyllt a chyllyll eu cyfyngiadau oedran eu hunain (18) gyda chosbau difrifol i fanwerthwyr sy'n mynd yn anghywir, ac mae hefyd yn anghyfreithlon gwerthu cynhyrchion y Loteri Genedlaethol, gan gynnwys cardiau crafu, i unrhyw un dan 18. Dyw'r un o'r rhain yn dilyn yn union yr un rheolau ag alcohol, felly mae'n werth gwybod rhestr benodol eich siop eich hun yn hytrach na thybio."
+    ],
+    callout: "<strong>Gwybod rhestr eich siop.</strong> Gwiriwch gyda'ch rheolwr yn union pa gynhyrchion yn eich siop sy'n cario gofyniad Challenge 25.",
+    quiz: [
+      { q: "Y tu hwnt i alcohol, pa gynhyrchion eraill sy'n gyffredin yn cario gwiriad ar arddull Challenge 25?", opts: ["Bwyd ffres yn unig","Tybaco, fêps, tân gwyllt, cyllyll, a chynhyrchion loteri","Papurau newydd yn unig","Cynhyrchion brand ei hun yn unig"], explain: "Mae tybaco, fêps, tân gwyllt, cyllyll, a chynhyrchion loteri yn gyffredin yn cario'r un safon gwirio oedran." },
+      { q: "Yn yr Alban, ydy gwirio oedran ar gyfer tybaco a fêps yn wirfoddol neu'n ofyniad cyfreithiol?", opts: ["Gwirfoddol, yr un fath â Chymru a Lloegr","Gofyniad cyfreithiol","Dim ond yn ofynnol ar gyfer alcohol, nid tybaco na fêps","Heb ei reoleiddio o gwbl"], explain: "Mae'r Alban yn trin gwirio oedran ar gyfer alcohol, tybaco, a fêps fel gofyniad cyfreithiol, nid polisi gwirfoddol." },
+      { q: "Yng Nghymru a Lloegr, beth yn gyffredinol yw cymhwyso Challenge 25 i gynhyrchion nad ydyn nhw'n alcohol?", opts: ["Gofyniad cyfreithiol union yr un fath ag alcohol","Estyniad gwirfoddol o bolisi'r siop","Yn anghyfreithlon ei wneud","Dim ond yn ofynnol ar benwythnosau"], explain: "Yng Nghymru a Lloegr, dewis polisi manwerthwr gwirfoddol yw hyn yn gyffredinol ar gyfer cynhyrchion nad ydyn nhw'n alcohol." },
+      { q: "Beth yw'r isafswm oedran i brynu cynhyrchion y Loteri Genedlaethol, gan gynnwys cardiau crafu?", opts: ["16","18","21","Does dim isafswm oedran"], explain: "Mae'n anghyfreithlon gwerthu cynhyrchion y Loteri Genedlaethol, gan gynnwys cardiau crafu, i unrhyw un dan 18." },
+      { q: "Pa fath o gynhyrchion yw eitemau llafn, at ddibenion cyfyngu oedran?", opts: ["Cyllyll cegin wedi'u gwerthu mewn setiau yn unig","Unrhyw gyllell, llafn, neu eitem finiog wedi'i gwneud neu ei haddasu i achosi anaf, gan gynnwys llawer o offer bob dydd","Cyllyll hela yn unig","Cyllyll wedi'u gwerthu ar-lein yn unig"], explain: "Mae eitem lafn yn cwmpasu ystod eang o offer bob dydd, nid dim ond arfau amlwg." },
+      { q: "Beth yw'r canlyniad i fanwerthwr sy'n gwerthu tân gwyllt neu eitemau llafn i rywun dan oed?", opts: ["Dim canlyniad gwirioneddol, rheolau bach ydyn nhw","Cosbau difrifol, yn debyg o ran ysbryd i werthiannau alcohol dan oed","Llythyr rhybudd yn unig, bob tro","Colli'r derfynell loteri yn unig"], explain: "Mae gwerthu tân gwyllt neu eitemau llafn i rywun dan oed yn cario cosbau difrifol." },
+      { q: "Os nad ydych chi'n siŵr a yw cynnyrch yn eich siop yn cario cyfyngiad oedran, beth ddylech chi ei wneud?", opts: ["Tybio nad ydyw a'i werthu","Gwirio gyda'ch rheolwr yn union pa gynhyrchion sy'n cario'r gofyniad","Cymhwyso Challenge 25 i bopeth heb wirio","Dim ond gwirio ar gyfer alcohol ac anwybyddu'r gweddill"], explain: "Gwiriwch restr benodol eich siop gyda'ch rheolwr yn hytrach na thybio naill ffordd." },
+      { q: "Ydy'r un arferiad craidd (gwirio ID yr un ffordd, bob tro) yn berthnasol ar draws pob cynnyrch sydd wedi'i gyfyngu yn ôl oedran?", opts: ["Nac ydy, mae angen dull cwbl wahanol ar gyfer pob cynnyrch","Ydy — mae'r arferiad craidd yn aros yr un fath hyd yn oed os yw'r sail gyfreithiol yn wahanol","Ar gyfer alcohol yn unig","Ar gyfer tybaco yn unig"], explain: "Mae arferiad gwirio ID cyson yn berthnasol ar draws pob cynnyrch sydd wedi'i gyfyngu yn ôl oedran, beth bynnag yw'r sail gyfreithiol." },
+      { q: "Beth sy'n digwydd i derfynell Loteri Genedlaethol siop os bydd gwerthiannau cynhyrchion loteri dan oed yn digwydd?", opts: ["Dim byd, does dim cysylltiad â'r derfynell","Gall arwain at derfynu'r cytundeb manwerthwr a chael gwared â'r derfynell","Mae'n cael disgownt dros dro","Mae'n uwchraddio'n awtomatig"], explain: "Gall gwerthiannau loteri dan oed arwain at derfynu'r cytundeb manwerthwr a chael gwared â'r derfynell." },
+      { q: "Pam allai siop ddewis cymhwyso Challenge 25 i gynhyrchion y tu hwnt i'r hyn mae'r gyfraith yn ei fynnu'n llym?", opts: ["Mae'n ddiystyr, felly does dim rheswm gwirioneddol","Mae'n adeiladu arferiad staff cyson ac yn lleihau risg ar draws popeth sy'n cael ei werthu","Mae'n ofynnol i gadw terfynell loteri","Does ganddo ddim effaith ar ddiwydrwydd dyladwy"], explain: "Mae cymhwyso'r un safon ym mhobman yn adeiladu arferiad cyson ac yn lleihau risg ar draws y bwrdd." }
+    ]
+  },
+  {
+    title: "Cofnodi gwrthodiadau",
+    meta: "6 munud",
+    imageAlt: "Llaw'n ysgrifennu mewn llyfr nodiadau, yn cynrychioli cofnod cofrestr wrthod",
+    lead: "Mae pob gwerthiant a wrthodwyd yn werth ei gofnodi mewn cofrestr wrthod: y dyddiad, amser, cynnyrch, rheswm dros wrthod, ac enw'r aelod o staff.",
+    body: [
+      "Gallai deimlo'n ddiangen pan na chafodd unrhyw beth ei werthu mewn gwirionedd, ond dyma'n union y cofnod y gall siop ei ddangos i swyddog trwyddedu neu Safonau Masnach fel tystiolaeth bod Challenge 25 yn wirioneddol yn cael ei orfodi — nid dim ond arwydd ar y wal.",
+      "Mae cofrestr wrthod gyson, dros amser, yn un o'r pethau cryfaf y gall siop bwyntio ato os caiff ei thrwydded ei hadolygu byth.",
+      "Does dim angen i gofnod da fod yn hir — mae dyddiad, amser, cynnyrch, pam gafodd ei wrthod, a phwy wnaeth ei wrthod yn ddigon. Yr hyn sy'n bwysig yw ei fod yn digwydd bob tro, nid dim ond pan fydd rhywbeth yn teimlo'n arbennig o beryglus. Mae rheolwyr siop a thimau ardal yn aml yn adolygu'r cofnodion hyn yn gyfnodol, sef yn union y pwynt: dylai ddangos patrwm gwirioneddol o orfodi, nid dim ond cofnod o'r un tro yr ymwelodd swyddog trwyddedu."
+    ],
+    callout: "<strong>Os nad yw wedi'i gofnodi, mae'n anodd profi iddo ddigwydd.</strong> Ynghyd â Challenge 25 a gwiriadau ID priodol, mae cofrestr wrthod gyson yn rhan o ddiwydrwydd dyladwy'r siop — y gwahaniaeth rhwng dirwy o hyd at £20,000 ac amddiffyniad sy'n dal dŵr.",
+    quiz: [
+      { q: "Pa bum manylyn ddylai cofrestr wrthod eu cofnodi?", opts: ["Dim ond y dyddiad a'r cynnyrch","Dyddiad, amser, cynnyrch, rheswm dros wrthod, ac enw'r aelod o staff","Disgrifiad o'r cwsmer yn unig","Cyfrif tali o wrthodiadau yn unig"], explain: "Mae cofnod da yn cofnodi dyddiad, amser, cynnyrch, rheswm dros wrthod, ac enw'r aelod o staff." },
+      { q: "Pam cofnodi gwrthodiad hyd yn oed pan na werthwyd unrhyw beth?", opts: ["Mae'n ddewisol ond yn gofnod braf i'w gael","Mae'n dystiolaeth bod polisi Challenge 25 y siop yn wirioneddol yn cael ei orfodi","Dim ond ei angen os yw'r cwsmer yn cwyno","Ei angen ar gyfer gwrthodiadau tybaco'n unig"], explain: "Mae'r cofnod yn dystiolaeth o orfodi gwirioneddol — yn union yr hyn mae adolygiad trwyddedu'n chwilio amdano." },
+      { q: "Pa derm sy'n disgrifio cyfuniad Challenge 25, gwiriadau ID, a chofnodi gwrthodiadau gyda'i gilydd?", opts: ["Traul siop","Diwydrwydd dyladwy","Atal colledion yn unig","Polisi gwasanaeth cwsmeriaid"], explain: "Gyda'i gilydd, mae'r rhain yn ffurfio diwydrwydd dyladwy'r siop — prawf o ragofalon rhesymol wedi'u cymryd." },
+      { q: "Pwy allai adolygu cofrestr wrthod siop?", opts: ["Does neb byth yn ei hadolygu","Swyddog trwyddedu neu Safonau Masnach, a rheolaeth y siop","Marchnata'r brif swyddfa yn unig","Gwneuthurwr y til yn unig"], explain: "Gall swyddogion trwyddedu, Safonau Masnach, a rheolaeth y siop i gyd adolygu'r gofrestr." },
+      { q: "Beth yw'r risg o siop sydd ag arwyddion Challenge 25 ond dim cofnod gwrthod cyson?", opts: ["Dim risg, mae arwyddion yn ddigon ar eu pen eu hunain","Mae'n edrych fel polisi arwydd yn hytrach na rhywbeth sy'n cael ei orfodi'n wirioneddol","Mae'n diddymu trwydded y siop yn awtomatig","Dim ond gwerthiannau tybaco mae'n effeithio arnyn nhw"], explain: "Heb gofnod, mae'r polisi mewn perygl o edrych fel arwydd ar y wal yn hytrach na gorfodaeth wirioneddol." },
+      { q: "Pa mor fanwl mae angen i gofnod gwrthod da fod?", opts: ["Datganiad ysgrifenedig llawn bob tro","Byr ond cyson — dyddiad, amser, cynnyrch, rheswm, enw staff","Dim ond angen unwaith y mis fel crynodeb","Llun o'r cwsmer"], explain: "Mae cofnodion byr, cyson, bob tro yn bwysicach na rhai hir, achlysurol." },
+      { q: "Beth yw gwerth gwirioneddol cofrestr wrthod gyson dros amser?", opts: ["Does ganddi ddim gwerth gwirioneddol y tu hwnt i gadw cofnodion","Mae'n un o'r pethau cryfaf y gall siop bwyntio ato os caiff ei thrwydded ei hadolygu","Dim ond yn bwysig ar gyfer hawliadau yswiriant","Mae'n disodli'r angen am wiriadau ID"], explain: "Dros amser, mae cofrestr gyson yn dod yn un o dystiolaethau cryfaf y siop." },
+      { q: "Gwir neu anwir: dim ond os ceisiwyd gwerthiant a'i atal hanner ffordd trwodd mae cofrestr wrthod yn bwysig.", opts: ["Gwir","Anwir — dylai gofnodi pob gwrthodiad, sut bynnag y cafodd ei wrthod","Gwir, ar gyfer alcohol yn unig","Anwir, dim ond gwerthiannau wedi'u cwblhau sydd angen eu cofnodi"], explain: "Mae pob gwrthodiad yn werth ei gofnodi, nid dim ond rhai a aeth hanner ffordd trwy drafodiad." },
+      { q: "Beth mae cofrestr wrthod gyson yn helpu i'w brofi, ynghyd â gwiriadau ID priodol?", opts: ["Bod gan y siop lawer o gwsmeriaid dan oed","Bod pob rhagofal rhesymol wedi'u cymryd yn wirioneddol — diwydrwydd dyladwy'r siop","Bod staff yn anghyfeillgar","Y dylai'r siop godi ei phrisiau"], explain: "Gyda'i gilydd, maen nhw'n helpu i brofi diwydrwydd dyladwy'r siop — rhagofalon gwirioneddol, rhesymol wedi'u cymryd." },
+      { q: "Yn fras pa mor aml y dylid cofnodi gwrthodiadau?", opts: ["Bob tro y caiff gwerthiant ei wrthod","Dim ond yn ystod ymweliadau swyddog trwyddedu","Unwaith yr wythnos fel crynodeb","Byth — mae adrodd ar lafar i reolwr yn ddigon"], explain: "Dylid cofnodi pob gwrthodiad, bob tro — cysondeb sy'n gwneud y gofrestr yn ystyrlon." }
+    ]
+  }
+];
+
 const CERT_PASS_RATE = 80;
 let current = 0;
 const passedModules = new Set();
@@ -462,19 +695,147 @@ let quizAnswers = [];
 let quizSubmitted = false;
 const lessonAnswers = {};
 
+let currentLang = 'en';
+
+const UI = {
+  en: {
+    pageTitle: "Challenge 25 & Acceptable ID — Checkpoint",
+    exit: "Exit",
+    exitConfirm: "This would exit to the course dashboard.",
+    courseName: "Challenge 25 & Acceptable ID",
+    sidebarTag: "All staff · ~65 mins",
+    streakTitle: "Module tests passed at 80%+ on the first attempt, in a row",
+    passed: "Passed",
+    inProgress: "In progress",
+    progressOf: (a,b) => `${a} of ${b}`,
+    lessonOf: (a,b) => `Lesson ${a} of ${b}`,
+    moduleTest: "Module test",
+    quizMeta: (n,p) => `${n} questions · ${p}% to pass`,
+    submitTest: "Submit test",
+    answerAll: (n) => `Answer all ${n} questions before submitting.`,
+    passResult: (c,t,s) => `✓ ${c}/${t} — ${s}% — Passed`,
+    failResult: (c,t,s,p) => `${c}/${t} — ${s}% — below the ${p}% pass mark.`,
+    retryTest: "Retry the test",
+    back: "Back",
+    continueTo: (n) => `Continue to Lesson ${n} →`,
+    finishCourse: "Finish course →",
+    continueNote: (p) => `Score ${p}%+ on the test to continue`,
+    moduleComplete: "Module complete",
+    perfectRun: (n) => `Perfect run — passed all ${n} module tests first try`,
+    passedFirstTry: (a,n) => `Passed ${a} of ${n} module tests on the first try`,
+    perfectSub: "Every module test cleared on the first attempt, at 80% or higher. That's the whole course.",
+    passedSub: (n,avg) => `You've passed all ${n} module tests overall (some after a retry) — average first-attempt score: ${avg}%.`,
+    certReady: "Your certificate is ready",
+    certSub: (avg) => `Overall first-attempt score: ${avg}%. Enter your details to download it.`,
+    namePlaceholder: "Your name",
+    shopPlaceholder: "Shop / store name",
+    downloadCert: "Download certificate ↓",
+    certError: "Enter your name and shop name to generate the certificate.",
+    backToCourses: "Back to my courses",
+    certTitle: (name) => `Certificate — ${name}`,
+    certKicker: "Certificate of completion",
+    certMeta: (date,n,score) => `Completed <strong>${date}</strong> &middot; Passed all ${n} module tests at 80%+ &middot; Overall first-attempt score <strong>${score}%</strong>`,
+    certDisclaimer: "This certificate confirms completion of Checkpoint's Challenge 25 &amp; Acceptable ID training. It is a non-accredited training resource, not a legal qualification, and is not a substitute for the official Level 2 Award for Personal Licence Holders (APLH)."
+  },
+  cy: {
+    pageTitle: "Challenge 25 ac ID Derbyniol — Checkpoint",
+    exit: "Gadael",
+    exitConfirm: "Byddai hyn yn gadael i ddangosfwrdd y cwrs.",
+    courseName: "Challenge 25 ac ID Derbyniol",
+    sidebarTag: "Pob aelod o staff · ~65 munud",
+    streakTitle: "Profion modiwl wedi'u pasio ar 80%+ ar y cynnig cyntaf, yn olynol",
+    passed: "Wedi pasio",
+    inProgress: "Ar y gweill",
+    progressOf: (a,b) => `${a} o ${b}`,
+    lessonOf: (a,b) => `Gwers ${a} o ${b}`,
+    moduleTest: "Prawf modiwl",
+    quizMeta: (n,p) => `${n} cwestiwn · ${p}% i basio`,
+    submitTest: "Cyflwyno'r prawf",
+    answerAll: (n) => `Atebwch bob un o'r ${n} cwestiwn cyn cyflwyno.`,
+    passResult: (c,t,s) => `✓ ${c}/${t} — ${s}% — Wedi pasio`,
+    failResult: (c,t,s,p) => `${c}/${t} — ${s}% — o dan y trothwy pasio o ${p}%.`,
+    retryTest: "Ailgymryd y prawf",
+    back: "Yn ôl",
+    continueTo: (n) => `Ymlaen i Wers ${n} →`,
+    finishCourse: "Gorffen y cwrs →",
+    continueNote: (p) => `Sgoriwch ${p}%+ ar y prawf i barhau`,
+    moduleComplete: "Modiwl wedi'i gwblhau",
+    perfectRun: (n) => `Rhediad perffaith — wedi pasio pob un o'r ${n} prawf modiwl y tro cyntaf`,
+    passedFirstTry: (a,n) => `Wedi pasio ${a} o ${n} prawf modiwl y tro cyntaf`,
+    perfectSub: "Pob prawf modiwl wedi'i basio ar y cynnig cyntaf, ar 80% neu fwy. Dyna'r cwrs cyfan.",
+    passedSub: (n,avg) => `Rydych wedi pasio pob un o'r ${n} prawf modiwl yn gyffredinol (rhai ar ôl ailgynnig) — sgôr cyfartalog cynnig cyntaf: ${avg}%.`,
+    certReady: "Mae eich tystysgrif yn barod",
+    certSub: (avg) => `Sgôr cyffredinol y cynnig cyntaf: ${avg}%. Rhowch eich manylion i'w lawrlwytho.`,
+    namePlaceholder: "Eich enw",
+    shopPlaceholder: "Enw'r siop",
+    downloadCert: "Lawrlwytho'r dystysgrif ↓",
+    certError: "Rhowch eich enw ac enw'r siop i greu'r dystysgrif.",
+    backToCourses: "Yn ôl i fy nghyrsiau",
+    certTitle: (name) => `Tystysgrif — ${name}`,
+    certKicker: "Tystysgrif cwblhau",
+    certMeta: (date,n,score) => `Wedi'i gwblhau <strong>${date}</strong> &middot; Wedi pasio pob un o'r ${n} prawf modiwl ar 80%+ &middot; Sgôr cyffredinol cynnig cyntaf <strong>${score}%</strong>`,
+    certDisclaimer: "Mae'r dystysgrif hon yn cadarnhau cwblhau hyfforddiant Challenge 25 ac ID Derbyniol Checkpoint. Mae'n adnodd hyfforddi heb ei achredu, nid yn gymhwyster cyfreithiol, ac nid yw'n lle Gwobr Lefel 2 swyddogol Deiliaid Trwydded Bersonol (APLH)."
+  }
+};
+
+function t(key, ...args){
+  const entry = UI[currentLang][key];
+  return typeof entry === 'function' ? entry(...args) : entry;
+}
+
+// Merges the Welsh translation (when active) over the English lesson data,
+// question-by-question for the quiz so the `correct` index — which isn't
+// duplicated in the Welsh content — always comes from the English source.
+function L(i){
+  const en = lessons[i];
+  if (currentLang !== 'cy' || !lessonsCY[i]) return en;
+  const cy = lessonsCY[i];
+  return {
+    ...en,
+    title: cy.title, meta: cy.meta, imageAlt: cy.imageAlt,
+    lead: cy.lead, body: cy.body, callout: cy.callout,
+    quiz: en.quiz.map((q, qi) => ({ ...q, q: cy.quiz[qi].q, opts: cy.quiz[qi].opts, explain: cy.quiz[qi].explain }))
+  };
+}
+
+function exitCourse(){
+  alert(t('exitConfirm'));
+}
+
+function updateLangUI(){
+  document.documentElement.lang = currentLang === 'cy' ? 'cy' : 'en-GB';
+  document.title = t('pageTitle');
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+  document.getElementById('lang-caveat').style.display = currentLang === 'cy' ? 'block' : 'none';
+  document.getElementById('exit-label').textContent = t('exit');
+  document.getElementById('course-name').textContent = t('courseName');
+  document.getElementById('sidebar-tag').textContent = t('sidebarTag');
+  document.getElementById('sidebar-h2').textContent = t('courseName');
+  document.getElementById('streak-badge').title = t('streakTitle');
+}
+
+function setLang(lang){
+  currentLang = lang === 'cy' ? 'cy' : 'en';
+  try { localStorage.setItem('checkpoint-lang', currentLang); } catch(e){}
+  updateLangUI();
+  renderAll();
+}
+
 function renderSidebar(){
   const list = document.getElementById('sidebar-list');
-  list.innerHTML = lessons.map((l, i) => {
+  list.innerHTML = lessons.map((_, i) => {
+    const l = L(i);
     let markerClass = '';
     let markerContent = i + 1;
     if (i === current){ markerClass = 'current'; }
     else if (passedModules.has(i)){ markerClass = 'done'; markerContent = '✓'; }
+    const statusSuffix = passedModules.has(i) ? ' · ' + t('passed') : (i===current ? ' · ' + t('inProgress') : '');
     return `
       <div class="lesson-item ${i===current?'active':''}" onclick="goTo(${i})">
         <div class="l-marker ${markerClass}">${markerContent}</div>
         <div>
           <div class="l-title">${l.title}</div>
-          <div class="l-meta">${l.meta}${passedModules.has(i) ? ' · Passed' : (i===current ? ' · In progress' : '')}</div>
+          <div class="l-meta">${l.meta}${statusSuffix}</div>
         </div>
       </div>`;
   }).join('');
@@ -483,7 +844,7 @@ function renderSidebar(){
 function renderProgress(){
   const pct = ((current+1)/lessons.length)*100;
   document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = `${current+1} of ${lessons.length}`;
+  document.getElementById('progress-label').textContent = t('progressOf', current+1, lessons.length);
 }
 
 function renderStreak(){
@@ -501,21 +862,19 @@ function renderContent(){
     const perfect = passedFirstTry === lessons.length;
     const avgScore = Math.round(lessons.reduce((sum,_,i) => sum + (firstAttemptResult[i] ? firstAttemptResult[i].score : 0), 0) / lessons.length);
     const streakLine = perfect
-      ? `<div class="streak-summary"><span class="flame">🔥</span> Perfect run — passed all ${lessons.length} module tests first try</div>`
-      : `<div class="streak-summary"><span class="flame">🔥</span> Passed ${passedFirstTry} of ${lessons.length} module tests on the first try</div>`;
-    const subLine = perfect
-      ? `Every module test cleared on the first attempt, at 80% or higher. That's the whole course.`
-      : `You've passed all ${lessons.length} module tests overall (some after a retry) — average first-attempt score: ${avgScore}%.`;
+      ? `<div class="streak-summary"><span class="flame">🔥</span> ${t('perfectRun', lessons.length)}</div>`
+      : `<div class="streak-summary"><span class="flame">🔥</span> ${t('passedFirstTry', passedFirstTry, lessons.length)}</div>`;
+    const subLine = perfect ? t('perfectSub') : t('passedSub', lessons.length, avgScore);
 
     const certBlock = `
       <div class="cert-box">
-        <div class="cert-box-title">Your certificate is ready</div>
-        <p class="cert-box-sub">Overall first-attempt score: ${avgScore}%. Enter your details to download it.</p>
+        <div class="cert-box-title">${t('certReady')}</div>
+        <p class="cert-box-sub">${t('certSub', avgScore)}</p>
         <div class="cert-form">
-          <input type="text" id="cert-name" placeholder="Your name">
-          <input type="text" id="cert-shop" placeholder="Shop / store name">
+          <input type="text" id="cert-name" placeholder="${t('namePlaceholder')}">
+          <input type="text" id="cert-shop" placeholder="${t('shopPlaceholder')}">
         </div>
-        <a href="#" class="btn btn-primary" onclick="downloadCertificate(${avgScore});return false;">Download certificate ↓</a>
+        <a href="#" class="btn btn-primary" onclick="downloadCertificate(${avgScore});return false;">${t('downloadCert')}</a>
         <div class="cert-error" id="cert-error"></div>
       </div>`;
 
@@ -524,25 +883,25 @@ function renderContent(){
         <div class="complete-badge">
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#1E5C3B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h1>Module complete</h1>
+        <h1>${t('moduleComplete')}</h1>
         ${streakLine}
         <p>${subLine}</p>
         ${certBlock}
         <div class="content-nav" style="justify-content:center;">
-          <a href="#" class="btn btn-primary">Back to my courses</a>
+          <a href="#" class="btn btn-primary">${t('backToCourses')}</a>
         </div>
       </div>`;
     return;
   }
 
-  const l = lessons[current];
+  const l = L(current);
   const savedAnswers = lessonAnswers[current];
   quizAnswers = savedAnswers ? savedAnswers.slice() : new Array(l.quiz.length).fill(null);
   quizSubmitted = !!savedAnswers;
   const alreadyPassed = passedModules.has(current);
 
   document.getElementById('content').innerHTML = `
-    <span class="lesson-tag">Lesson ${current+1} of ${lessons.length}</span>
+    <span class="lesson-tag">${t('lessonOf', current+1, lessons.length)}</span>
     <h1>${l.title}</h1>
     <div class="lesson-image"><img src="${l.image}" alt="${l.imageAlt}"></div>
     <p class="lead">${l.lead}</p>
@@ -554,7 +913,7 @@ function renderContent(){
       <p>${l.callout}</p>
     </div>
     <div class="quiz-box">
-      <div class="quiz-top"><span>Module test</span><span>${l.quiz.length} questions · ${CERT_PASS_RATE}% to pass</span></div>
+      <div class="quiz-top"><span>${t('moduleTest')}</span><span>${t('quizMeta', l.quiz.length, CERT_PASS_RATE)}</span></div>
       <div class="quiz-body">
         ${l.quiz.map((q,qi) => `
           <div class="quiz-q" data-qi="${qi}">
@@ -568,16 +927,16 @@ function renderContent(){
             <div class="quiz-explain" id="explain-${qi}"></div>
           </div>`).join('')}
         <div id="quiz-result"></div>
-        <a href="#" class="btn btn-primary" id="quiz-submit-btn" onclick="submitQuiz();return false;">Submit test</a>
+        <a href="#" class="btn btn-primary" id="quiz-submit-btn" onclick="submitQuiz();return false;">${t('submitTest')}</a>
       </div>
     </div>
     <div class="content-nav">
-      <a href="#" class="btn btn-outline" onclick="prevLesson();return false;" ${current===0?'style="visibility:hidden;"':''}>Back</a>
+      <a href="#" class="btn btn-outline" onclick="prevLesson();return false;" ${current===0?'style="visibility:hidden;"':''}>${t('back')}</a>
       <div>
         <a href="#" class="btn btn-primary ${alreadyPassed ? '' : 'btn-locked'}" id="continue-btn" onclick="nextLesson();return false;">
-          ${current === lessons.length-1 ? 'Finish course →' : 'Continue to Lesson ' + (current+2) + ' →'}
+          ${current === lessons.length-1 ? t('finishCourse') : t('continueTo', current+2)}
         </a>
-        ${alreadyPassed ? '' : '<div class="continue-note">Score ' + CERT_PASS_RATE + '%+ on the test to continue</div>'}
+        ${alreadyPassed ? '' : '<div class="continue-note">' + t('continueNote', CERT_PASS_RATE) + '</div>'}
       </div>
     </div>
   `;
@@ -594,9 +953,9 @@ function selectAnswer(qi, oi){
 }
 
 function submitQuiz(){
-  const l = lessons[current];
+  const l = L(current);
   if (quizAnswers.includes(null)){
-    document.getElementById('quiz-result').innerHTML = `<div class="quiz-warn">Answer all ${l.quiz.length} questions before submitting.</div>`;
+    document.getElementById('quiz-result').innerHTML = `<div class="quiz-warn">${t('answerAll', l.quiz.length)}</div>`;
     return;
   }
   quizSubmitted = true;
@@ -626,8 +985,8 @@ function paintSubmittedQuiz(l, isFreshSubmit){
   const passed = score >= CERT_PASS_RATE;
 
   document.getElementById('quiz-result').innerHTML = passed
-    ? `<div class="quiz-pass">✓ ${correctCount}/${l.quiz.length} — ${score}% — Passed</div>`
-    : `<div class="quiz-fail">${correctCount}/${l.quiz.length} — ${score}% — below the ${CERT_PASS_RATE}% pass mark. <a onclick="retryQuiz();return false;">Retry the test</a></div>`;
+    ? `<div class="quiz-pass">${t('passResult', correctCount, l.quiz.length, score)}</div>`
+    : `<div class="quiz-fail">${t('failResult', correctCount, l.quiz.length, score, CERT_PASS_RATE)} <a onclick="retryQuiz();return false;">${t('retryTest')}</a></div>`;
   document.getElementById('quiz-submit-btn').style.display = 'none';
 
   if (!isFreshSubmit) return;
@@ -689,16 +1048,23 @@ function downloadCertificate(score){
   const name = nameEl.value.trim();
   const shop = shopEl.value.trim();
   if (!name || !shop){
-    errEl.textContent = 'Enter your name and shop name to generate the certificate.';
+    errEl.textContent = t('certError');
     return;
   }
   errEl.textContent = '';
 
   const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const date = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  // Formatted by hand rather than via toLocaleDateString('cy-GB', ...) — Welsh
+  // month names aren't reliably available in every browser's Intl data.
+  const now = new Date();
+  const cyMonths = ["Ionawr","Chwefror","Mawrth","Ebrill","Mai","Mehefin","Gorffennaf","Awst","Medi","Hydref","Tachwedd","Rhagfyr"];
+  const date = currentLang === 'cy'
+    ? `${now.getDate()} ${cyMonths[now.getMonth()]} ${now.getFullYear()}`
+    : now.toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  const htmlLang = currentLang === 'cy' ? 'cy' : 'en-GB';
 
   const html = `<!DOCTYPE html>
-<html lang="en-GB"><head><meta charset="UTF-8"><title>Certificate — ${esc(name)}</title>
+<html lang="${htmlLang}"><head><meta charset="UTF-8"><title>${esc(t('certTitle', name))}</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' fill='%234E3FD1'/%3E%3Cpath d='M8.3 12.3L10.8 14.8L16 9.3' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -721,12 +1087,12 @@ function downloadCertificate(score){
   <div class="cert">
     <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#4E3FD1"/><path d="M8.3 12.3L10.8 14.8L16 9.3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <div class="brand">Checkpoint</div>
-    <div class="kicker">Certificate of completion</div>
-    <h1>Challenge 25 &amp; Acceptable ID</h1>
+    <div class="kicker">${t('certKicker')}</div>
+    <h1>${t('courseName')}</h1>
     <div class="name">${esc(name)}</div>
     <div class="shop">${esc(shop)}</div>
-    <div class="meta">Completed <strong>${date}</strong> &middot; Passed all ${lessons.length} module tests at 80%+ &middot; Overall first-attempt score <strong>${score}%</strong></div>
-    <div class="disclaimer">This certificate confirms completion of Checkpoint's Challenge 25 &amp; Acceptable ID training. It is a non-accredited training resource, not a legal qualification, and is not a substitute for the official Level 2 Award for Personal Licence Holders (APLH).</div>
+    <div class="meta">${t('certMeta', date, lessons.length, score)}</div>
+    <div class="disclaimer">${t('certDisclaimer')}</div>
   </div>
 </body></html>`;
 
@@ -764,6 +1130,12 @@ function renderAll(){
   window.scrollTo(0,0);
 }
 
+(function initLang(){
+  let saved = 'en';
+  try { saved = localStorage.getItem('checkpoint-lang') || 'en'; } catch(e){}
+  currentLang = saved === 'cy' ? 'cy' : 'en';
+  updateLangUI();
+})();
 renderAll();
 </script>
 

@@ -51,7 +51,12 @@ Challenge 25. Two audiences:
   ends in a 10-question test (80% to pass, gates progress to the next
   module), with sidebar navigation, a streak stat, and a downloadable
   certificate on completion. Content and lesson list are hardcoded in a
-  JS array inside the file (`lessons = [...]`).
+  JS array inside the file (`lessons = [...]`). Fully bilingual: an
+  EN/CY toggle in the topbar (matching `index.html`'s) swaps every
+  lesson, quiz, and piece of UI chrome via a `lessonsCY` array + a `t()`
+  string dictionary, and reads/writes the same `checkpoint-lang`
+  localStorage key as the landing page, so a language choice made there
+  carries straight into the course.
 - `resources.html` — free downloadable templates page (currently three:
   a Refusal of Sales Log Sheet .docx, an Age By Year of Birth
   Calculator PDF, and a Due Diligence Checklist .docx, all in
@@ -63,6 +68,11 @@ Challenge 25. Two audiences:
   legally reviewed. Flag clearly if asked to treat it as production-
   ready; it should be checked by someone licensing-literate before real
   staff rely on it.
+- Welsh (CY) translation of the course — like the landing page's — is
+  **AI-generated and not reviewed by a professional Welsh speaker**.
+  The in-course `#lang-caveat` banner says so whenever CY is active;
+  keep that caveat if the Welsh content is ever edited or extended, and
+  flag clearly if asked to treat it as review-ready.
 - "Licensing Law Annual Refresher" and "Personal Licence Warm-Up"
   modules: **not written yet** — landing page cards exist but link
   nowhere.
