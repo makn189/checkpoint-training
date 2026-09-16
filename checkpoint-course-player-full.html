@@ -40,7 +40,6 @@
   .lang-toggle{display:flex;background:var(--cream-deep);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;}
   .lang-btn{border:none;background:transparent;padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;letter-spacing:.02em;font-family:'Inter',sans-serif;}
   .lang-btn.active{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(34,36,59,.15);}
-  #lang-caveat{display:none;text-align:center;font-size:12px;color:var(--ink-soft);background:var(--cream-deep);padding:8px 16px;border-bottom:1px solid var(--line);}
   .exit{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
   .exit svg{width:16px;height:16px;}
   .divider{width:1px;height:22px;background:var(--line);}
@@ -196,7 +195,6 @@
 </head>
 <body>
 
-<div id="lang-caveat">Cyfieithiad Cymraeg wedi'i gynhyrchu gan AI ac heb ei adolygu gan siaradwr Cymraeg proffesiynol.</div>
 <div class="topbar">
   <div class="tb-left">
     <span class="exit" onclick="exitCourse()">
@@ -233,7 +231,7 @@
 </div>
 
 <script>
-const lessons = [
+const ALL_LESSONS = [
   {
     title: "Why Challenge 25 exists",
     meta: "8 min",
@@ -307,11 +305,29 @@ const lessons = [
       { q: "Why doesn't a bank card count as acceptable ID?", opts: ["It doesn't confirm date of birth or carry age-verification security features","Banks don't allow it to be used for ID","It's against store policy only, not the law","It's too easy to lose"], correct: 0, explain: "A bank card doesn't show a date of birth or carry the security features needed to confirm age." },
       { q: "A customer's passport photo doesn't quite look like them, but the document seems otherwise genuine. What should you do?", opts: ["Accept it since the document itself looks real","Decline the sale — the photo not matching is reason enough","Ask a colleague to make the final call instead of you","Accept it if they know their own date of birth"], correct: 1, explain: "A photo that doesn't match is reason enough to decline, regardless of how genuine the rest looks." },
       { q: "What's the safest response if you're not sure whether a document is one of the three accepted forms?", opts: ["Accept it and move on quickly","Treat it as not acceptable and explain the three forms that are","Ask the customer to describe the document instead","Accept it if the queue is long"], correct: 1, explain: "If in doubt, treat it as not acceptable and explain the three forms Challenge 25 recognises." }
-    ]
+    ],
+    // Scotland doesn't have the digital ID module (that rule change is England & Wales
+    // only), so this lesson's digital-ID mentions get swapped out for the Scotland edition.
+    regionOverrides: {
+      scotland: {
+        lead: "Challenge 25 recognises three standard forms of ID: a valid passport, a UK photocard driving licence, and a PASS-accredited proof-of-age card.",
+        body: [
+          "A PASS-accredited card carries the PASS hologram — that's the detail to look for, since plenty of unofficial \"proof of age\" cards exist without it.",
+          "What doesn't count: student cards, workplace ID badges, bank cards, or a photo of someone's ID on their phone. None of these carry the security features needed to confirm both identity and age.",
+          "England and Wales introduced a certified digital ID option for alcohol sales in September 2026, but that rule change doesn't extend to Scotland. For alcohol sales here, only the three physical forms above are accepted — if a customer offers a digital ID app or a QR code, treat the sale as requiring one of those three physical documents instead."
+        ],
+        callout: "<strong>Quick check:</strong> passport, UK photocard driving licence, or PASS hologram card. If it's none of those three, it isn't acceptable ID under Challenge 25 in Scotland.",
+        quiz: {
+          3: { explain: "A photo can be edited or belong to someone else — only the physical document, checked in hand, counts." },
+          5: { q: "Does Scotland currently accept certified digital ID as an alternative to physical ID for alcohol sales?", opts: ["Yes, the same as England and Wales","No — only the three physical forms are accepted for alcohol sales in Scotland","Only for customers already over 25","Only in supermarkets"], correct: 1, explain: "The digital ID rule change introduced in England and Wales in September 2026 doesn't extend to Scotland, where alcohol sales still require one of the three physical forms." }
+        }
+      }
+    }
   },
   {
     title: "Digital proof of age at the till",
     meta: "6 min",
+    scotlandExcluded: true,
     image: "images/lesson-digital-id.svg",
     imageAlt: "A customer tapping a phone showing a QR code against a till-side scanner for a digital age check",
     lead: "Since 15 September 2026, licensed premises in England and Wales can accept a certified digital ID alongside physical documents to prove someone is 18 or over. Physical ID hasn't gone anywhere — this is an additional option, not a replacement.",
@@ -463,9 +479,8 @@ const lessons = [
 ];
 
 // Welsh translations of the lesson content above, in the same order.
-// AI-generated, not reviewed by a professional Welsh speaker — see the
-// #lang-caveat banner shown whenever Welsh is selected.
-const lessonsCY = [
+// AI-generated, not reviewed by a professional Welsh speaker.
+const ALL_LESSONS_CY = [
   {
     title: "Pam mae Challenge 25 yn bodoli",
     meta: "8 munud",
@@ -536,7 +551,22 @@ const lessonsCY = [
       { q: "Pam nad yw cerdyn banc yn cyfrif fel ID derbyniol?", opts: ["Dyw e ddim yn cadarnhau dyddiad geni nac yn cario nodweddion diogelwch gwirio oedran","Dyw banciau ddim yn caniatáu ei ddefnyddio fel ID","Polisi'r siop yn unig ydyw, nid y gyfraith","Mae'n rhy hawdd ei golli"], explain: "Dyw cerdyn banc ddim yn dangos dyddiad geni nac yn cario'r nodweddion diogelwch sydd eu hangen i gadarnhau oedran." },
       { q: "Dyw llun pasbort cwsmer ddim yn edrych yn union fel nhw, ond mae'r ddogfen yn ymddangos yn ddilys fel arall. Beth ddylech chi ei wneud?", opts: ["Ei dderbyn gan fod y ddogfen ei hun yn edrych yn real","Gwrthod y gwerthiant — mae'r llun ddim yn cyfateb yn ddigon o reswm","Gofyn i gydweithiwr wneud y penderfyniad terfynol yn lle chi","Ei dderbyn os ydyn nhw'n gwybod eu dyddiad geni eu hunain"], explain: "Mae llun sydd ddim yn cyfateb yn ddigon o reswm i wrthod, ni waeth pa mor ddilys mae'r gweddill yn edrych." },
       { q: "Beth yw'r ymateb mwyaf diogel os nad ydych chi'n siŵr a yw dogfen yn un o'r tri math derbyniol?", opts: ["Ei derbyn a symud ymlaen yn gyflym","Ei thrin fel un annerbyniol ac esbonio'r tri math sydd","Gofyn i'r cwsmer ddisgrifio'r ddogfen yn lle hynny","Ei derbyn os yw'r ciw'n hir"], explain: "Os oes amheuaeth, triniwch hi fel un annerbyniol ac esboniwch y tri math mae Challenge 25 yn eu cydnabod." }
-    ]
+    ],
+    regionOverrides: {
+      scotland: {
+        lead: "Mae Challenge 25 yn cydnabod tri math safonol o ID: pasbort dilys, trwydded yrru cerdyn llun y DU, a cherdyn prawf-oedran achrededig PASS.",
+        body: [
+          "Mae cerdyn achrededig PASS yn cario holograff PASS — dyna'r manylyn i chwilio amdano, gan fod digon o gardiau \"prawf oedran\" answyddogol yn bodoli hebddo.",
+          "Beth sydd ddim yn cyfrif: cardiau myfyrwyr, bathodynnau ID gweithle, cardiau banc, neu lun o ID rhywun ar eu ffôn. Dyw'r un o'r rhain yn cario'r nodweddion diogelwch sydd eu hangen i gadarnhau hunaniaeth ac oedran.",
+          "Cyflwynodd Cymru a Lloegr opsiwn ID digidol achrededig ar gyfer gwerthiannau alcohol ym mis Medi 2026, ond dyw'r newid rheol hwnnw ddim yn ymestyn i'r Alban. Ar gyfer gwerthiannau alcohol yma, dim ond y tri math corfforol uchod sy'n cael eu derbyn — os yw cwsmer yn cynnig ap ID digidol neu god QR, triniwch y gwerthiant fel un sy'n gofyn am un o'r tri dogfen gorfforol honno yn lle."
+        ],
+        callout: "<strong>Gwiriad cyflym:</strong> pasbort, trwydded yrru cerdyn llun y DU, neu gerdyn holograff PASS. Os nad yw'n un o'r tri hyn, dyw e ddim yn ID derbyniol o dan Challenge 25 yn yr Alban.",
+        quiz: {
+          3: { explain: "Gellir golygu llun neu gall fod yn perthyn i rywun arall — dim ond y ddogfen gorfforol, wedi'i gwirio yn y llaw, sy'n cyfrif." },
+          5: { q: "Ydy'r Alban ar hyn o bryd yn derbyn ID digidol achrededig fel dewis arall yn lle ID corfforol ar gyfer gwerthiannau alcohol?", opts: ["Ydy, yr un fath â Chymru a Lloegr","Nac ydy — dim ond y tri math corfforol sy'n cael eu derbyn ar gyfer gwerthiannau alcohol yn yr Alban","Dim ond ar gyfer cwsmeriaid sydd eisoes dros 25","Dim ond mewn archfarchnadoedd"], explain: "Dyw'r newid rheol ID digidol a gyflwynwyd yng Nghymru a Lloegr ym mis Medi 2026 ddim yn ymestyn i'r Alban, lle mae gwerthiannau alcohol yn dal i ofyn am un o'r tri math corfforol." }
+        }
+      }
+    }
   },
   {
     title: "Prawf oedran digidol wrth y til",
@@ -685,6 +715,31 @@ const lessonsCY = [
   }
 ];
 
+// Scotland gets its own edition, chosen via ?region=scotland: it drops the
+// digital ID module (that rule change doesn't extend to Scotland) and swaps
+// in Scotland-specific wording anywhere else that referenced it, via each
+// lesson's optional `regionOverrides.scotland`.
+const courseRegion = new URLSearchParams(location.search).get('region') === 'scotland' ? 'scotland' : 'ew';
+
+function applyRegionOverride(lesson){
+  const ov = lesson.regionOverrides && lesson.regionOverrides[courseRegion];
+  if (!ov) return lesson;
+  const merged = { ...lesson };
+  if (ov.lead) merged.lead = ov.lead;
+  if (ov.body) merged.body = ov.body;
+  if (ov.callout) merged.callout = ov.callout;
+  if (ov.quiz) merged.quiz = lesson.quiz.map((q, qi) => ov.quiz[qi] ? { ...q, ...ov.quiz[qi] } : q);
+  return merged;
+}
+
+const REGION_INDICES = ALL_LESSONS
+  .map((_, i) => i)
+  .filter(i => !(courseRegion === 'scotland' && ALL_LESSONS[i].scotlandExcluded));
+
+let lessons = REGION_INDICES.map(i => applyRegionOverride(ALL_LESSONS[i]));
+let lessonsCY = REGION_INDICES.map(i => applyRegionOverride(ALL_LESSONS_CY[i]));
+const TOTAL_MINUTES = lessons.reduce((sum, l) => sum + (parseInt(l.meta, 10) || 0), 0);
+
 const CERT_PASS_RATE = 80;
 let current = 0;
 const passedModules = new Set();
@@ -699,11 +754,12 @@ let currentLang = 'en';
 
 const UI = {
   en: {
-    pageTitle: "Challenge 25 & Acceptable ID — Checkpoint",
+    pageTitle: () => `Challenge 25 & Acceptable ID${courseRegion === 'scotland' ? ' (Scotland edition)' : ''} — Checkpoint`,
     exit: "Exit",
     exitConfirm: "This would exit to the course dashboard.",
     courseName: "Challenge 25 & Acceptable ID",
-    sidebarTag: "All staff · ~65 mins",
+    regionName: { ew: "England & Wales", scotland: "Scotland" },
+    sidebarTag: (mins) => `All staff · ${UI.en.regionName[courseRegion]} · ~${mins} mins`,
     streakTitle: "Module tests passed at 80%+ on the first attempt, in a row",
     passed: "Passed",
     inProgress: "In progress",
@@ -738,11 +794,12 @@ const UI = {
     certDisclaimer: "This certificate confirms completion of Checkpoint's Challenge 25 &amp; Acceptable ID training. It is a non-accredited training resource, not a legal qualification, and is not a substitute for the official Level 2 Award for Personal Licence Holders (APLH)."
   },
   cy: {
-    pageTitle: "Challenge 25 ac ID Derbyniol — Checkpoint",
+    pageTitle: () => `Challenge 25 ac ID Derbyniol${courseRegion === 'scotland' ? ' (fersiwn yr Alban)' : ''} — Checkpoint`,
     exit: "Gadael",
     exitConfirm: "Byddai hyn yn gadael i ddangosfwrdd y cwrs.",
     courseName: "Challenge 25 ac ID Derbyniol",
-    sidebarTag: "Pob aelod o staff · ~65 munud",
+    regionName: { ew: "Cymru a Lloegr", scotland: "Yr Alban" },
+    sidebarTag: (mins) => `Pob aelod o staff · ${UI.cy.regionName[courseRegion]} · ~${mins} munud`,
     streakTitle: "Profion modiwl wedi'u pasio ar 80%+ ar y cynnig cyntaf, yn olynol",
     passed: "Wedi pasio",
     inProgress: "Ar y gweill",
@@ -806,10 +863,9 @@ function updateLangUI(){
   document.documentElement.lang = currentLang === 'cy' ? 'cy' : 'en-GB';
   document.title = t('pageTitle');
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
-  document.getElementById('lang-caveat').style.display = currentLang === 'cy' ? 'block' : 'none';
   document.getElementById('exit-label').textContent = t('exit');
   document.getElementById('course-name').textContent = t('courseName');
-  document.getElementById('sidebar-tag').textContent = t('sidebarTag');
+  document.getElementById('sidebar-tag').textContent = t('sidebarTag', TOTAL_MINUTES);
   document.getElementById('sidebar-h2').textContent = t('courseName');
   document.getElementById('streak-badge').title = t('streakTitle');
 }

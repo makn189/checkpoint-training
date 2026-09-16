@@ -46,33 +46,44 @@ Challenge 25. Two audiences:
   Course grid links to the live course; other two cards are styled as
   "Coming soon" placeholders (no href).
 - `checkpoint-course-player-full.html` — fully built, interactive
-  9-module Challenge 25 & Acceptable ID course (includes a module on
-  the digital ID rules that took effect 15 September 2026). Each module
-  ends in a 10-question test (80% to pass, gates progress to the next
-  module), with sidebar navigation, a streak stat, and a downloadable
-  certificate on completion. Content and lesson list are hardcoded in a
-  JS array inside the file (`lessons = [...]`). Fully bilingual: an
-  EN/CY toggle in the topbar (matching `index.html`'s) swaps every
-  lesson, quiz, and piece of UI chrome via a `lessonsCY` array + a `t()`
-  string dictionary, and reads/writes the same `checkpoint-lang`
-  localStorage key as the landing page, so a language choice made there
-  carries straight into the course.
+  Challenge 25 & Acceptable ID course. Each module ends in a 10-question
+  test (80% to pass, gates progress to the next module), with sidebar
+  navigation, a streak stat, and a downloadable certificate on
+  completion. Content is hardcoded in `ALL_LESSONS` (English) and
+  `ALL_LESSONS_CY` (Welsh) JS arrays inside the file. Fully bilingual:
+  an EN/CY toggle in the topbar (matching `index.html`'s) swaps every
+  lesson, quiz, and piece of UI chrome via a `t()` string dictionary,
+  and reads/writes the same `checkpoint-lang` localStorage key as the
+  landing page, so a language choice made there carries into the course.
+  Two regional editions from the same file, chosen via `?region=`:
+  - default / `?region=ew` — **England & Wales**, all 9 modules
+    (includes the digital ID module — that rule change took effect
+    15 September 2026 and only applies there)
+  - `?region=scotland` — **Scotland**, 8 modules (digital ID module
+    dropped via each lesson's `scotlandExcluded` flag), with the
+    "Acceptable forms of ID" module's digital-ID mentions swapped for
+    Scotland-appropriate wording via its `regionOverrides.scotland`
+    (lead/body/callout/quiz overrides, applied in both languages).
+    `index.html`'s course section links to both editions explicitly.
+  If Scotland-specific content is ever added to another lesson, follow
+  the same `regionOverrides.scotland` pattern rather than forking the
+  file, so the two editions can't drift out of sync by accident.
 - `resources.html` — free downloadable templates page (currently three:
   a Refusal of Sales Log Sheet .docx, an Age By Year of Birth
   Calculator PDF, and a Due Diligence Checklist .docx, all in
   `resources/`). Linked from the main nav and footer.
 
 ## Content status — IMPORTANT
-- Challenge 25 module: 9 lessons, fully written, but this is **mockup
-  content** — grounded in the real Challenge 25 scheme basics, not
-  legally reviewed. Flag clearly if asked to treat it as production-
-  ready; it should be checked by someone licensing-literate before real
-  staff rely on it.
-- Welsh (CY) translation of the course — like the landing page's — is
+- Challenge 25 module: 9 lessons (England & Wales) / 8 lessons
+  (Scotland), fully written, but this is **mockup content** — grounded
+  in the real Challenge 25 scheme basics, not legally reviewed. Flag
+  clearly if asked to treat it as production-ready; it should be
+  checked by someone licensing-literate before real staff rely on it.
+- Welsh (CY) translation of the course and landing page is
   **AI-generated and not reviewed by a professional Welsh speaker**.
-  The in-course `#lang-caveat` banner says so whenever CY is active;
-  keep that caveat if the Welsh content is ever edited or extended, and
-  flag clearly if asked to treat it as review-ready.
+  The on-page disclaimer saying so was removed at the user's request
+  (2026-09-15) — there is no visible caveat anymore, so flag clearly if
+  asked to treat the Welsh content as review-ready or accurate.
 - "Licensing Law Annual Refresher" and "Personal Licence Warm-Up"
   modules: **not written yet** — landing page cards exist but link
   nowhere.

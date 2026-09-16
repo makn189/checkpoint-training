@@ -120,10 +120,6 @@
     font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;letter-spacing:.02em;
   }
   .lang-btn.active{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(34,36,59,.15);}
-  #lang-caveat{
-    display:none;text-align:center;font-size:12px;color:var(--ink-soft);
-    background:var(--cream-deep);padding:8px 16px;
-  }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -334,6 +330,8 @@
   .spot-content h3{font-size:clamp(22px,2.4vw,28px);line-height:1.28;margin-bottom:14px;}
   .spot-content p.spot-desc{font-size:15.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:22px;max-width:440px;}
   .spot-meta{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:28px;}
+  .spot-cta-group{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+  .spot-region-note{font-size:13px;color:var(--ink-soft);max-width:440px;margin:0;}
   .spot-meta-item{display:flex;flex-direction:column;gap:2px;}
   .spot-meta-item .num{font-family:'Fraunces',serif;font-weight:700;font-size:20px;}
   .spot-meta-item .lbl{font-size:12px;color:var(--ink-soft);}
@@ -440,8 +438,6 @@
 </style>
 </head>
 <body>
-
-<div id="lang-caveat">Cyfieithiad Cymraeg wedi'i gynhyrchu gan AI ac heb ei adolygu gan siaradwr Cymraeg proffesiynol.</div>
 
 <header>
   <nav class="wrap">
@@ -631,7 +627,11 @@
           <div class="spot-meta-item"><span class="num">9</span><span class="lbl" data-cy="Modiwlau">Modules</span></div>
           <div class="spot-meta-item"><span class="num">80%</span><span class="lbl" data-cy="I basio pob prawf">To pass each test</span></div>
         </div>
-        <a href="checkpoint-course-player-full.html" class="btn btn-primary" data-cy="Dechrau'r cwrs →">Start the course →</a>
+        <div class="spot-cta-group">
+          <a href="checkpoint-course-player-full.html" class="btn btn-primary" data-cy="Dechrau'r cwrs — Cymru a Lloegr →">Start the course — England &amp; Wales →</a>
+          <a href="checkpoint-course-player-full.html?region=scotland" class="btn btn-outline" data-cy="Dechrau'r cwrs — Yr Alban →">Start the course — Scotland →</a>
+        </div>
+        <p class="spot-region-note" data-cy="Mae fersiwn yr Alban yn cynnwys 8 modiwl — heb y modiwl ID digidol, gan nad yw'r rheol newydd honno'n berthnasol yno.">The Scotland edition has 8 modules — it leaves out the digital ID module, since that rule change doesn't apply there.</p>
       </div>
       <div class="spot-lessons">
         <div class="spot-lesson-row done"><span class="ln">✓</span><span class="lt" data-cy="Beth yw Challenge 25?">What is Challenge 25?</span><span class="ltime" data-cy="8 munud">8 min</span></div>
@@ -731,7 +731,6 @@
       el.innerHTML = lang === 'cy' ? el.dataset.cy : el.dataset.en;
     });
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-    document.getElementById('lang-caveat').style.display = lang === 'cy' ? 'block' : 'none';
     document.title = lang === 'cy' ? CY_TITLE : EN_TITLE;
     try { localStorage.setItem('checkpoint-lang', lang); } catch(e){}
   }
