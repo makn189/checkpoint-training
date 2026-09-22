@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free resources — Checkpoint</title>
+<title id="page-title">Free resources — AskFirst</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -50,6 +50,9 @@
   .nav-links a{font-size:15px;font-weight:500;color:var(--ink-soft);transition:color .15s;}
   .nav-links a:hover, .nav-links a.current{color:var(--ink);}
   .nav-cta{display:flex;align-items:center;gap:16px;}
+  .lang-toggle{display:flex;background:var(--cream-deep);border-radius:999px;padding:3px;gap:2px;flex-shrink:0;}
+  .lang-btn{border:none;background:transparent;padding:7px 13px;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer;letter-spacing:.02em;font-family:'Inter',sans-serif;}
+  .lang-btn.active{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(34,36,59,.15);}
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:13px 24px;border-radius:999px;font-weight:600;font-size:15px;
@@ -150,33 +153,37 @@
       <span class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#4E3FD1"/><path d="M8.3 12.3L10.8 14.8L16 9.3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
-      Checkpoint
+      AskFirst
     </a>
     <div class="nav-links">
-      <a href="index.html#course">The course</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="resources.html" class="current">Resources</a>
+      <a href="index.html#course" data-cy="Y cwrs">The course</a>
+      <a href="index.html#faq" data-cy="Cwestiynau Cyffredin">FAQ</a>
+      <a href="resources.html" class="current" data-cy="Adnoddau">Resources</a>
     </div>
     <div class="nav-cta">
-      <a href="checkpoint-course-player-full.html" class="btn btn-primary btn-sm nav-cta-btn">Start the course</a>
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button type="button" class="lang-btn" data-lang="cy" onclick="setLang('cy')">CY</button>
+      </div>
+      <a href="index.html#course" class="btn btn-primary btn-sm nav-cta-btn" data-cy="Dechrau'r cwrs">Start the course</a>
       <button type="button" class="menu-toggle" id="menu-toggle" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
   </nav>
   <div class="mobile-menu" id="mobile-menu">
-    <a href="index.html#course" onclick="closeMenu()">The course</a>
-    <a href="index.html#faq" onclick="closeMenu()">FAQ</a>
-    <a href="resources.html" onclick="closeMenu()">Resources</a>
-    <a href="checkpoint-course-player-full.html" class="btn btn-primary mobile-menu-cta" onclick="closeMenu()">Start the course</a>
+    <a href="index.html#course" data-cy="Y cwrs" onclick="closeMenu()">The course</a>
+    <a href="index.html#faq" data-cy="Cwestiynau Cyffredin" onclick="closeMenu()">FAQ</a>
+    <a href="resources.html" data-cy="Adnoddau" onclick="closeMenu()">Resources</a>
+    <a href="index.html#course" class="btn btn-primary mobile-menu-cta" data-cy="Dechrau'r cwrs" onclick="closeMenu()">Start the course</a>
   </div>
 </header>
 
 <section class="page-head">
   <div class="wrap">
-    <div class="eyebrow"><span class="dot"></span> Free to download, no account needed</div>
-    <h1>A few things worth keeping behind the till.</h1>
-    <p>Practical paperwork to go with the course — the kind of thing a licensing officer or Trading Standards visit will actually ask to see.</p>
+    <div class="eyebrow"><span class="dot"></span> <span data-cy="Am ddim i'w lawrlwytho, does dim angen cyfrif">Free to download, no account needed</span></div>
+    <h1 data-cy="Ychydig o bethau sy'n werth eu cadw wrth y til.">A few things worth keeping behind the till.</h1>
+    <p data-cy="Papurau ymarferol i fynd law yn llaw â'r cwrs — y math o beth y byddai swyddog trwyddedu neu ymweliad gan Safonau Masnach wir yn gofyn i'w weld.">Practical paperwork to go with the course — the kind of thing a licensing officer or Trading Standards visit will actually ask to see.</p>
   </div>
 </section>
 
@@ -188,12 +195,12 @@
           <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#4E3FD1" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="res-body">
-          <span class="res-badge">Template</span>
-          <h3>Refusal of Sales Log Sheet</h3>
-          <p>A printable table for logging refused sales — date, time, description of the person refused, product, whether it was captured on CCTV, ID produced, who logged it, and the action taken. Covers alcohol, tobacco, solvents, fireworks, knives and other age-restricted products, not just alcohol.</p>
+          <span class="res-badge" data-cy="Templed">Template</span>
+          <h3 data-cy="Taflen Gofnodi Gwrthod Gwerthiant">Refusal of Sales Log Sheet</h3>
+          <p data-cy="Tabl y gellir ei argraffu ar gyfer cofnodi gwerthiannau a wrthodwyd — dyddiad, amser, disgrifiad o'r person a wrthodwyd, cynnyrch, a gafodd ei ddal ar CCTV, ID a gynhyrchwyd, pwy a'i cofnododd, a'r cam a gymerwyd. Yn cwmpasu alcohol, tybaco, hydoddyddion, tân gwyllt, cyllyll a chynhyrchion eraill sydd wedi'u cyfyngu yn ôl oedran, nid alcohol yn unig.">A printable table for logging refused sales — date, time, description of the person refused, product, whether it was captured on CCTV, ID produced, who logged it, and the action taken. Covers alcohol, tobacco, solvents, fireworks, knives and other age-restricted products, not just alcohol.</p>
           <div class="res-meta">
-            <a href="resources/checkpoint-refusal-log-sheet.docx" class="btn btn-outline btn-sm" download>Download .docx ↓</a>
-            <span class="filetype">Word document · 1 page · editable</span>
+            <a href="resources/checkpoint-refusal-log-sheet.docx" class="btn btn-outline btn-sm" download data-cy="Lawrlwytho .docx ↓">Download .docx ↓</a>
+            <span class="filetype" data-cy="Dogfen Word · 1 dudalen · golygadwy">Word document · 1 page · editable</span>
           </div>
         </div>
       </div>
@@ -203,12 +210,12 @@
           <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4E3FD1" stroke-width="1.6"/><path d="M3 9h18M8 3v3M16 3v3" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round"/><path d="M7 13h2M11 13h2M15 13h2M7 17h2M11 17h2" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round"/></svg>
         </div>
         <div class="res-body">
-          <span class="res-badge">Quick reference</span>
-          <h3>Age By Year of Birth Calculator (2026–2031)</h3>
-          <p>A till-side chart for working out someone's current age from their year of birth, for every year from 2026 to 2031. Birth years that land on 17–18 are flagged: check the exact date of birth before selling — if their birthday hasn't happened yet this year, they're still 17. Two copies per sheet, sized to cut in half and keep by the till.</p>
+          <span class="res-badge" data-cy="Cyfeirnod cyflym">Quick reference</span>
+          <h3 data-cy="Cyfrifiannell Oedran yn ôl Blwyddyn Geni (2026–2031)">Age By Year of Birth Calculator (2026–2031)</h3>
+          <p data-cy="Siart wrth y til ar gyfer cyfrifo oedran presennol rhywun o'u blwyddyn geni, ar gyfer pob blwyddyn o 2026 i 2031. Mae blynyddoedd geni sy'n disgyn ar 17–18 yn cael eu fflagio: gwiriwch y dyddiad geni union cyn gwerthu — os nad yw eu pen-blwydd wedi digwydd eto eleni, maen nhw'n dal yn 17. Dwy gopi ar bob taflen, wedi'u maint i'w torri yn eu hanner a'u cadw wrth y til.">A till-side chart for working out someone's current age from their year of birth, for every year from 2026 to 2031. Birth years that land on 17–18 are flagged: check the exact date of birth before selling — if their birthday hasn't happened yet this year, they're still 17. Two copies per sheet, sized to cut in half and keep by the till.</p>
           <div class="res-meta">
-            <a href="resources/checkpoint-age-by-year-calculator-2026-2031.pdf" class="btn btn-outline btn-sm" download>Download .pdf ↓</a>
-            <span class="filetype">PDF · 1 page · print-ready</span>
+            <a href="resources/checkpoint-age-by-year-calculator-2026-2031.pdf" class="btn btn-outline btn-sm" download data-cy="Lawrlwytho .pdf ↓">Download .pdf ↓</a>
+            <span class="filetype" data-cy="PDF · 1 dudalen · yn barod i'w argraffu">PDF · 1 page · print-ready</span>
           </div>
         </div>
       </div>
@@ -218,22 +225,22 @@
           <svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#4E3FD1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="res-body">
-          <span class="res-badge">Checklist</span>
-          <h3>Due Diligence Checklist — Age-Restricted &amp; Proxy Sales</h3>
-          <p>A five-section audit for building and evidencing the "due diligence" defence: written policies &amp; procedures, staff training &amp; records, point-of-sale controls, proxy sales, and management oversight — with a sign-off, review date, and next-review field at the end. Built around the same due diligence concept covered in the course.</p>
+          <span class="res-badge" data-cy="Rhestr wirio">Checklist</span>
+          <h3 data-cy="Rhestr Wirio Diwydrwydd Dyladwy — Gwerthiannau Cyfyngedig yn ôl Oedran a Dirprwyol">Due Diligence Checklist — Age-Restricted &amp; Proxy Sales</h3>
+          <p data-cy="Archwiliad pum adran ar gyfer adeiladu a dangos tystiolaeth o'r amddiffyniad &quot;diwydrwydd dyladwy&quot;: polisïau a gweithdrefnau ysgrifenedig, hyfforddiant a chofnodion staff, rheolaethau pwynt gwerthu, gwerthiannau dirprwyol, a goruchwyliaeth reoli — gyda maes llofnodi, dyddiad adolygu, a dyddiad adolygu nesaf ar y diwedd. Wedi'i adeiladu o amgylch yr un cysyniad diwydrwydd dyladwy a gwmpesir yn y cwrs.">A five-section audit for building and evidencing the "due diligence" defence: written policies &amp; procedures, staff training &amp; records, point-of-sale controls, proxy sales, and management oversight — with a sign-off, review date, and next-review field at the end. Built around the same due diligence concept covered in the course.</p>
           <div class="res-meta">
-            <a href="resources/checkpoint-due-diligence-checklist.docx" class="btn btn-outline btn-sm" download>Download .docx ↓</a>
-            <span class="filetype">Word document · 2 pages · editable</span>
+            <a href="resources/checkpoint-due-diligence-checklist.docx" class="btn btn-outline btn-sm" download data-cy="Lawrlwytho .docx ↓">Download .docx ↓</a>
+            <span class="filetype" data-cy="Dogfen Word · 2 dudalen · golygadwy">Word document · 2 pages · editable</span>
           </div>
         </div>
       </div>
 
-      <div class="coming-soon-card">
+      <div class="coming-soon-card" data-cy="&lt;strong&gt;Mae mwy o dempledi ar y ffordd&lt;/strong&gt; — cerdyn cyfeirnod cyflym derbyn ID sydd nesaf.">
         <strong>More templates are on the way</strong> — an ID-acceptance quick-reference card is next.
       </div>
     </div>
 
-    <p class="page-note">These are generic templates for reference, provided free — not legal advice. Check they fit your own store's licensing conditions and record-keeping requirements before relying on them, the same way the course content itself hasn't yet been checked by a licensing specialist.</p>
+    <p class="page-note" data-cy="Templedi generig ar gyfer cyfeirio ydyn nhw, wedi'u darparu am ddim — nid cyngor cyfreithiol. Gwiriwch eu bod yn addas ar gyfer amodau trwyddedu a gofynion cadw cofnodion eich siop eich hun cyn dibynnu arnyn nhw, yr un ffordd nad yw cynnwys y cwrs ei hun wedi'i wirio eto gan arbenigwr trwyddedu.">These are generic templates for reference, provided free — not legal advice. Check they fit your own store's licensing conditions and record-keeping requirements before relying on them, the same way the course content itself hasn't yet been checked by a licensing specialist.</p>
   </div>
 </section>
 
@@ -245,28 +252,28 @@
           <span class="logo-mark">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#4E3FD1"/><path d="M8.3 12.3L10.8 14.8L16 9.3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          Checkpoint
+          AskFirst
         </div>
-        <p>E-learning for UK retail teams on licensing rules, Challenge 25, and acceptable ID — plain-language first, legal term second.</p>
+        <p data-cy="E-ddysgu ar gyfer timau manwerthu'r DU ar reolau trwyddedu, Challenge 25, ac ID derbyniol — iaith blaen yn gyntaf, term cyfreithiol yn ail.">E-learning for UK retail teams on licensing rules, Challenge 25, and acceptable ID — plain-language first, legal term second.</p>
       </div>
       <div class="footer-col">
-        <h4>Course</h4>
-        <a href="checkpoint-course-player-full.html">Challenge 25 &amp; ID</a>
-        <a href="index.html#faq">FAQ</a>
+        <h4 data-cy="Cwrs">Course</h4>
+        <a href="index.html#course" data-cy="Challenge 25 ac ID">Challenge 25 &amp; ID</a>
+        <a href="index.html#faq" data-cy="Cwestiynau Cyffredin">FAQ</a>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <h4 data-cy="Cwmni">Company</h4>
+        <a href="#" data-cy="Amdanom ni">About</a>
+        <a href="#" data-cy="Cysylltu">Contact</a>
       </div>
       <div class="footer-col">
-        <h4>Guidance</h4>
-        <a href="resources.html">Free resources</a>
-        <a href="#">Help centre</a>
+        <h4 data-cy="Canllawiau">Guidance</h4>
+        <a href="resources.html" data-cy="Adnoddau am ddim">Free resources</a>
+        <a href="#" data-cy="Canolfan gymorth">Help centre</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Checkpoint Learning</span>
+      <span>© 2026 AskFirst Learning</span>
     </div>
   </div>
 </footer>
@@ -282,6 +289,26 @@
     document.getElementById('mobile-menu').classList.remove('open');
     document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
   }
+
+  const EN_TITLE = document.title;
+  const CY_TITLE = "Adnoddau am ddim — AskFirst";
+
+  function setLang(lang){
+    document.documentElement.lang = lang === 'cy' ? 'cy' : 'en-GB';
+    document.querySelectorAll('[data-cy]').forEach(el => {
+      if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
+      el.innerHTML = lang === 'cy' ? el.dataset.cy : el.dataset.en;
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    document.title = lang === 'cy' ? CY_TITLE : EN_TITLE;
+    try { localStorage.setItem('checkpoint-lang', lang); } catch(e){}
+  }
+
+  (function(){
+    let saved = 'en';
+    try { saved = localStorage.getItem('checkpoint-lang') || 'en'; } catch(e){}
+    setLang(saved);
+  })();
 </script>
 
 <script data-goatcounter="https://smartchoice.goatcounter.com/count"

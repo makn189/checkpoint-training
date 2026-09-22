@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">Checkpoint — Challenge 25 training for UK retail teams</title>
+<title id="page-title">AskFirst | Challenge 25 Training for Retail Staff</title>
+<meta name="description" content="AskFirst helps retail staff apply Challenge 25 with confidence. Learn the ACD method (Ask, Check, Decide) for selling age-restricted products.">
+<meta property="og:title" content="AskFirst | Challenge 25 Training for Retail Staff">
+<meta property="og:description" content="AskFirst helps retail staff apply Challenge 25 with confidence. Learn the ACD method (Ask, Check, Decide) for selling age-restricted products.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -132,6 +135,13 @@
     gap:40px;
     align-items:center;
   }
+  .hero-brand{display:flex;flex-direction:column;gap:3px;margin-bottom:22px;}
+  .hero-brand-name{
+    font-family:'Fraunces',serif;font-weight:700;font-size:14px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--lavender-deep);
+  }
+  .hero-brand-strap{font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:var(--ink);}
+  .hero-brand-desc{font-size:13.5px;color:var(--ink-soft);}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     background:#fff;border:1px solid var(--line);
@@ -318,6 +328,16 @@
     content:"";position:absolute;width:260px;height:260px;border-radius:50%;
     background:var(--mint);opacity:.35;top:-120px;right:-90px;filter:blur(2px);
   }
+  /* ---------- THE ACD METHOD ---------- */
+  .acd-section{padding:10px 0 80px;}
+  .acd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px;}
+  .acd-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:32px 28px;}
+  .acd-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+  .acd-icon svg{width:22px;height:22px;}
+  .acd-card h3{font-size:19px;margin-bottom:10px;}
+  .acd-card p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin:0;}
+  @media(max-width:880px){ .acd-grid{grid-template-columns:1fr;} }
+
   .spot-head{max-width:600px;margin:0 auto 40px;text-align:center;}
   .spot-head h2{font-size:clamp(26px,2.8vw,34px);}
   .spot-head p{color:var(--ink-soft);margin-top:12px;font-size:16px;}
@@ -445,7 +465,7 @@
       <span class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#4E3FD1"/><path d="M8.3 12.3L10.8 14.8L16 9.3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
-      Checkpoint
+      AskFirst
     </div>
     <div class="nav-links">
       <a href="#course" data-cy="Y cwrs">The course</a>
@@ -476,6 +496,11 @@
 <section class="hero">
   <div class="wrap">
     <div>
+      <div class="hero-brand">
+        <span class="hero-brand-name">AskFirst</span>
+        <span class="hero-brand-strap" data-cy="Gofyn. Gwirio. Penderfynu.">Ask. Check. Decide.</span>
+        <span class="hero-brand-desc" data-cy="Hyfforddiant Her 25 i staff manwerthu">Challenge 25 training for retail staff</span>
+      </div>
       <div class="eyebrow"><span class="dot"></span> <span data-cy="Yn cwmpasu Deddf Trwyddedu 2003 a Challenge 25">Covers the Licensing Act 2003 &amp; Challenge 25</span></div>
       <h1 class="hero-title" data-cy="Hyfforddiant trwyddedu y bydd eich staff <span class='hl-italic'>wir</span> yn ei <span class='hl-underline'>gofio</span>.">Licensing training your staff <span class="hl-italic">actually</span> <span class="hl-underline">remember.</span></h1>
       <p class="hero-sub" data-cy="Un cwrs canolbwyntiedig — Challenge 25 ac ID Derbyniol — wedi'i adeiladu fel gwersi byr, seiliedig ar senarios sy'n rhoi hyder i'ch tîm ynghylch gwirio oedran a gwrthod gwerthiant.">One focused course — Challenge 25 &amp; Acceptable ID — built as short, scenario-based lessons that get your team confident on age verification and refusals.</p>
@@ -508,6 +533,38 @@
       <div class="ring-badge">
         <div class="pct">65<span style="font-size:12px;">m</span></div>
         <div class="lbl" data-cy="O'r dechrau i'r diwedd">Start to finish</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="acd-section" id="acd-method">
+  <div class="wrap">
+    <div class="spot-head">
+      <h2 data-cy="Gofyn, Gwirio, Penderfynu">The ACD Method</h2>
+      <p data-cy="Tri cham syml i'w cofio ym mhob gwiriad wrth y til.">Three simple steps to remember at every till check.</p>
+    </div>
+    <div class="acd-grid">
+      <div class="acd-card">
+        <div class="acd-icon ic-peach">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#8A4B1E" stroke-width="2"/><path d="M9.5 9.3a2.5 2.5 0 114.3 1.9c-.9.7-1.8 1.2-1.8 2.3" stroke="#8A4B1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="17" r="0.9" fill="#8A4B1E"/></svg>
+        </div>
+        <h3 data-cy="Gofyn">Ask</h3>
+        <p data-cy="Os yw cwsmer yn edrych dan 25, gofynnwch am ID bob amser.">If a customer looks under 25, always ask for ID.</p>
+      </div>
+      <div class="acd-card">
+        <div class="acd-icon ic-mint">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 data-cy="Gwirio">Check</h3>
+        <p data-cy="Gwiriwch fod yr ID yn ddilys, yn wirioneddol, ac yn perthyn i'r person o'ch blaen.">Check the ID is valid, genuine, and belongs to the person in front of you.</p>
+      </div>
+      <div class="acd-card">
+        <div class="acd-icon ic-lav">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M13 6L19 12L13 18" stroke="#4E3FD1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 data-cy="Penderfynu">Decide</h3>
+        <p data-cy="Gwnewch y penderfyniad: cwblhewch y gwerthiant os yw'r ID yn ddilys, neu wrthodwch yn gwrtais a hyderus os nad yw (neu os ydych yn amau gwerthiant dirprwyol).">Make the call: complete the sale if the ID is valid, or refuse politely and confidently if it isn't (or if you suspect a proxy sale).</p>
       </div>
     </div>
   </div>
@@ -692,7 +749,7 @@
           <span class="logo-mark">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#4E3FD1"/><path d="M8.3 12.3L10.8 14.8L16 9.3" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          Checkpoint
+          AskFirst
         </div>
         <p data-cy="E-ddysgu ar gyfer timau manwerthu'r DU ar reolau trwyddedu, Challenge 25, ac ID derbyniol — iaith blaen yn gyntaf, term cyfreithiol yn ail.">E-learning for UK retail teams on licensing rules, Challenge 25, and acceptable ID — plain-language first, legal term second.</p>
       </div>
@@ -714,14 +771,14 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Checkpoint Learning</span>
+      <span>© 2026 AskFirst Learning</span>
     </div>
   </div>
 </footer>
 
 <script>
   const EN_TITLE = document.title;
-  const CY_TITLE = "Checkpoint — Hyfforddiant Challenge 25 ar gyfer timau manwerthu'r DU";
+  const CY_TITLE = "AskFirst | Hyfforddiant Challenge 25 ar gyfer Staff Manwerthu";
 
   function setLang(lang){
     document.documentElement.lang = lang === 'cy' ? 'cy' : 'en-GB';

@@ -1,4 +1,4 @@
-# Checkpoint — Licensing law & Challenge 25 training site
+# AskFirst — Licensing law & Challenge 25 training site
 
 ## What this is
 An e-learning site for UK retail employees, covering licensing law and
@@ -9,9 +9,28 @@ Challenge 25. Two audiences:
    be worded as accredited or certified)
 
 ## Brand
-- Name: **Checkpoint**
+- Name: **AskFirst** (renamed from "Checkpoint" on 2026-09-22 — do not
+  translate the name into Welsh). Strapline: "Ask. Check. Decide."
+  Descriptor: "Challenge 25 training for retail staff" (Welsh: "Gofyn.
+  Gwirio. Penderfynu." / "Hyfforddiant Her 25 i staff manwerthu" — note
+  this Welsh descriptor uses "Her 25" for Challenge 25, which is the
+  user's explicit wording and differs from the "Challenge 25 stays
+  untranslated" convention used everywhere else on the site).
 - Tone: plain-language first, legal term second. Written for someone on
   a shop floor, not a compliance officer.
+- The course teaches "the ACD method" — Ask, Check, Decide — as a
+  memory aid. English uses the ACD acronym; the Welsh side never does,
+  it just lists the three words (Gofyn, Gwirio, Penderfynu) directly.
+  Explained on the landing page in the `#acd-method` section, and
+  reinforced in-course via a callout/body line in the "Why Challenge 25
+  exists" and "Refusing a sale with confidence" lessons.
+- Internal identifiers still say "checkpoint" (not user-visible, so left
+  alone during the rename): the file `checkpoint-course-player-full.html`
+  itself, the `checkpoint-lang` localStorage key, the `resources/checkpoint-*`
+  download filenames, and the `checkpoint-training` GitHub repo/Pages
+  path baked into the og:image URLs in the course player's `<head>`.
+  Renaming any of these would break existing links — flag it rather
+  than doing it silently if ever asked to fully scrub "checkpoint".
 
 ## Scope change
 - Site now holds **one course only** — no multi-course catalogue, no
@@ -79,11 +98,16 @@ Challenge 25. Two audiences:
   in the real Challenge 25 scheme basics, not legally reviewed. Flag
   clearly if asked to treat it as production-ready; it should be
   checked by someone licensing-literate before real staff rely on it.
-- Welsh (CY) translation of the course and landing page is
-  **AI-generated and not reviewed by a professional Welsh speaker**.
-  The on-page disclaimer saying so was removed at the user's request
-  (2026-09-15) — there is no visible caveat anymore, so flag clearly if
-  asked to treat the Welsh content as review-ready or accurate.
+- Welsh (CY) translation — of the course, the landing page, and
+  (added 2026-09-22) `resources.html` — is **AI-generated and not
+  reviewed by a professional Welsh speaker**. The on-page disclaimer
+  saying so was removed at the user's request (2026-09-15) — there is
+  no visible caveat anymore, so flag clearly if asked to treat the
+  Welsh content as review-ready or accurate. All three pages share the
+  same `checkpoint-lang` localStorage key, so a language choice on one
+  page carries to the others; each page has its own EN/CY toggle and
+  `data-cy`-driven `setLang()` (`resources.html`'s was added 2026-09-22,
+  same pattern as `index.html`'s).
 - "Licensing Law Annual Refresher" and "Personal Licence Warm-Up"
   modules: **not written yet** — landing page cards exist but link
   nowhere.
