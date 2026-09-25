@@ -75,10 +75,10 @@ Challenge 25. Two audiences:
   and reads/writes the same `checkpoint-lang` localStorage key as the
   landing page, so a language choice made there carries into the course.
   Two regional editions from the same file, chosen via `?region=`:
-  - default / `?region=ew` — **England & Wales**, all 9 modules
+  - default / `?region=ew` — **England & Wales**, all 10 modules
     (includes the digital ID module — that rule change took effect
     15 September 2026 and only applies there)
-  - `?region=scotland` — **Scotland**, 8 modules (digital ID module
+  - `?region=scotland` — **Scotland**, 9 modules (digital ID module
     dropped via each lesson's `scotlandExcluded` flag), with the
     "Acceptable forms of ID" module's digital-ID mentions swapped for
     Scotland-appropriate wording via its `regionOverrides.scotland`
@@ -87,17 +87,26 @@ Challenge 25. Two audiences:
   If Scotland-specific content is ever added to another lesson, follow
   the same `regionOverrides.scotland` pattern rather than forking the
   file, so the two editions can't drift out of sync by accident.
+  The "Tobacco and vapes: the age-of-sale changes" module (added
+  2026-09-25, covering the 29 October 2026 vaping/nicotine sale ban and
+  the 1 January 2027 tobacco "smoke-free generation" birth-year cutoff)
+  applies the same way in both editions — no `regionOverrides` needed —
+  since both changes apply UK-wide, including Scotland.
 - `resources.html` — free downloadable templates page (currently three:
   a Refusal of Sales Log Sheet .docx, an Age By Year of Birth
   Calculator PDF, and a Due Diligence Checklist .docx, all in
   `resources/`). Linked from the main nav and footer.
 
 ## Content status — IMPORTANT
-- Challenge 25 module: 9 lessons (England & Wales) / 8 lessons
+- Challenge 25 module: 10 lessons (England & Wales) / 9 lessons
   (Scotland), fully written, but this is **mockup content** — grounded
   in the real Challenge 25 scheme basics, not legally reviewed. Flag
   clearly if asked to treat it as production-ready; it should be
   checked by someone licensing-literate before real staff rely on it.
+  This includes the tobacco/vapes age-of-sale module — its dates and
+  mechanism (29 Oct 2026 vaping ban, 1 Jan 2027 tobacco birth-year
+  cutoff) were sourced from public reporting on the incoming law, not
+  verified against the Act's official text.
 - Welsh (CY) translation — of the course, the landing page, and
   (added 2026-09-22) `resources.html` — is **AI-generated and not
   reviewed by a professional Welsh speaker**. The on-page disclaimer

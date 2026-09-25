@@ -1,0 +1,99 @@
+<svg viewBox="0 0 1200 750" width="1200" height="750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="frameClip"><rect x="0" y="0" width="1200" height="750"/></clipPath>
+    <clipPath id="burstClip"><circle cx="600" cy="330" r="430"/></clipPath>
+    <pattern id="halftoneDark" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="2.2" cy="2.2" r="1.6" fill="#22243B" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#frameClip)">
+    <rect x="0" y="0" width="1200" height="750" fill="#FBF7F1"/>
+
+    <g clip-path="url(#burstClip)">
+      <polygon points="728,330 1240,330 1214.08,510.31 722.82,366.06" fill="#EFE8FA"/>
+      <polygon points="722.82,366.06 1214.08,510.31 1138.4,676.01 707.68,399.2" fill="#FBF7F1"/>
+      <polygon points="707.68,399.2 1138.4,676.01 1019.11,813.68 683.82,426.74" fill="#EFE8FA"/>
+      <polygon points="683.82,426.74 1019.11,813.68 865.87,912.16 653.17,446.43" fill="#FBF7F1"/>
+      <polygon points="653.17,446.43 865.87,912.16 691.08,963.49 618.22,456.7" fill="#EFE8FA"/>
+      <polygon points="618.22,456.7 691.08,963.49 508.92,963.49 581.78,456.7" fill="#FBF7F1"/>
+      <polygon points="581.78,456.7 508.92,963.49 334.13,912.16 546.83,446.43" fill="#EFE8FA"/>
+      <polygon points="546.83,446.43 334.13,912.16 180.89,813.68 516.18,426.74" fill="#FBF7F1"/>
+      <polygon points="516.18,426.74 180.89,813.68 61.6,676.01 492.32,399.2" fill="#EFE8FA"/>
+      <polygon points="492.32,399.2 61.6,676.01 -14.08,510.31 477.18,366.06" fill="#FBF7F1"/>
+      <polygon points="477.18,366.06 -14.08,510.31 -40,330 472,330" fill="#EFE8FA"/>
+      <polygon points="472,330 -40,330 -14.08,149.69 477.18,293.94" fill="#FBF7F1"/>
+      <polygon points="477.18,293.94 -14.08,149.69 61.6,-16.01 492.32,260.8" fill="#EFE8FA"/>
+      <polygon points="492.32,260.8 61.6,-16.01 180.89,-153.68 516.18,233.26" fill="#FBF7F1"/>
+      <polygon points="516.18,233.26 180.89,-153.68 334.13,-252.16 546.83,213.57" fill="#EFE8FA"/>
+      <polygon points="546.83,213.57 334.13,-252.16 508.92,-303.49 581.78,203.3" fill="#FBF7F1"/>
+      <polygon points="581.78,203.3 508.92,-303.49 691.08,-303.49 618.22,203.3" fill="#EFE8FA"/>
+      <polygon points="618.22,203.3 691.08,-303.49 865.87,-252.16 653.17,213.57" fill="#FBF7F1"/>
+      <polygon points="653.17,213.57 865.87,-252.16 1019.11,-153.68 683.82,233.26" fill="#EFE8FA"/>
+      <polygon points="683.82,233.26 1019.11,-153.68 1138.4,-16.01 707.68,260.8" fill="#FBF7F1"/>
+      <polygon points="707.68,260.8 1138.4,-16.01 1214.08,149.69 722.82,293.94" fill="#EFE8FA"/>
+      <polygon points="722.82,293.94 1214.08,149.69 1240,330 728,330" fill="#FBF7F1"/>
+      <circle cx="600" cy="330" r="430" fill="none" stroke="#22243B" stroke-width="3" opacity="0.08"/>
+    </g>
+
+    <rect x="0" y="600" width="1200" height="150" fill="#22243B"/>
+    <rect x="0" y="596" width="1200" height="6" fill="#FF7A59"/>
+
+    <g fill="#AEE3C8" stroke="#22243B" stroke-width="3" stroke-linejoin="round">
+      <path d="M180 130 L190 154 L214 164 L190 174 L180 198 L170 174 L146 164 L170 154 Z"/>
+    </g>
+    <g fill="#FFC49B" stroke="#22243B" stroke-width="2.5" stroke-linejoin="round">
+      <path d="M1030 470 L1037 486 L1053 493 L1037 500 L1030 516 L1023 500 L1007 493 L1023 486 Z"/>
+    </g>
+
+    <!-- shelf -->
+    <rect x="160" y="200" width="880" height="360" rx="16" fill="#6E62E5" opacity="0.12"/>
+    <rect x="190" y="310" width="820" height="10" fill="#22243B" opacity="0.25"/>
+    <rect x="190" y="470" width="820" height="10" fill="#22243B" opacity="0.25"/>
+
+    <!-- cigarette pack -->
+    <g transform="translate(420,260)">
+      <rect x="-56" y="-70" width="112" height="140" rx="10" fill="#FF7A59" stroke="#22243B" stroke-width="7"/>
+      <circle r="28" fill="#FBF7F1" stroke="#22243B" stroke-width="4"/>
+      <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="22" fill="#22243B">18</text>
+    </g>
+
+    <!-- vape device -->
+    <g transform="translate(600,260)">
+      <rect x="-26" y="-80" width="52" height="160" rx="12" fill="#AEE3C8" stroke="#22243B" stroke-width="7"/>
+      <rect x="-16" y="-112" width="32" height="34" rx="7" fill="#22243B"/>
+      <rect x="-11" y="-46" width="22" height="18" rx="4" fill="#22243B" opacity="0.3"/>
+    </g>
+
+    <!-- calendar card: fixed date-of-birth cutoff -->
+    <g transform="translate(800,270) rotate(4)">
+      <rect x="-84" y="-96" width="168" height="176" rx="16" fill="#FBF7F1" stroke="#22243B" stroke-width="8"/>
+      <rect x="-84" y="-96" width="168" height="40" rx="16" fill="#22243B"/>
+      <rect x="-84" y="-70" width="168" height="14" fill="#22243B"/>
+      <text x="0" y="-70" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="13" fill="#FBF7F1" letter-spacing="1">BORN ON OR AFTER</text>
+      <text x="0" y="30" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="56" fill="#22243B">2009</text>
+      <rect x="-56" y="46" width="112" height="10" rx="5" fill="#22243B" opacity="0.35"/>
+    </g>
+
+    <!-- prohibition slash over the calendar, marking the sale as blocked -->
+    <g transform="translate(800,270) rotate(4)">
+      <circle r="106" fill="none" stroke="#FF7A59" stroke-width="12"/>
+      <line x1="-75" y1="-75" x2="75" y2="75" stroke="#FF7A59" stroke-width="12" stroke-linecap="round"/>
+    </g>
+
+    <!-- 18+ badge on second shelf row, echoing the age-of-sale notice -->
+    <g transform="translate(500,420)" fill="#22243B">
+      <circle r="34"/>
+      <text x="0" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="20" fill="#FBF7F1">18+</text>
+    </g>
+    <g transform="translate(700,420)" fill="#4E3FD1">
+      <circle r="34"/>
+      <text x="0" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#FBF7F1">2009</text>
+    </g>
+
+    <g transform="translate(56,690)">
+      <path d="M14 0s16-8 16-20V-40l-16-6-16 6v20C-2-8 14 0 14 0z" fill="#4E3FD1"/>
+      <path d="M4.6-15.4L11-8.4L21-19.4" fill="none" stroke="#FBF7F1" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>
