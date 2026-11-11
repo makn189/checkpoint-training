@@ -24,6 +24,15 @@ Challenge 25. Two audiences:
   Explained on the landing page in the `#acd-method` section, and
   reinforced in-course via a callout/body line in the "Why Challenge 25
   exists" and "Refusing a sale with confidence" lessons.
+  `#acd-method` is a pinned, scroll-scrubbed "till" scene (added
+  2026-11-11): the page scroll drives Ask (customer asks for ID), Check
+  (two ID cards tilt under the light — the real hologram's sheen moves
+  with the tilt, the fake's doesn't) and Decide (ACCEPT / REFUSE stamps
+  slam, then the course CTA). Its CSS/JS live in `index.html` (`.till-*`
+  / `.tc-*` classes, the "till scene" IIFE before `tryDemo`). It degrades
+  to a stacked, non-pinned layout with `prefers-reduced-motion` or no JS,
+  and its Welsh strings use the normal `data-cy` pattern. The old
+  three-card ACD grid is gone.
 - Internal identifiers still say "checkpoint" (not user-visible, so left
   alone during the rename): the file `checkpoint-course-player-full.html`
   itself, the `checkpoint-lang` localStorage key, the `resources/checkpoint-*`

@@ -324,14 +324,83 @@
     background:var(--mint);opacity:.35;top:-120px;right:-90px;filter:blur(2px);
   }
   /* ---------- THE ACD METHOD ---------- */
-  .acd-section{padding:10px 0 80px;}
-  .acd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px;}
-  .acd-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:32px 28px;}
-  .acd-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
-  .acd-icon svg{width:22px;height:22px;}
-  .acd-card h3{font-size:19px;margin-bottom:10px;}
-  .acd-card p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin:0;}
-  @media(max-width:880px){ .acd-grid{grid-template-columns:1fr;} }
+  /* The page default is a plain stacked layout. JS adds .till-live to pin the scene and drive it from scroll. */
+  .till{padding:20px 0 70px;}
+  .till-pin{max-width:1180px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center;}
+  .till-kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lavender-deep);margin:0 0 14px;font-family:'Inter',sans-serif;}
+  .till-steps{display:none;gap:8px;margin-bottom:26px;flex-wrap:wrap;}
+  .till-step{border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);border-radius:999px;padding:8px 18px;font:700 13.5px 'Inter',sans-serif;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+  .till-step.is-on{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .till-blocks{display:grid;gap:36px;}
+  .till-block h3{font-size:clamp(60px,8.4vw,116px);line-height:.95;letter-spacing:-.035em;display:inline;background-repeat:no-repeat;background-size:100% .34em;background-position:0 88%;padding:0 .04em;}
+  .till-block.b-ask h3{background-image:linear-gradient(var(--peach),var(--peach));}
+  .till-block.b-check h3{background-image:linear-gradient(var(--mint),var(--mint));}
+  .till-block.b-decide h3{background-image:linear-gradient(var(--lavender-pale),var(--lavender-pale));}
+  .till-block p{font-size:18px;line-height:1.55;color:var(--ink-soft);margin:22px 0 0;max-width:430px;}
+  .till-block p.till-quote{font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--ink);margin-top:14px;}
+  .till-chips{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:9px;max-width:430px;}
+  .till-chips li{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:600;color:var(--ink);}
+  .till-chips i{width:24px;height:24px;border-radius:50%;border:2px solid var(--ink);background:#fff;flex-shrink:0;display:grid;place-items:center;transition:background .25s;}
+  .till-chips i::after{content:"";width:9px;height:5px;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(-45deg) translate(1px,-1px);opacity:0;transition:opacity .2s;}
+  .till-chips li.on i{background:var(--mint);}
+  .till-chips li.on i::after{opacity:1;}
+  .till-cta{margin-top:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .till-progress{height:3px;background:var(--line);border-radius:3px;margin-top:30px;max-width:430px;overflow:hidden;display:none;}
+  .till-progress b{display:block;height:100%;width:0;background:var(--ink);}
+
+  .till-stagewrap{display:flex;align-items:center;justify-content:center;min-height:0;}
+  .till-stage{position:relative;width:min(100%,640px);aspect-ratio:640/520;border-radius:28px;overflow:hidden;background:var(--cream);box-shadow:0 0 0 3px var(--ink),var(--shadow);}
+  .till-canvas{position:absolute;left:50%;top:50%;width:640px;height:520px;transform:translate(-50%,-50%) scale(var(--k,1));transform-origin:center;}
+  .tc-burst{position:absolute;left:70px;top:-120px;width:500px;height:500px;border-radius:50%;background:repeating-conic-gradient(#E8E1FA 0 9deg,#FBF7F1 9deg 18deg);-webkit-mask:radial-gradient(circle,transparent 0 17%,#000 17.5%);mask:radial-gradient(circle,transparent 0 17%,#000 17.5%);will-change:transform;}
+  .tc-cust{position:absolute;left:190px;top:96px;width:260px;height:330px;will-change:transform;}
+  .tc-bubble{position:absolute;left:26px;top:34px;padding:12px 22px;background:#fff;border:4px solid var(--ink);border-radius:22px;font:600 25px 'Fraunces',serif;color:var(--ink);white-space:nowrap;transform-origin:left bottom;opacity:0;will-change:transform,opacity;}
+  .tc-bubble::after{content:"";position:absolute;left:34px;bottom:-15px;width:22px;height:22px;background:#fff;border-right:4px solid var(--ink);border-bottom:4px solid var(--ink);transform:rotate(45deg) skew(8deg,8deg);}
+  .tc-floor{position:absolute;left:0;right:0;top:474px;height:46px;background:var(--ink);border-top:5px solid var(--coral);}
+  .tc-counter{position:absolute;left:30px;right:30px;top:398px;height:82px;border:5px solid var(--ink);border-radius:14px;background:linear-gradient(#8479EA 0 24px,var(--lavender) 24px);}
+  .tc-cards{position:absolute;inset:0;perspective:900px;pointer-events:none;}
+  .tc-card{position:absolute;top:258px;width:230px;height:146px;opacity:0;will-change:transform,opacity;}
+  .tc-card.a{left:55px;}
+  .tc-card.b{left:355px;}
+  .tc-face{position:absolute;inset:0;background:var(--cream);border:5px solid var(--ink);border-radius:16px;overflow:hidden;}
+  .tc-head{height:28px;background:var(--ink);color:var(--cream);font:700 11px 'Inter',sans-serif;letter-spacing:.14em;display:flex;align-items:center;padding-left:14px;}
+  .tc-photo{position:absolute;left:12px;top:40px;width:62px;height:76px;border:3px solid var(--ink);border-radius:8px;background:var(--mint);overflow:hidden;}
+  .tc-photo::before{content:"";position:absolute;left:50%;top:14px;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:var(--peach);border:3px solid var(--ink);}
+  .tc-photo::after{content:"";position:absolute;left:8px;right:8px;bottom:-14px;height:30px;border-radius:50% 50% 0 0;background:var(--peach);border:3px solid var(--ink);}
+  .tc-lines{position:absolute;left:88px;top:44px;right:14px;display:grid;gap:9px;}
+  .tc-lines i{display:block;height:8px;border-radius:4px;background:var(--ink);opacity:.55;}
+  .tc-lines i:nth-child(1){width:86%;opacity:.8;}
+  .tc-lines i:nth-child(3){width:60%;}
+  .tc-holo{position:absolute;right:12px;bottom:10px;width:58px;height:42px;border:3px solid var(--ink);border-radius:10px;--hx:50%;--hp:50%;
+    background:radial-gradient(circle at var(--hx) 32%,rgba(255,255,255,.96) 0,rgba(255,255,255,0) 52%),linear-gradient(115deg,#AEE3C8,#E4E0FB 28%,#FFC49B 50%,#FF7A59 64%,#6E62E5 82%,#AEE3C8);
+    background-size:100% 100%,320% 100%;background-position:0 0,var(--hp) 0;}
+  .tc-tag{position:absolute;top:421px;padding:6px 14px;border:3px solid var(--ink);border-radius:999px;font:700 13px 'Inter',sans-serif;background:#fff;white-space:nowrap;opacity:0;transform:translate(-50%,0);will-change:opacity;}
+  .tc-tag.ok{left:170px;background:var(--mint);}
+  .tc-tag.no{left:470px;background:var(--peach);}
+  .tc-stamp{position:absolute;top:296px;width:200px;margin-left:-100px;text-align:center;padding:9px 0 7px;border:6px solid;border-radius:12px;background:rgba(255,255,255,.9);font:700 31px 'Fraunces',serif;letter-spacing:.08em;opacity:0;will-change:transform,opacity;}
+  .tc-stamp.ok{left:170px;color:#1F6B45;border-color:#1F6B45;}
+  .tc-stamp.no{left:470px;color:#D6431F;border-color:#D6431F;}
+
+  .till.till-live{height:calc(100dvh - 78px + 330vh);padding:0;}
+  .till-live .till-pin{position:sticky;top:78px;height:calc(100dvh - 78px);}
+  .till-live .till-steps{display:flex;}
+  .till-live .till-progress{display:block;}
+  .till-live .till-blocks{display:block;position:relative;height:clamp(250px,44dvh,380px);}
+  .till-live .till-block{position:absolute;left:0;right:0;top:0;opacity:0;visibility:hidden;will-change:transform,opacity;}
+  .till-live .till-stagewrap{height:100%;}
+  .till-live .till-stage{width:auto;aspect-ratio:auto;}
+  @media(max-width:880px){
+    .till-pin{grid-template-columns:1fr;gap:26px;padding:0 20px;}
+    .till-live .till-pin{grid-template-columns:1fr;grid-template-rows:auto auto;gap:16px;align-content:start;padding-top:12px;}
+    .till-live .till-stagewrap{order:-1;height:min(44dvh,calc((100vw - 40px) * .8125));}
+    .till-block h3{font-size:56px;}
+    .till-block p{font-size:15.5px;margin-top:14px;}
+    .till-block p.till-quote{font-size:16px;}
+    .till-chips{display:none;}
+    .till-steps{margin-bottom:14px;}
+    .till-kicker{display:none;}
+    .till-live .till-blocks{height:250px;}
+    .till-progress{margin-top:16px;}
+  }
 
   .spot-head{max-width:600px;margin:0 auto 40px;text-align:center;}
   .spot-head h2{font-size:clamp(26px,2.8vw,34px);}
@@ -531,33 +600,65 @@
   </div>
 </section>
 
-<section class="acd-section" id="acd-method">
-  <div class="wrap">
-    <div class="spot-head">
-      <h2 data-cy="Gofyn, Gwirio, Penderfynu">The ACD Method</h2>
-      <p data-cy="Tri cham syml i'w cofio ym mhob gwiriad wrth y til.">Three simple steps to remember at every till check.</p>
+<section class="till" id="acd-method">
+  <div class="till-pin">
+    <div class="till-copy">
+      <h2 class="till-kicker" data-cy="Gofyn, Gwirio, Penderfynu">The ACD Method</h2>
+      <div class="till-steps" id="till-steps">
+        <button type="button" class="till-step is-on" data-go="0.06" data-cy="Gofyn">Ask</button>
+        <button type="button" class="till-step" data-go="0.36" data-cy="Gwirio">Check</button>
+        <button type="button" class="till-step" data-go="0.8" data-cy="Penderfynu">Decide</button>
+      </div>
+      <div class="till-blocks">
+        <div class="till-block b-ask">
+          <h3 data-cy="Gofyn.">Ask.</h3>
+          <p data-cy="Mae unrhyw un sy'n edrych dan 25 yn cael ei holi am ID. Bob tro, heb eithriad.">Anyone who looks under 25 gets asked for ID. Every time, no exceptions.</p>
+        </div>
+        <div class="till-block b-check">
+          <h3 data-cy="Gwirio.">Check.</h3>
+          <p data-cy="Dau ID. Mae un yn ffug. Gogwyddwch nhw o dan y golau: mae hologram go iawn yn dal y golau ac yn symud, tra bod un wedi'i argraffu'n llonydd.">Two IDs. One is fake. Tilt them under the light: a real hologram catches it and moves, a printed one just sits there.</p>
+          <ul class="till-chips">
+            <li><i></i><span data-cy="Mae'r llun yn cyfateb i'r person">Photo matches the person</span></li>
+            <li><i></i><span data-cy="Mae'r dyddiad geni yn gwneud synnwyr">Date of birth adds up</span></li>
+            <li><i></i><span data-cy="Mae'r hologram yn dal y golau ac yn symud">Hologram catches the light &amp; moves</span></li>
+          </ul>
+        </div>
+        <div class="till-block b-decide">
+          <h3 data-cy="Penderfynu.">Decide.</h3>
+          <p data-cy="ID go iawn: cwblhewch y gwerthiant. ID ffug: gwrthodwch, a chadwch hi'n ymwneud â'r polisi.">Real ID: complete the sale. Fake: refuse, and keep it about the policy.</p>
+          <p class="till-quote" data-cy="“Mae'n ddrwg gen i, ni allaf werthu hwn heb ID dilys.”">“I'm sorry, I can't sell this without valid ID.”</p>
+          <div class="till-cta"><a href="#course" class="btn btn-primary" data-cy="Ymarferwch yn y cwrs →">Practise it in the course →</a></div>
+        </div>
+      </div>
+      <div class="till-progress" aria-hidden="true"><b></b></div>
     </div>
-    <div class="acd-grid">
-      <div class="acd-card">
-        <div class="acd-icon ic-peach">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#8A4B1E" stroke-width="2"/><path d="M9.5 9.3a2.5 2.5 0 114.3 1.9c-.9.7-1.8 1.2-1.8 2.3" stroke="#8A4B1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="17" r="0.9" fill="#8A4B1E"/></svg>
+
+    <div class="till-stagewrap">
+      <div class="till-stage" aria-hidden="true">
+        <div class="till-canvas">
+          <div class="tc-burst"></div>
+          <div class="tc-cust">
+            <svg viewBox="0 0 260 330" width="260" height="330" fill="none">
+              <path d="M8 330C8 222 58 168 130 168C202 168 252 222 252 330Z" fill="#FF7A59" stroke="#22243B" stroke-width="7" stroke-linejoin="round"/>
+              <circle cx="130" cy="104" r="64" fill="#FFC49B" stroke="#22243B" stroke-width="7"/>
+              <path d="M64 92C62 46 96 28 130 28C168 28 198 50 196 92C182 70 158 60 130 60C100 60 76 70 64 92Z" fill="#22243B"/>
+              <circle cx="106" cy="108" r="6.5" fill="#22243B"/>
+              <circle cx="154" cy="108" r="6.5" fill="#22243B"/>
+              <path d="M108 132C120 146 142 142 154 126" stroke="#22243B" stroke-width="6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="tc-bubble"><span data-cy="Oes gennych chi ID?">Got any ID on you?</span></div>
+          <div class="tc-floor"></div>
+          <div class="tc-counter"></div>
+          <div class="tc-cards">
+            <div class="tc-card a"><div class="tc-face"><div class="tc-head" data-cy="PRAWF OEDRAN">PROOF OF AGE</div><div class="tc-photo"></div><div class="tc-lines"><i></i><i></i><i></i></div><div class="tc-holo"></div></div></div>
+            <div class="tc-card b"><div class="tc-face"><div class="tc-head" data-cy="PRAWF OEDRAN">PROOF OF AGE</div><div class="tc-photo"></div><div class="tc-lines"><i></i><i></i><i></i></div><div class="tc-holo"></div></div></div>
+          </div>
+          <div class="tc-tag ok" data-cy="Yn dal y golau">Catches the light</div>
+          <div class="tc-tag no" data-cy="Ddim yn symud">Doesn't move</div>
+          <div class="tc-stamp ok" data-cy="DERBYN">ACCEPT</div>
+          <div class="tc-stamp no" data-cy="GWRTHOD">REFUSE</div>
         </div>
-        <h3 data-cy="Gofyn">Ask</h3>
-        <p data-cy="Os yw cwsmer yn edrych dan 25, gofynnwch am ID bob amser.">If a customer looks under 25, always ask for ID.</p>
-      </div>
-      <div class="acd-card">
-        <div class="acd-icon ic-mint">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3 data-cy="Gwirio">Check</h3>
-        <p data-cy="Gwiriwch fod yr ID yn ddilys, yn wirioneddol, ac yn perthyn i'r person o'ch blaen.">Check the ID is valid, genuine, and belongs to the person in front of you.</p>
-      </div>
-      <div class="acd-card">
-        <div class="acd-icon ic-lav">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M13 6L19 12L13 18" stroke="#4E3FD1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3 data-cy="Penderfynu">Decide</h3>
-        <p data-cy="Gwnewch y penderfyniad: cwblhewch y gwerthiant os yw'r ID yn ddilys, neu wrthodwch yn gwrtais a hyderus os nad yw (neu os ydych yn amau gwerthiant dirprwyol).">Make the call: complete the sale if the ID is valid, or refuse politely and confidently if it isn't (or if you suspect a proxy sale).</p>
       </div>
     </div>
   </div>
@@ -788,6 +889,136 @@
     let saved = 'en';
     try { saved = localStorage.getItem('checkpoint-lang') || 'en'; } catch(e){}
     setLang(saved);
+  })();
+
+  /* ---------- The till scene: scroll is the scrubber ---------- */
+  (function(){
+    const root = document.getElementById('acd-method');
+    if (!root) return;
+    const $ = s => root.querySelector(s);
+    const pin = $('.till-pin'), wrap = $('.till-stagewrap'), stage = $('.till-stage'), canvas = $('.till-canvas');
+    const burst = $('.tc-burst'), cust = $('.tc-cust'), bubble = $('.tc-bubble');
+    const cardA = $('.tc-card.a'), cardB = $('.tc-card.b');
+    const holoA = cardA.querySelector('.tc-holo');
+    const tagOk = $('.tc-tag.ok'), tagNo = $('.tc-tag.no');
+    const stampOk = $('.tc-stamp.ok'), stampNo = $('.tc-stamp.no');
+    const blocks = [$('.b-ask'), $('.b-check'), $('.b-decide')];
+    const chips = [...root.querySelectorAll('.till-chips li')];
+    const steps = [...root.querySelectorAll('.till-step')];
+    const bar = $('.till-progress b');
+    const cta = $('.till-cta');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const live = !reduce;
+
+    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const seg = (p, a, b) => clamp((p - a) / (b - a));
+    const ease = t => t * t * (3 - 2 * t);
+
+    let p = live ? 0 : 1, pointerTilt = 0, queued = false;
+
+    function fit(){
+      const w = wrap.clientWidth, h = wrap.clientHeight;
+      let k;
+      if (live){
+        k = Math.min(w / 640, h / 520);
+        stage.style.width = (640 * k) + 'px';
+        stage.style.height = (520 * k) + 'px';
+      } else {
+        k = stage.clientWidth / 640;
+      }
+      canvas.style.setProperty('--k', k);
+    }
+
+    function render(){
+      queued = false;
+      const sweep = ease(seg(p, .30, .64));
+      const tilt = -28 + 56 * sweep + pointerTilt;
+      const cardsIn = ease(seg(p, .18, .30));
+      const dim = ease(seg(p, .82, .92));
+
+      burst.style.transform = 'rotate(' + (p * 70) + 'deg)';
+      cust.style.transform = 'translateY(' + ((1 - ease(seg(p, 0, .10))) * 300) + 'px)';
+      const pop = ease(seg(p, .06, .13));
+      bubble.style.opacity = pop * (1 - seg(p, .22, .30));
+      bubble.style.transform = 'scale(' + (.6 + .4 * pop) + ') rotate(-3deg)';
+
+      const rise = (1 - cardsIn) * 130;
+      cardA.style.opacity = cardsIn;
+      cardB.style.opacity = cardsIn * (1 - .5 * dim);
+      cardA.style.transform = 'translateY(' + rise + 'px) rotateY(' + tilt + 'deg) scale(' + (1 + .05 * dim) + ')';
+      cardB.style.transform = 'translateY(' + (rise + 10 * dim) + 'px) rotateY(' + tilt + 'deg)';
+      holoA.style.setProperty('--hx', (50 + tilt * 1.7) + '%');
+      holoA.style.setProperty('--hp', (50 + tilt * 1.7) + '%');
+
+      tagOk.style.opacity = ease(seg(p, .56, .62));
+      tagNo.style.opacity = ease(seg(p, .58, .64));
+
+      const s1 = seg(p, .715, .745), s2 = seg(p, .765, .795);
+      [[stampOk, s1, -9], [stampNo, s2, 8]].forEach(([el, s, rot]) => {
+        el.style.opacity = clamp(s * 3);
+        el.style.transform = 'scale(' + (1 + (1 - ease(s)) * 1.8) + ') rotate(' + (rot - (1 - ease(s)) * 14) + 'deg)';
+      });
+      const hit = Math.max(1 - Math.abs(p - .745) / .012, 1 - Math.abs(p - .795) / .012, 0);
+      const shake = (live && !reduce) ? hit * 7 : 0;
+      canvas.style.translate = shake ? (Math.sin(p * 900) * shake) + 'px ' + (Math.cos(p * 700) * shake) + 'px' : '';
+
+      [.36, .46, .57].forEach((at, i) => chips[i] && chips[i].classList.toggle('on', p >= at));
+
+      if (!live) return;
+
+      const o = [
+        1 - ease(seg(p, .20, .25)),
+        ease(seg(p, .22, .27)) * (1 - ease(seg(p, .66, .71))),
+        ease(seg(p, .68, .73))
+      ];
+      blocks.forEach((b, i) => {
+        b.style.opacity = o[i];
+        b.style.visibility = o[i] > .02 ? 'visible' : 'hidden';
+        b.style.transform = 'translateY(' + ((1 - o[i]) * 18) + 'px)';
+      });
+      const ctaOp = ease(seg(p, .84, .90));
+      cta.style.opacity = ctaOp;
+      cta.style.visibility = ctaOp > .05 ? 'visible' : 'hidden';
+
+      const act = p < .22 ? 0 : p < .70 ? 1 : 2;
+      steps.forEach((s, i) => s.classList.toggle('is-on', i === act));
+      bar.style.width = (p * 100) + '%';
+    }
+
+    function schedule(){
+      if (!queued){ queued = true; requestAnimationFrame(render); }
+    }
+
+    function onScroll(){
+      const headH = document.querySelector('header').offsetHeight;
+      const r = root.getBoundingClientRect();
+      const span = r.height - pin.offsetHeight;
+      p = span > 0 ? clamp((headH - r.top) / span) : 0;
+      schedule();
+    }
+
+    if (live){
+      root.classList.add('till-live');
+      window.addEventListener('scroll', onScroll, { passive: true });
+      steps.forEach(btn => btn.addEventListener('click', () => {
+        const headH = document.querySelector('header').offsetHeight;
+        const r = root.getBoundingClientRect();
+        const span = r.height - pin.offsetHeight;
+        window.scrollTo({ top: window.scrollY + r.top - headH + parseFloat(btn.dataset.go) * span + 2, behavior: 'smooth' });
+      }));
+      stage.addEventListener('pointermove', e => {
+        if (e.pointerType === 'touch') return;
+        const r = stage.getBoundingClientRect();
+        pointerTilt = ((e.clientX - r.left) / r.width - .5) * 16;
+        schedule();
+      });
+      stage.addEventListener('pointerleave', () => { pointerTilt = 0; schedule(); });
+    }
+
+    window.addEventListener('resize', () => { fit(); if (live) onScroll(); else schedule(); });
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(wrap);
+    fit();
+    if (live) onScroll(); else render();
   })();
 
   function tryDemo(el){
