@@ -170,18 +170,28 @@
   .hero-note{font-size:13px;color:var(--ink-soft);margin-top:18px;}
 
   .hero-art{position:relative;height:460px;}
-  .blob{
-    position:absolute;border-radius:52% 48% 58% 42% / 48% 52% 48% 52%;
-  }
-  .blob-main{
-    width:390px;height:390px;top:10px;right:10px;
+  /* Layered hero scene: a fixed 520x460 stage scaled to fit. Each .hs plane has its own pointer/scroll depth. */
+  .hero-stage{position:absolute;left:50%;top:0;width:520px;height:460px;transform:translateX(-50%) scale(var(--hs,1));transform-origin:top center;--mx:0;--my:0;--sy:0;}
+  .hs{position:absolute;translate:calc(var(--mx) * var(--d,0) * 1px) calc(var(--my) * var(--d,0) * 1px + var(--sy) * var(--sd,0) * 1px);will-change:translate;}
+  .hs-burst{left:34px;top:-78px;width:560px;height:560px;border-radius:50%;--d:-5;--sd:.03;
+    background:repeating-conic-gradient(#E8E1FA 0 9deg,#FBF7F1 9deg 18deg);
+    -webkit-mask:radial-gradient(circle,transparent 0 36%,#000 38%,transparent 71%);mask:radial-gradient(circle,transparent 0 36%,#000 38%,transparent 71%);
+    animation:spin-slow 140s linear infinite,hsFade 1s .1s backwards;}
+  .hs-disc{left:118px;top:6px;width:392px;height:392px;border-radius:50%;--d:-9;--sd:.05;
     background:linear-gradient(160deg,var(--lavender) 0%,var(--lavender-deep) 100%);
-    animation:float 8s ease-in-out infinite;
-  }
-  @keyframes float{
-    0%,100%{transform:translateY(0) rotate(0deg);}
-    50%{transform:translateY(-14px) rotate(4deg);}
-  }
+    animation:hsIn .9s .1s cubic-bezier(.2,.8,.2,1) backwards;}
+  .hs-cashier{left:171px;top:44px;width:286px;height:363px;--d:7;--sd:-.02;animation:hsIn .9s .3s cubic-bezier(.2,.8,.2,1) backwards;}
+  .hs-cashier svg{width:100%;height:100%;}
+  .hs-counter{left:0;right:0;top:338px;height:76px;border:4px solid var(--ink);border-radius:16px;background:linear-gradient(var(--peach) 0 20px,var(--ink) 20px);--d:13;--sd:-.05;animation:hsIn .9s .45s cubic-bezier(.2,.8,.2,1) backwards;}
+  .hs-card{left:56px;top:236px;width:230px;height:146px;--d:20;--sd:-.07;animation:hsIn .9s .6s cubic-bezier(.2,.8,.2,1) backwards;}
+  .hs-card .hs-card-in{position:absolute;inset:0;transform:perspective(700px) rotate(-7deg) rotateY(calc(var(--mx) * 16deg)) scale(.86);transform-origin:left bottom;filter:drop-shadow(0 16px 18px rgba(34,36,59,.28));}
+  .hs-spark{width:26px;height:26px;animation:hsFade .8s .9s backwards,float2 6s ease-in-out infinite;}
+  .hs-spark svg{width:100%;height:100%;}
+  .hs-spark.s1{left:22px;top:196px;--d:26;--sd:-.09;}
+  .hs-spark.s2{left:486px;top:318px;width:20px;height:20px;--d:30;--sd:-.1;animation-delay:.9s,1.2s;}
+  .hs-spark.s3{left:122px;top:60px;width:18px;height:18px;--d:16;--sd:-.04;animation-delay:.9s,.5s;}
+  @keyframes hsIn{from{opacity:0;transform:translateY(34px) scale(.96);}to{opacity:1;transform:none;}}
+  @keyframes hsFade{from{opacity:0;}to{opacity:1;}}
   @keyframes spin-slow{
     from{transform:rotate(0deg);} to{transform:rotate(360deg);}
   }
@@ -189,15 +199,20 @@
     position:absolute;background:#fff;border-radius:18px;
     box-shadow:var(--shadow);padding:16px 18px;
     display:flex;align-items:center;gap:12px;
-    animation:float2 7s ease-in-out infinite;
+    animation:float2 7s ease-in-out infinite,hsFade .7s .8s backwards;
   }
   @keyframes float2{
     0%,100%{transform:translateY(0);}
     50%{transform:translateY(12px);}
   }
-  .card-1{top:18px;left:0;animation-delay:.4s;}
-  .card-2{bottom:70px;right:190px;animation-delay:1.2s;}
-  .card-3{bottom:0;left:20px;animation-delay:.8s;}
+  .card-1{top:22px;left:-6px;--d:30;--sd:-.1;animation-delay:.4s,.8s;}
+  .card-2{bottom:46px;right:-8px;--d:34;--sd:-.12;animation-delay:1.2s,1s;}
+  .card-3{bottom:-2px;left:14px;--d:26;--sd:-.09;animation-delay:.8s,1.1s;}
+  @media (prefers-reduced-motion:reduce){
+    .hero-stage *{animation:none !important;}
+    .hs{translate:none;}
+    .hs-card .hs-card-in{transform:rotate(-7deg) scale(.86);}
+  }
   .card-icon{
     width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
@@ -208,7 +223,8 @@
   .card-float .t1{font-size:13px;font-weight:700;}
   .card-float .t2{font-size:12px;color:var(--ink-soft);}
   .ring-badge{
-    position:absolute;top:250px;left:250px;
+    position:absolute;top:30px;right:22px;--d:22;--sd:-.08;
+    animation:float2 8s ease-in-out infinite,hsFade .7s 1.1s backwards;
     width:96px;height:96px;background:#fff;border-radius:50%;
     box-shadow:var(--shadow);
     display:flex;align-items:center;justify-content:center;flex-direction:column;
@@ -573,29 +589,52 @@
       <p class="hero-note" data-cy="Wedi'i adeiladu ar gyfer manwerthwyr y DU · Am ddim i'w drio · Dim angen cyfrif">Built for UK retailers · Free to try · No account required</p>
     </div>
     <div class="hero-art">
-      <div class="blob blob-main"></div>
-      <div class="card-float card-1">
+     <div class="hero-stage" id="hero-stage">
+      <div class="hs hs-burst" aria-hidden="true"></div>
+      <div class="hs hs-disc" aria-hidden="true"></div>
+      <div class="hs hs-cashier" aria-hidden="true">
+        <svg viewBox="0 0 260 330" fill="none">
+          <path d="M8 330C8 222 58 168 130 168C202 168 252 222 252 330Z" fill="#AEE3C8" stroke="#22243B" stroke-width="7" stroke-linejoin="round"/>
+          <path d="M96 172C106 196 154 196 164 172" stroke="#22243B" stroke-width="7" stroke-linecap="round" fill="#FBF7F1"/>
+          <rect x="168" y="214" width="54" height="22" rx="6" fill="#FBF7F1" stroke="#22243B" stroke-width="5"/>
+          <path d="M178 225H212" stroke="#22243B" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="130" cy="104" r="64" fill="#FFC49B" stroke="#22243B" stroke-width="7"/>
+          <path d="M64 92C62 46 96 28 130 28C168 28 198 50 196 92C182 70 158 60 130 60C100 60 76 70 64 92Z" fill="#22243B"/>
+          <circle cx="106" cy="108" r="6.5" fill="#22243B"/>
+          <circle cx="154" cy="108" r="6.5" fill="#22243B"/>
+          <path d="M104 128C118 146 146 146 158 128" stroke="#22243B" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="hs hs-counter" aria-hidden="true"></div>
+      <div class="hs hs-card" aria-hidden="true">
+        <div class="hs-card-in"><div class="tc-face"><div class="tc-head" data-cy="PRAWF OEDRAN">PROOF OF AGE</div><div class="tc-photo"></div><div class="tc-lines"><i></i><i></i><i></i></div><div class="tc-holo" id="hero-holo"></div></div></div>
+      </div>
+      <div class="hs hs-spark s1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1L15 9L23 12L15 15L12 23L9 15L1 12L9 9Z" fill="#FF7A59" stroke="#22243B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <div class="hs hs-spark s2" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1L15 9L23 12L15 15L12 23L9 15L1 12L9 9Z" fill="#AEE3C8" stroke="#22243B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <div class="hs hs-spark s3" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1L15 9L23 12L15 15L12 23L9 15L1 12L9 9Z" fill="#FFC49B" stroke="#22243B" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+      <div class="hs card-float card-1">
         <div class="card-icon ic-mint">
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#276648" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div><div class="t1" data-cy="Modiwl Challenge 25">Challenge 25 module</div><div class="t2" data-cy="10 gwers">10 lessons</div></div>
       </div>
-      <div class="card-float card-2">
+      <div class="hs card-float card-2">
         <div class="card-icon ic-peach">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 3L14.5 9.5L21 10L16 14.5L17.5 21L12 17.5L6.5 21L8 14.5L3 10L9.5 9.5L12 3Z" fill="#8A4B1E"/></svg>
         </div>
         <div><div class="t1" data-cy="Prawf 10 cwestiwn">10-question tests</div><div class="t2" data-cy="Un ar gyfer pob modiwl, 80% i basio">One per module, 80% to pass</div></div>
       </div>
-      <div class="card-float card-3">
+      <div class="hs card-float card-3">
         <div class="card-icon ic-lav">
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H14M4 18H17" stroke="#4E3FD1" stroke-width="2.4" stroke-linecap="round"/></svg>
         </div>
         <div><div class="t1" data-cy="Gwerthiannau dirprwyol a gwrthodiadau">Proxy sales &amp; refusals</div><div class="t2" data-cy="Senarios til go iawn">Real till scenarios</div></div>
       </div>
-      <div class="ring-badge">
+      <div class="hs ring-badge">
         <div class="pct">72<span style="font-size:12px;">m</span></div>
         <div class="lbl" data-cy="O'r dechrau i'r diwedd">Start to finish</div>
       </div>
+     </div>
     </div>
   </div>
 </section>
@@ -889,6 +928,54 @@
     let saved = 'en';
     try { saved = localStorage.getItem('checkpoint-lang') || 'en'; } catch(e){}
     setLang(saved);
+  })();
+
+  /* ---------- Hero depth: pointer + scroll move each plane at its own rate ---------- */
+  (function(){
+    const art = document.querySelector('.hero-art');
+    const stage = document.getElementById('hero-stage');
+    if (!art || !stage) return;
+    const holo = document.getElementById('hero-holo');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let tx = 0, ty = 0, mx = 0, my = 0, raf = 0;
+
+    function fit(){
+      const k = Math.min(1, art.clientWidth / 520);
+      stage.style.setProperty('--hs', k);
+      art.style.height = (460 * k) + 'px';
+    }
+    function light(){
+      const sy = Math.min(window.scrollY, 700);
+      const x = 50 + mx * 45 + Math.sin(sy / 90) * 25;
+      holo.style.setProperty('--hx', x + '%');
+      holo.style.setProperty('--hp', x + '%');
+    }
+    function frame(){
+      raf = 0;
+      mx += (tx - mx) * .09; my += (ty - my) * .09;
+      stage.style.setProperty('--mx', mx.toFixed(3));
+      stage.style.setProperty('--my', my.toFixed(3));
+      light();
+      if (Math.abs(tx - mx) > .002 || Math.abs(ty - my) > .002) raf = requestAnimationFrame(frame);
+    }
+    function kick(){ if (!raf) raf = requestAnimationFrame(frame); }
+
+    window.addEventListener('resize', fit);
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(art);
+    fit();
+    light();
+    if (reduce) return;
+
+    window.addEventListener('pointermove', e => {
+      if (e.pointerType === 'touch') return;
+      tx = (e.clientX / window.innerWidth - .5) * 2;
+      ty = (e.clientY / window.innerHeight - .5) * 2;
+      kick();
+    }, { passive: true });
+    window.addEventListener('scroll', () => {
+      stage.style.setProperty('--sy', Math.min(window.scrollY, 700));
+      light();
+    }, { passive: true });
   })();
 
   /* ---------- The till scene: scroll is the scrubber ---------- */

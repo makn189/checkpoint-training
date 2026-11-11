@@ -33,6 +33,13 @@ Challenge 25. Two audiences:
   to a stacked, non-pinned layout with `prefers-reduced-motion` or no JS,
   and its Welsh strings use the normal `data-cy` pattern. The old
   three-card ACD grid is gone.
+  The hero art (added 2026-11-12) is a layered 520x460 `.hero-stage`
+  scaled to fit: sunburst, lavender disc, cashier, counter, ID card,
+  sparkles and the floating info cards are separate `.hs` planes, each
+  with its own `--d` (pointer) / `--sd` (scroll) depth via the CSS
+  `translate` property. The card's hologram sheen follows the cursor and
+  scroll. Reduced motion keeps the layered composition but stops all
+  movement. It replaced the old abstract purple blob.
 - Internal identifiers still say "checkpoint" (not user-visible, so left
   alone during the rename): the file `checkpoint-course-player-full.html`
   itself, the `checkpoint-lang` localStorage key, the `resources/checkpoint-*`
